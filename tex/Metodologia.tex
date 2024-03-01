@@ -1,0 +1,58 @@
+%Figure~\ref{figure:pipeline} depicts the summarized pipeline of the proposed method. This pipeline contains two main steps: first, the application of 1D-to-2D signal projections, where the 1D signal is transformed into a 2D image, and, then, the application of a \gls{CVC} algorithm to classify the quality of signal into reliable/not-reliable. The 1D-to-2D projection can be performed by using \gls{mtf}, \gls{rp}, or \gls{gaf} algorithms. 
+
+%The motivation of \gls{rp} usage to project 1D signal into a \gls{2D} space by embedding procedures is to identify time recurrences (correlations) that are not easily apparent in the \gls{1D} signals. These recurrences encode physiological states that can be assessed by searching repeated patterns in the produced 2D images. Similarly, \gls{mtf} can be employed to produce such representation, but by using a Markov chain of first order. Finally, the same end can be achieved using \gls{gaf}, which represents a time series in a polar coordinate system and then it builds a Gramian matrix where each element is the trigonometric sum between different time intervals. In the Gramian matrix, each element is, actually, the cosine of the summation of angles. These algorithms are suitable for characterizing signal quality because the images generated from them produce texture patterns highly correlated with the original waveform of the 1D signal. From Figure~\ref{fig:signals_and_maps}, we can notice that a noisy signal, customarily associated with ‘unreliable’ \gls{SQI}, often presents visual patterns with lower redundancies and higher entropy. On the other hand, reliable signals usually produce projections (or `encoding maps') with lower entropy and harmonious texture patterns.
+
+%Moreover, the image aggregation of those three methods, \acrfull{PM}, was used in the scope of this work. It assigns the beforementioned projection methods images to each of the RGB channels. To the best of our knowledge, no previous work has considered a \gls{PM} yet.
+
+
+
+%The signal projection approach can produce competitive results with state of art approaches, as using \acrshort{gaf} in combination with Vision Transformer \acrshort{ml} model \cite{1d-to-2d-freitas}. Thereby, they must be described in the following sections, starting with the latest mentioned.
+
+
+%\begin{figure*}[t!]
+%    \centering
+%    \includegraphics[width=\linewidth]{imgs/pipeline4.png}
+%    \caption{ Proposed pipeline for \acrshort{SQA} using 1D-to-2D projections in combination with \acrshort{CVC}.}
+%    \label{figure:pipeline}
+%\end{figure*}
+
+%% OBSERVATION
+%% Podemos omitir para o WCOMP, mas pode detalhar ainda mais na sua dissertação!
+%\subsection{Gramian Angular Field}
+
+% The main idea behind \acrfull{gaf} projection method is utilizing the polar coordinate system $ [0,\pi] \times \mathbb{R} $, to represent the signal in a way that the overall shape of the signal curve changes as time passes, since the arc of the circumference increases as the radius increases. Therefore, not mattering if the signal is periodical, its shape changes as time passes. 
+
+% To map a linear signal to such a coordinate system, the following identities were applied to obtain the radius $r_i$ and the angle $\phi_i$ of the $i$-th sample of the signal: ${\phi_i = arccos(x_i)}$, with ${x_i \in \mathbb{R}}, {-1 \leq x_i \leq +1}$; and ${r_i = t_i/N, t_i \in \mathbb{N}}$, with ${N \in \mathbb{R}}$, where $N$ can be used to stretch or to detract the signal along the radius axis. Notice that the signal needs to be rescaled to the interval $[-1,+1]$. 
+
+% However, the signal is yet one-dimensional. Hence, an aggregate operation $Agg$ is applied to each pair to produce the matrix $ GAF = \{Agg(\phi_i,\phi_j)\}_{i,j}$. Examples of those aggregate functions are the $cos(\phi_i + \phi_j)$ function, which produces the Gramian Summation Angular Field ($GAF_S$), and the function $sin(\phi_i - \phi_j)$, that produces the Gramian Difference Angular Field ($GAF_D$). They can be simplified by the use of trigonometric properties, as seen in the following equations:
+% \begin{align}
+%     GAF_S & = (\vec{x}^T \cdot \vec{x}) - ((\Delta(\vec{x}))^T \cdot \Delta(\vec{x})) = 
+%     \cos^{-1}\left( \frac{T_{ij}}{\sqrt{T_{ii} \cdot T_{jj}}} \right) \\
+%     GAF_D & = ((\Delta(\vec{x}))^T \cdot \vec{x}) - (\vec{x}^T \cdot \Delta(\vec{x})) = 
+%     \sin^{-1}\left( \frac{T_{ij}}{\sqrt{T_{ii} \cdot T_{jj}}} \right)
+% \end{align}
+% Where $\Delta(\vec{v})$ applies the function $f(x)=\sqrt{1-x^2}$ to $\vec{v}$ element-wise. 
+
+% \subsection{Markov Transition Field}
+
+% The Markov Transition Field's first step is elaborating a Markov chain of first order, considering as states quantile bins containing samples of the signal and defining as a transition of states $S_i \rightarrow S_j$ as the probability of, given the set of all pairs $(x_u,x_{u+1})$ of subsequent signal samples for all $x_u \in q_i$, the subsequent sample $x_{u+i}$ belong to the quantile $q_j$. Then, the Markov chain can be described as the matrix ${M = \{P(S^\prime \rightarrow S_j|S^\prime=S_i)\}_{i,j}}$, where $S^\prime$ is the current state of the Markov chain state machine. Notice that $\sum_j P(S^\prime \rightarrow S_j|S^\prime=S_i) = 1$ for each state $S_i$.
+
+% Nonetheless, the matrix $M$ doesn't fully retain the time sequentiality, since quantiles are sets obtained by value, not by timestamp. For that reason, a second step is made, building a matrix corresponding to the Markov Transition Field, defined as follows:
+% \begin{equation}
+%     MTF = \{M_{u,v} | x_i \in q_u, x_j \in q_v\}_{i,j}
+% \end{equation}
+% Where $M_{u,v}$ is the element of the matrix M on the given row and column.
+
+% \subsection{Recurrence Plot}
+
+% Finally, the last method is described, beginning with the transformation of the original signal $\vec{x}_{1 \times n}$ into a matrix $X_{d \times m}$, with $m=n-(d-1)$, where each of the $m$ columns corresponds to a vector $\vec{v}_j$ of $d$ dimensions, such that $\vec{v}_j=[x_j,x_{j+\tau},...,x_{j+\tau \cdot (d-1)}]$, that is, $\vec{v}_j$ is a sequence of $d$ samples of $\vec{x}$, beginning in the position $j$, with time delays of value $\tau$ between them. From that point of view, the matrix $X_{d \times m}$ can be seen as a vector $\vec{X}_m$ with elements of $d$ dimension.
+
+% In the end, each distance between vectors contained in $\vec{X}$ can be compared, leading to the following matrix:
+% \begin{equation}
+%     RP = \{ D(\vec{X}_i, \vec{X}_j)  \}_{i,j}
+% \end{equation}
+% Where $D(\vec{X}_i, \vec{X}_j) = || \vec{X}_i - \vec{X}_j ||$. Optionally, it's possible to apply a threshold function $\Theta$ to classify the obtained distances, resulting in the matrix $RP = \{ \Theta(D(\vec{X}_i, \vec{X}_j))  \}_{i,j}$.
+
+% \subsection{Projection Mixture}
+
+% Also, the aforementioned 3 projection methods were combined by image aggregation, feeding the neural networks with an image of 3 channels (usually bijective to the RGB attributes), where each channel is a projection obtained from the same signal.

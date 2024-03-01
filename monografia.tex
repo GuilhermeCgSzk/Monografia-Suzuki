@@ -6,29 +6,27 @@
 %  - Graduação: bacharelado|engenharia|licenciatura
 %  - Pós-graduação: [qualificacao], mestrado|doutorado, ppca|ppginf
 
-% \documentclass[engenharia]{UnB-CIC}%
-\documentclass[qualificacao,mestrado,ppca]{UnB-CIC}%
+\documentclass[bacharelado]{UnB-CIC}%
 
 \usepackage{pdfpages}% incluir PDFs, usado no apêndice
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Informações do Trabalho
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\orientador{\prof \dr Guilherme Novaes Ramos}{CIC/UnB}%
-%\coorientador{\prof \dr José Ralha}{CIC/UnB}
-\coordenador[a]{\prof[a] \dr[a] Ada Lovelace}{Bibliothèque universelle de Genève}%
-\diamesano{24}{dezembro}{2014}%
+\orientador{\prof \dr Pedro Garcia Freitas}{CIC/UnB}%
+
+\coordenador[a]{\prof \dr Marcelo Grandi Mandelli}{CIC/UnB}%
+\diamesano{01}{março}{2024}%
 
 \membrobanca{\prof \dr Donald Knuth}{Stanford University}%
 \membrobanca{\dr Leslie Lamport}{Microsoft Research}%
 
-\autor{Guilherme N.}{Ramos}%
+\autor{Guilherme C.}{Suzuki}%
 
-\titulo{UnB-CIC: Uma classe em LaTeX para textos do Departamento de Ciência da Computação}%
+\titulo{Projection Based Cardiological Signal Processing for Its Quality Assessment}%
 
-\palavraschave{LaTeX, metodologia científica, trabalho de conclusão de curso}%
-\keywords{LaTeX, scientific method, thesis}%
+\palavraschave{Projeção de sinais, IA, Aprendizado de máquina, Aprendizagem profunda}%
+\keywords{photoplethysmography, convolutional neural networks, signal quality assessment, biological signals, time series imaging}%
 
 \newcommand{\unbcic}{\texttt{UnB-CIC}}%
 
@@ -36,11 +34,13 @@
 % Texto
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}%
-    \capitulo{1_Introducao}{Introdução}%
-    \capitulo{2_UnB-CIC}{A Classe \unbcic}%
-    \capitulo{3_TCC}{Trabalho de Conclusão de Curso}%
-    \capitulo{4_Apresentacao}{Apresentações}%
+    \capitulo{Introducao}{Introduction}%
+    \capitulo{Revisao_bibliografica}{Literature Review}%
+    \capitulo{Metodologia}{Method}%
+    \capitulo{Configuracao_experimental}{Experiment Setup}%
+    \capitulo{Resultados}{Results}%
+    \capitulo{Conclusao}{Conclusion}%
 
-    \apendice{Apendice_Fichamento}{Fichamento de Artigo Científico}%
-    \anexo{Anexo1}{Documentação Original \unbcic\ (parcial)}%
+    %\apendice{Apendice_Fichamento}{Fichamento de Artigo Científico}%
+    %\anexo{Anexo1}{Documentação Original \unbcic\ (parcial)}%
 \end{document}%
