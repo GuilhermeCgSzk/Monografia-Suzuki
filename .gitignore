@@ -9,4 +9,4 @@
 *.out
 *.pdf
 *.toc
-
+data/*
