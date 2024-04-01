@@ -10,4 +10,5 @@
 *.pdf
 *.toc
 *.pyc	
+*/__pycache__/*
 data/*

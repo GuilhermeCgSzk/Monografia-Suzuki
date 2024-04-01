@@ -5,12 +5,12 @@ class Mapping:
 		self.mappings = mappings
 		
 	def __call__(self, name):
-		if not pd.isna(name) and '_' in name:
-			name = name.replace('_',' ')
-	
 		if name in self.mappings:
 			return self.mappings[name]
 		else:
+			if not pd.isna(name) and '_' in name:
+				name = name.replace('_',' ')
+		
 			return name
 class Names:
 	metric_mappings = {

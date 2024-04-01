@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from ._Names_ import Names
 from ._Generator_ import Generator
+from ._DataframeSplitter_ import DataframeSplitter
 
 class MemoryTableGenerator(Generator):
 	def __init__(self, df):
@@ -36,23 +37,15 @@ class MemoryTableGenerator(Generator):
 		df = df.rename(
 			{
 				'model':'Neural Network', 
-				'memory_size (Megabytes)': 'Memory Size (MB)',
+				'memory_size (Megabytes)': '\\begin{tabular}{c}Memory \\\\Size (MB)\\end{tabular}',
 			},
 			axis=1
 		)
 		
-		fraction = len(df)//3
-		split_index1,split_index2 = fraction, 2*fraction
-		df1,df2,df3 = df[:split_index1],df[split_index1:split_index2],df[split_index2:]
-		
 		kwargs = {'index':False}
-		
-		def make_path(tail):
-			return os.path.join(path,tail)
-		
-		df1.to_latex(make_path('memory_table_1.tex'), **kwargs)
-		df2.to_latex(make_path('memory_table_2.tex'), **kwargs)
-		df3.to_latex(make_path('memory_table_3.tex'), **kwargs)
+				
+		for i,dfi in enumerate(DataframeSplitter(3).split(df)):
+			dfi.to_latex(os.path.join(path,f'memory_table_{i+1}.tex'), **kwargs)
 	
 	
 	

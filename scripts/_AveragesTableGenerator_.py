@@ -41,12 +41,15 @@ class AveragesTableGenerator(Generator):
 			if i%4==2:
 				df.iloc[i],df.iloc[i+1]= df.iloc[i+1].copy(),df.iloc[i].copy()
 
-		half = ((len(df)//4+1)//2)*4
-		df1,df2 = df.iloc[:half],df.iloc[half:]
+		dfs = [None for i in range(1)]
+		fraction = ((len(df)//4)//len(dfs))*4
+		for i in range(0,len(dfs)):
+			dfs[i] = df.iloc[fraction*i:fraction*(i+1)]
 	    
 		kwargs = {
 			'index':False,
-			'position':'t'
+			'position':'t',
+			'longtable':True
 		}
 	    
 		def to_latex(x):
@@ -56,8 +59,6 @@ class AveragesTableGenerator(Generator):
 			y = y.replace('\\begin{tabular}','\\begin{tabular}[t]')
 			return y
 	    
-		with open(os.path.join(path,'average1.tex'),'w') as f:
-			f.write(to_latex(df1))
-	    	
-		with open(os.path.join(path,'average2.tex'),'w') as f:
-			f.write(to_latex(df2))
+		for i,dfx in enumerate(dfs):
+			with open(os.path.join(path,f'average{i+1}.tex'),'w') as f:
+				f.write(to_latex(dfx))
