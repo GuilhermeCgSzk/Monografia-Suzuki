@@ -43,16 +43,36 @@
 
 %After the optimization, the metrics of the best trial were evaluated in the test dataset to assess the selected hyperparameters' process quality. With selected hyper-parameters for each \acrshort{ml} model in hands, the dataset was divided into folds using the cross-validation \acrfull{loso} re-sampling method, into pieces matching each of the 12 \acrshort{sbjs}. For each fold, the left split was used as the test dataset for the evaluation of the model's metrics, while the other split was subdivided into the train dataset, of size 7 \acrshort{sbjs}; and into the valid dataset, of size 4 \acrshort{sbjs}. Applying such an experimental setup allowed to generate results with respect to the before-mentioned metrics, where, for each projection method, all models are seen as samples of a statistics population possessing 5 values corresponding to the metrics.
 
+\section{Experimental Setup}
+
 In this section, the experimental setup will be discussed, analyzing elements used in the experiment, such as datasets, programming libraries and predictive models, and clarifying metrics to be evaluated and approaches to measure them.  
 
-\section{Experiment components}
+\subsection{Experiment components}
 
-\subsection{The dataset}
+\subsubsection{The dataset}
 
-As for every machine learning task, a dataset is needed to provide data to feed the predictive models for their parameters fitting, molding them to the domain of the specific task. In this work, the task of assessing the quality of the signal is cleary a supervised classification problem, that is, can be described as the problem of finding a function that best defines a set of pairs of variables and label, $(X,y)$, which, in this scope, corresponds to the signal itself mapped to its quality label, "Good" or "Bad". For the purpose of training the predictive methods and evaluating their ability to fit to the problem of classifying the quality of heartbeat time series, it was employed the \acrshort{BUTPPG} dataset.
+As for every machine learning task, a dataset is needed to provide data to feed the predictive models for their parameters fitting, molding them to the domain of the specific task. In this work, the task of assessing the quality of the signal is cleary a supervised classification problem, that is, can be described as the problem of finding a function that best defines a set of pairs of variables and label, $(X,y)$, which, in this scope, corresponds to the signal itself mapped to its quality label, ``Good'' or ``Bad''. For the purpose of training the predictive methods and evaluating their ability to fit to the problem of classifying the quality of heartbeat time series, it was employed the \acrshort{BUTPPG} dataset.
 
 The \acrfull{BUTPPG}, in essence, is a publicly available database produced by the Department of Biomedical Engineering of the the Brno University of Technology containing samples of \acrshort{PPG} signals, its quality labels and its heat rate estimations. Those signals were extracted using a low-cost method: recording the subject finger with the camera of a smartphone. To be more precise, it was placed the index finger in a way that the camera and its led were covered; it was recorded; it measured, for each video frame, the average of the red channel of every image pixel, resulting in a time series of averages; and, finally, the signal was inverted.  
 
-This method of obtaining \acrshort{PPG} signals was done 48 times, ammount distributed equally between 12 subjects, that is, for each subject, 4 measurements were done. Moreover, those recordings were done in two possible situtations: one where the subject was sit down and static, case where the quality label ``Good'' is probable; and other where the subject was walking, hence, likely to be a ``Bad'' recording. That distinction is relevant for the experiment of this work, since the walking situation occurred only 1 time for each subject, biasing the labels proportion to be 25\% of ``Bad'' ones. Therefore, this dataset was made to be imbalanced, factor that need to be handled.
+This method of obtaining \acrshort{PPG} signals was done 48 times, ammount distributed equally between 12 subjects, that is, for each subject, 4 measurements were done. Moreover, those recordings were done in two possible situtations: one which the subject was sit down and static, case which the quality label ``Good'' is probable; and other which the subject was walking, hence, likely to be a ``Bad'' recording. That distinction is relevant, since the walking situation occurred only 1 time for each subject, biasing the labels proportion to be 25\% of ``Bad'' ones. Therefore, this dataset was made to be imbalanced, factor that need to be handled in monography experiment.
+
+As for the definition of the signal quality labels, specialists were designated to estimate the heart rate associated with the \acrshort{PPG} signals, with the help of a software specialized for the analysis. Then, the number they gave were compared with the one given by a gold standard method that, instead of using the \acrshort{PPG} signal, used an ECG recording, which was syncronized mannually. If their measurement error was less or equal than 5 bpm, then their estimation were considered correct. Finnaly, if 3 specialists of 5 gave correct estimations, the quality of the \acrshort{PPG} signal was considered correct. Thus, the quality labels assigned to the signals were obtained by a low-biased method. 
 
 
+
+%Figure~\ref{fig:boxplots} depicts presents the boxplot of Accuracy, F1-score, Precision, Recall, and Cohen's Kappa distributions for different \glspl{CV} models tested on the \gls{BUTPPG} database. From these graphs, we can notice that, for the recall score, all projections are very equated. Moreover, it is noticeable that \acrshort{rp} and the proposed \gls{PM} have improved performances when compared with other \gls{mtf} and \gls{gaf} projections, especially when we observe the minimum, maximum, and the first quartiles of distributions, presented in Table~\ref{tab:boxplots}. From this table, we can perceive, at first glance, that the \gls{rp} and the \gls{PM} are generally superior methods if compared with the other two. In fact, \acrshort{rp} and \gls{PM} first quartiles are greater than \acrshort{gaf} and \acrshort{mtf} third quartiles considering all metrics except Recall Score, which shows that 75\% of samples in \acrshort{rp} and \gls{PM} are generally greater than 75\% of samples in \acrshort{gaf} and \acrshort{mtf}. The detailed performance of the points in the distributions considered in Figure~\ref{fig:boxplots} is depicted per model in Table~\ref{tab:results}.
+
+
+
+%\input{tables/results}
+
+% Each of the 4 populations produced box plots shown in figure \ref{fig:boxplots}, allowing, at first glance, to see the Recurrence Plot and the \gls{PM} as generally superior methods if compared with the other two. In fact, \acrshort{rp} and P\gls{PM} first quartiles are greater than \acrshort{gaf} and \acrshort{mtf} third quartiles considering all metrics except Recall Score, what shows that 75\% of samples in \acrshort{rp} and \gls{PM} are generally greater than 75\% of samples in \acrshort{gaf} and \acrshort{mtf}.    %TODO: falar do Cohen Cappa Score 
+
+\input{tex/tabelas/resultados/averages}
+
+\input{tex/figuras/resultados/violinplots}
+
+\input{tex/figuras/resultados/boxplots/time}
+
+\input{tex/tabelas/resultados/memory}

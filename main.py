@@ -4,7 +4,7 @@ import pandas as pd
 if __name__=='__main__':
 	from scripts import *
 	
-	df = pd.read_csv('data/results.csv')
+	df = pd.read_csv('data/results67+70.csv')
 	df = Preprocessor(df).get()
 	df = Selector.select(df)
 	
@@ -12,7 +12,7 @@ if __name__=='__main__':
 	AveragesTableGenerator(df).generate('tex/tabelas/resultados/averages')
 	
 	
-	benchmark_df = pd.read_csv('data/benchmark.csv')
+	benchmark_df = pd.read_csv('data/benchmark67+70.csv')
 	benchmark_df = Selector.select_benchmark(benchmark_df)
 	
 	TimeBoxplotsGenerator(benchmark_df).generate('img/resultados/boxplots')

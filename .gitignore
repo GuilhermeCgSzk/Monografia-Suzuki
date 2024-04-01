@@ -9,5 +9,5 @@
 *.out
 *.pdf
 *.toc
-*.pyc
+*.pyc	
 data/*
