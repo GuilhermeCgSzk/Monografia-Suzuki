@@ -896,7 +896,7 @@
 	\@IncluirSecao{abstract}%
 	\selectlanguage{brazil}%
     \selectbiblanguage{brazil}%
-	\@erroSeNaoExiste{bibliografia.bib}%
+	%\@erroSeNaoExiste{bibliografia.bib}%
 
 	\tableofcontents%
 	\iftotalfigures\listoffigures\fi%
