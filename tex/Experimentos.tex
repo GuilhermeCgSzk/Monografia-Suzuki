@@ -53,9 +53,7 @@
 
 In this section, the experimental setup will be discussed, analyzing elements used in the experiment, such as datasets, programming libraries and predictive models, and clarifying metrics to be evaluated and approaches to measure them.  
 
-\subsection{Experiment components}
-
-\subsubsection{The dataset}
+\subsection{The dataset}
 
 As for every machine learning task, a dataset is needed to provide data to feed the predictive models for their parameters fitting, molding them to the domain of the specific task. In this work, the task of assessing the quality of the signal is cleary a supervised classification problem, that is, can be described as the problem of finding a function that best defines a set of pairs of variables and label, $(X,y)$, which, in this scope, corresponds to the signal itself mapped to its quality label, ``Good'' or ``Bad''. For the purpose of training the predictive methods and evaluating their ability to fit to the problem of classifying the quality of heartbeat time series, it was employed the \acrshort{BUTPPG}~\cite{butppg} dataset.
 
@@ -65,9 +63,13 @@ This method of obtaining \acrshort{PPG} signals was done 48 times, ammount distr
 
 As for the definition of the signal quality labels, specialists were designated to estimate the heart rate associated with the \acrshort{PPG} signals, with the help of a software specialized for the analysis. Then, the number they gave were compared with the one given by a gold standard method that, instead of using the \acrshort{PPG} signal, used an ECG recording, which was syncronized mannually. If their measurement error was less or equal than 5 bpm, then their estimation were considered correct. Finally, if 3 specialists of 5 gave correct estimations, the quality of the \acrshort{PPG} signal was considered correct. Thus, the quality labels assigned to the signals were obtained by a low-biased method. 
 
-\subsubsection{The models}
+\subsection{The dataset split}
 
-In order to evaluate the proposed projection-based framework, it's necessary to combine it with various classification models which, in that case, are computational vision based. Such a kind of models were implemented in the pytorch python library, in which a wide variety of neural network design strategies were used, as pure convolutional networks, which use the convolution operation to extract features reducing 2d images into smaller ones; residual networks, which uses bypass links between further layers; transformers, that combines the convolution operation with language processing self attention mecanisms; parameter optmized networks, which focuses on having the best parameters selection; models optimized for mobile applications; and more. A complete list of all models involved in the experiment follows:
+With the dataset in hands and considering the fact that, for machine learning tasks, the dataset need to be separated into a training dataset, used for the models parameters adjustment, a test dataset, used for evaluating the models efficiency, and, optionally, a validation dataset, used to choose the set of best hyperparameters of a trained models. In this experiment case, to define the training-test splits, it was used a cross validation method named \acrfull{LOSO}, in which the dataset is particioned into k pieces and k train-test splits are produced, where the i-th train-test split is made assigning the i-th piece as the test dataset, lefting the other k-1 pieces to be used as the training dataset. In the \acrshort{BUTPPG} case, the k value is 12. In conclusion, a more robust testing method was used in this experiment. Such robustness comes from the fact that it uses every sample in the dataset as a test object at least once, without biasing the results, what would not occurr if a simple split was made, where the train-test separation is unique. Finally the training datset was divided producing a validation dataset of size 3.
+
+\subsection{The models}
+
+In order to evaluate the proposed projection-based framework, besides comparing it with other existing approaches, which was done using the Aeon toolkit python library, it's necessary to combine it with various classification models which, in that case, are computational vision based. Such a kind of models were implemented in the pytorch python library, in which a wide variety of neural network design strategies were used, as pure convolutional networks, which use the convolution operation to extract features reducing 2d images into smaller ones; residual networks, which uses bypass links between further layers; transformers, that combines the convolution operation with language processing self attention mecanisms; parameter optmized networks, which focuses on having the best parameters selection; models optimized for mobile applications; and more. A complete list of all models involved in the experiment follows:
 
 \begin{itemize}
 	\item Diverse
@@ -110,15 +112,38 @@ In order to evaluate the proposed projection-based framework, it's necessary to 
 	
 \end{itemize}
 
-\subsubsection{The training strategy}
+Even though the models were estabilished, it was still missing the choice of their hyperparameters, that is, high level parameters that doesn't change during the training procedure. For the Aeon models, default hyperparameters were set. But, for the computational vision model, while most of them were set to default, hyperparameter search was done for the learning rate hyperparameter, used in the training. That seach was done applying the Optuna python library, which does heuristic search over the values of the model performance on the validation dataset, in terms of accuracy, to try to find the optimal combination of parameters without testing cases exhaustively. With the finallity of reducing the search space, ramifications the search-space tree can be prunned with a variety of methods, of which median prunning was chosen. Therefore, it was possible to search for the best setting of hyperparameters in a reasonable ammount of time.
+
+\subsection{The training strategy}
+
+Given the before-mentioned models, the dataset and its divisions, it is needed to estabilish a training method for the models parameters adjustment. Since the Aeon implementation already contained a default training procedure, it was only necessary to estabilish the fitting framework for the pytorch computational vision models and the data feeding method. The data feeding was implement using the Data Loader pytorch solution, configuring it to load in batches of size 32. However, before constructing those batches, it was applied a random over sampling, since, as already mentioned, the dataset was unbalanced. As for the pytorch models fitting, the Adam optimizer was used to minimize the Cross Entropy loss function, with and ammount of epochs limited by an early stop technique. In such an early stopping, it is evaluated the median of the absolute deviation values of the last 10 epochs centered in their median. If the obtained number absolute value was less or equal than $0.1$, the training stops. With that estabilished, it is only left to determine the metrics to be measured.     
+
+\subsection{The measurements}
+
+Finally, it's necessary to chose the metrics, used to evaluate objectivelly the solution efficacy. The metrics to be used, in this work, can be separated into two groups: prediction metrics, which measures the quality of the models signal quality assessments; and benchmarking metrics, which measures resources usage and viability. The prediction metrics used were the accuracy, which measure the proportion of correct predictions over all that were made; the precision and the recall, which, similarly to the accuracy, measures the right answers, but for the subsets of all ``Good'' predictions and of all ``Good'' samples, respectively; the f1-score, which combine the precision and the recall into one metric by calculating the harmonice mean between them; and, lastly, the Cohen Kappa score, which measures the simillarity between the observed agreement proportion and the expected agreement probability. Those metrics are summarized in ?. Regarding the benchmarking metrics, it was measured the memory usage in bytes of the model and the inference time (added to the 1d-to-2d projection time for the projection-based models) in seconds.
+
+\subsection{The overall schema}
+
+Reviewing what was presented, the experiment will begin by splitting the \acrshort{BUTPPG} dataset using simple division for the purpose of, subsequentially, selecting the best hyperparameters of the \acrshort{CV} models. With the best hyperparameters chosen, all models, including the non \acrshort{CV} models, were evaluated using the \acrshort{LOSO} strattegy, producing the metrics for each fold.
 
 
+\section{Experimental results}
+
+\subsection{Transformers}
+
+\input{tex/tabelas/resultados/averages/Averages_of_Transformers}
 
 
-\input{tex/tabelas/resultados/averages}
+\subsection{ResNet based}
 
-\input{tex/figuras/resultados/violinplots}
+\input{tex/tabelas/resultados/averages/Averages_of_ResNet based}
 
-\input{tex/figuras/resultados/boxplots/time}
+\subsection{Mobile nets}
 
-\input{tex/tabelas/resultados/memory}
+\input{tex/tabelas/resultados/averages/Averages_of_Mobile nets}
+
+\subsection{Diverse}
+
+\input{tex/tabelas/resultados/averages/Averages_of_Diverse}
+
+

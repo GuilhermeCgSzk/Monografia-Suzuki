@@ -10,7 +10,7 @@ if __name__=='__main__':
 	
 	ViolinplotGenerator(df).generate('img/resultados/violinplots')
 	AveragesTableGenerator(df).generate('tex/tabelas/resultados/averages')
-	
+	quit()
 	
 	benchmark_df = pd.read_csv('data/benchmark67+70.csv')
 	benchmark_df = Selector.select_benchmark(benchmark_df)

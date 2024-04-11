@@ -1,5 +1,7 @@
 import pandas as pd
 
+from ._Model_Names_ import Model_Names
+
 class Mapping:
 	def __init__(self, mappings):
 		self.mappings = mappings
@@ -13,41 +15,27 @@ class Mapping:
 		
 			return name
 class Names:
-	metric_mappings = {
-		"model": "Neural model",
-		"projection": "Projection",
-		"accuracy_score": "Accuracy",
-		"f1_score": "F1 Score", 
-		"precision_score" : "Precision",
-		"recall_score": "Recall"
-	}
 	def get_metric_mappings_function():
-		return Mapping(Names.metric_mappings)
-		
-	model_mappings = {
-		"AlexNet" : "AlexNet",
-		"DenseNet121" : "DenseNet",
-		"EfficientNet_B0" : "EfficientNet",
-		"MNASNet_0_5" : "MNASNet",
-		"MobileNet_V3_Large" : "MobileNet",
-	        "MobileNet_V3_Small" : "MobileNet V3",
-		"RegNetX_400MF" : "RegNetX",
-		"RegNetY_400MF" : "RegNetY",
-		"ResNet18" : "ResNet",
-		"SqueezeNet_1_1" : "SqueezeNet",
-		"SwinTransformer_T" : "SwinTransformer",
-		"VGG11" : "VGG11",
-		"VisionTransformer_B_32" : "ViT"
-	}
-	def get_model_mappings_function():
-		return Mapping(Names.model_mappings)
-	    
-	projection_mappings = {
-		"ProjectionMix_V2" : "Mix",
-		"RecurrencePlot" : "RP",
-		"GramianAngularField" : "GAF",
-		"MarkovTransitionField" : "MTF"
-	}
+		return Mapping({
+			"model": "Model",
+			"projection": "Projection",
+			"accuracy_score": "Accuracy",
+			"f1_score": "F1 Score", 
+			"precision_score" : "Precision",
+			"recall_score": "Recall"
+		})
+
+	def get_group_list():
+		return Model_Names.group_list()
+
+	def get_model_list():
+		return Model_Names.models_list() 
+
 	def get_projection_mappings_function():
-		return Mapping(Names.projection_mappings)
+		return Mapping({
+			"ProjectionMix_V2" : "Mix",
+			"RecurrencePlot" : "RP",
+			"GramianAngularField" : "GAF",
+			"MarkovTransitionField" : "MTF"
+		})
 		

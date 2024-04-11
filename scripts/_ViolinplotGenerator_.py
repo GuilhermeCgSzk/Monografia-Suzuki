@@ -11,13 +11,16 @@ class ViolinplotGenerator(Generator):
 		df = df.copy()
 
 		df = df.sort_values(by="model")
-		df['model'] = df['model'].apply(Names.get_model_mappings_function())
 		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
 		self.df = df
 
-	def generate_plot_per_metric(self, df, number, metric, title, path):
+	def generate_plot_per_metric(self, df, name, metric, title, path):
+	
+		
+	
 		# Set up the figure and axes
-		plt.figure(figsize=(5,13))
+		scalable_size=len(df[['model','projection']].groupby(['model','projection']).any())*0.5
+		plt.figure(figsize=(5,1+scalable_size))
 
 		# Create the boxplot using seaborn
 		ax = sns.violinplot(
@@ -35,13 +38,13 @@ class ViolinplotGenerator(Generator):
 		# Set plot labels and title
 		plt.ylabel('', fontsize=20)
 		plt.xlabel(title, fontsize=20)
-		plt.title(f'', fontsize=24)
+		plt.title(name, fontsize=24)
 		plt.yticks(rotation=30, ha='right', fontsize=20)
 		plt.legend(loc='lower left', fontsize=20, ncols=1, framealpha=0.5, bbox_to_anchor=(1,0))
 
 
 		# Save the figure to a file
-		plt.savefig(os.path.join(path,f'violinplot_{metric}_{number}.pdf'), bbox_inches='tight', dpi=1000)
+		plt.savefig(os.path.join(path,f'violinplot_{metric}_{name}.pdf'), bbox_inches='tight', dpi=1000)
 		plt.close()
 		
 	def generate(self, path):
@@ -53,6 +56,9 @@ class ViolinplotGenerator(Generator):
 		]
 		
 		for column, metric in metrics:
-			for i,model_df in enumerate(DataframeSplitter(6).split(self.df['model'].drop_duplicates())):
-				dfi = self.df.merge(model_df, on='model')
-				self.generate_plot_per_metric(dfi, i+1, column, metric, path)
+			for group in Names.get_group_list():
+				dfi = self.df.copy()
+				dfi = dfi[dfi['model'].isin(group.mappings())]
+				dfi['model'] = dfi['model'].apply(lambda x: group.mappings()[x])
+				
+				self.generate_plot_per_metric(dfi, group.name(), column, metric, path)
