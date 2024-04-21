@@ -14,12 +14,9 @@ class ViolinplotGenerator(Generator):
 		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
 		self.df = df
 
-	def generate_plot_per_metric(self, df, name, metric, title, path):
-	
-		
-	
+	def generate_plot_per_metric(self, df, name, metric, title, path):	
 		# Set up the figure and axes
-		scalable_size=len(df[['model','projection']].groupby(['model','projection']).any())*0.5
+		scalable_size=len(df[['model','projection']].groupby(['model','projection']).any())*0.3
 		plt.figure(figsize=(5,1+scalable_size))
 
 		# Create the boxplot using seaborn
@@ -30,14 +27,14 @@ class ViolinplotGenerator(Generator):
 			orient='h'
 		)
 		#ax.set_ylim(-0.35, 1.35)
-		ticks = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+		ticks = [i/10 for i in range(0,11,2)]
 		ax.set_xticks(ticks,[f'{i:.1f}' for i in ticks],fontsize=16,rotation=45)
 
 		ax.set_xlim((-0.3 ,1.3))
 
 		# Set plot labels and title
 		plt.ylabel('', fontsize=20)
-		plt.xlabel(title, fontsize=20)
+		plt.xlabel(f'{title}', fontsize=20)
 		plt.title(name, fontsize=24)
 		plt.yticks(rotation=30, ha='right', fontsize=20)
 		plt.legend(loc='lower left', fontsize=20, ncols=1, framealpha=0.5, bbox_to_anchor=(1,0))
@@ -50,15 +47,16 @@ class ViolinplotGenerator(Generator):
 	def generate(self, path):
 		metrics = [
 			("accuracy_score", "Accuracy Score"),
+			("cohen_kappa_score", "Cohen Kappa Score"),
 			("precision_score", "Precision Score"),
 			("recall_score", "Recall Score"),
 			("f1_score", "F1-Score"),
 		]
 		
 		for column, metric in metrics:
-			for group in Names.get_group_list():
+			for model in Names.get_model_list():
 				dfi = self.df.copy()
-				dfi = dfi[dfi['model'].isin(group.mappings())]
-				dfi['model'] = dfi['model'].apply(lambda x: group.mappings()[x])
+				dfi = dfi[dfi['model'].isin(model.mappings())]
+				dfi['model'] = dfi['model'].apply(lambda x: model.mappings()[x])
 				
-				self.generate_plot_per_metric(dfi, group.name(), column, metric, path)
+				self.generate_plot_per_metric(dfi, model.name(), column, metric, path)

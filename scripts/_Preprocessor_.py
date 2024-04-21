@@ -14,4 +14,7 @@ class Preprocessor:
 		df['model'] = 		df['study_name'].apply(lambda x: f(x,0))
 		df['projection'] =	df['study_name'].apply(lambda x: f(x,1))
 		
+		df['cohen_kappa_score'] -= -1
+		df['cohen_kappa_score'] /= 2
+		
 		return df

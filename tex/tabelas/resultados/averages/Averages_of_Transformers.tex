@@ -1,46 +1,23 @@
-\begin{longtable}[t]{llllll}
-\caption{All folds averages for each model in Transformers} \\
-\toprule
-Model & Projection & Accuracy & F1 Score & Precision & Recall \\
-\midrule
-\endfirsthead
-\caption[]{All folds averages for each model in Transformers} \\
-\toprule
-Model & Projection & Accuracy & F1 Score & Precision & Recall \\
-\midrule
-\endhead
-\midrule
-\multicolumn{6}{r}{Continued on next page} \\
-\midrule
-\endfoot
-\bottomrule
-\endlastfoot
-MaxVit & GAF & 0.771 $\pm$ 0.198 & 0.857 $\pm$ 0.132 & 0.806 $\pm$ 0.192 & 0.951 $\pm$ 0.115 \\
- & MTF & 0.583 $\pm$ 0.222 & 0.706 $\pm$ 0.186 & 0.788 $\pm$ 0.222 & 0.674 $\pm$ 0.349 \\
- & RP & 0.896 $\pm$ 0.167 & 0.932 $\pm$ 0.111 & 0.910 $\pm$ 0.172 & 0.979 $\pm$ 0.072 \\
- & Mix & 0.896 $\pm$ 0.129 & 0.921 $\pm$ 0.098 & \textbf{0.944 $\pm$ 0.130} & 0.924 $\pm$ 0.140 \\
-SwinT: B & GAF & 0.771 $\pm$ 0.167 & 0.861 $\pm$ 0.110 & 0.792 $\pm$ 0.179 & 0.979 $\pm$ 0.072 \\
- & MTF & 0.729 $\pm$ 0.129 & 0.837 $\pm$ 0.090 & 0.729 $\pm$ 0.129 & \textbf{1.000 $\pm$ 0.000} \\
- & RP & 0.896 $\pm$ 0.167 & 0.913 $\pm$ 0.154 & \textbf{0.944 $\pm$ 0.130} & 0.924 $\pm$ 0.199 \\
- & Mix & 0.729 $\pm$ 0.129 & 0.837 $\pm$ 0.090 & 0.729 $\pm$ 0.129 & \textbf{1.000 $\pm$ 0.000} \\
-SwinT: S & GAF & 0.771 $\pm$ 0.198 & 0.838 $\pm$ 0.160 & 0.854 $\pm$ 0.198 & 0.896 $\pm$ 0.211 \\
- & MTF & 0.688 $\pm$ 0.264 & 0.820 $\pm$ 0.181 & 0.750 $\pm$ 0.194 & 0.861 $\pm$ 0.332 \\
- & RP & 0.917 $\pm$ 0.123 & 0.943 $\pm$ 0.086 & 0.924 $\pm$ 0.140 & 0.979 $\pm$ 0.072 \\
- & Mix & 0.875 $\pm$ 0.131 & 0.919 $\pm$ 0.087 & 0.882 $\pm$ 0.148 & 0.979 $\pm$ 0.072 \\
-SwinT: T & GAF & 0.667 $\pm$ 0.222 & 0.765 $\pm$ 0.187 & 0.771 $\pm$ 0.198 & 0.847 $\pm$ 0.279 \\
- & MTF & 0.688 $\pm$ 0.155 & 0.806 $\pm$ 0.110 & 0.736 $\pm$ 0.154 & 0.924 $\pm$ 0.140 \\
- & RP & 0.833 $\pm$ 0.195 & 0.897 $\pm$ 0.127 & 0.833 $\pm$ 0.195 & \textbf{1.000 $\pm$ 0.000} \\
- & Mix & 0.917 $\pm$ 0.123 & 0.938 $\pm$ 0.093 & \textbf{0.944 $\pm$ 0.130} & 0.951 $\pm$ 0.115 \\
-ViT: H 14 & GAF & 0.729 $\pm$ 0.129 & 0.837 $\pm$ 0.090 & 0.729 $\pm$ 0.129 & \textbf{1.000 $\pm$ 0.000} \\
- & MTF & 0.688 $\pm$ 0.188 & 0.799 $\pm$ 0.154 & 0.708 $\pm$ 0.144 & 0.944 $\pm$ 0.192 \\
- & RP & 0.917 $\pm$ 0.123 & 0.943 $\pm$ 0.086 & 0.924 $\pm$ 0.140 & 0.979 $\pm$ 0.072 \\
- & Mix & 0.896 $\pm$ 0.129 & 0.931 $\pm$ 0.087 & 0.903 $\pm$ 0.146 & 0.979 $\pm$ 0.072 \\
-ViT: L 16 & GAF & 0.792 $\pm$ 0.179 & 0.873 $\pm$ 0.117 & 0.812 $\pm$ 0.188 & 0.979 $\pm$ 0.072 \\
- & MTF & 0.708 $\pm$ 0.279 & 0.851 $\pm$ 0.118 & 0.736 $\pm$ 0.284 & 0.861 $\pm$ 0.300 \\
- & RP & \textbf{0.938 $\pm$ 0.113} & \textbf{0.955 $\pm$ 0.083} & \textbf{0.944 $\pm$ 0.130} & 0.979 $\pm$ 0.072 \\
- & Mix & \textbf{0.938 $\pm$ 0.113} & \textbf{0.955 $\pm$ 0.083} & \textbf{0.944 $\pm$ 0.130} & 0.979 $\pm$ 0.072 \\
-ViT: L 32 & GAF & 0.792 $\pm$ 0.179 & 0.868 $\pm$ 0.119 & 0.819 $\pm$ 0.173 & 0.951 $\pm$ 0.115 \\
- & MTF & 0.708 $\pm$ 0.209 & 0.828 $\pm$ 0.141 & 0.811 $\pm$ 0.167 & 0.840 $\pm$ 0.330 \\
- & RP & 0.917 $\pm$ 0.123 & 0.943 $\pm$ 0.086 & 0.924 $\pm$ 0.140 & 0.979 $\pm$ 0.072 \\
- & Mix & \textbf{0.938 $\pm$ 0.113} & \textbf{0.955 $\pm$ 0.083} & \textbf{0.944 $\pm$ 0.130} & 0.979 $\pm$ 0.072 \\
-\end{longtable}
+\begin{table}[h!]
+	\adjustbox{width=\averagesTableWidth,center}{
+		\input{tex/tabelas/resultados/averages/models/Averages_of_VisionTransformer}
+	}
+	\caption{\AveragesTableDescription{Vision Transformer}}
+	\label{tab:Averages_of_VisionTransformer}
+\end{table}
+
+\begin{table}[h!]
+	\adjustbox{width=\averagesTableWidth,center}{
+		\input{tex/tabelas/resultados/averages/models/Averages_of_Maxvit}
+	}
+	\caption{\AveragesTableDescription{MaxViT}}
+	\label{tab:Averages_of_Maxvit}
+\end{table}
+
+\begin{table}[h!]
+	\adjustbox{width=\averagesTableWidth,center}{
+		\input{tex/tabelas/resultados/averages/models/Averages_of_SwinTransformer}
+	}
+	\caption{\AveragesTableDescription{Swin Transformer}}
+	\label{tab:Averages_of_SwinTransformer}
+\end{table}

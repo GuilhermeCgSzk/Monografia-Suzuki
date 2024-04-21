@@ -161,9 +161,9 @@ class SwinTransformer(Model_Name):
 		return 'SwinTransformer'
 	def mappings(self):
 		return {
-			'SwinTransformer_T' : 'SwinT: T',
-			'SwinTransformer_S' : 'SwinT: S',
-			'SwinTransformer_B' : 'SwinT: B',
+			'SwinTransformer_T' : 'Swin Transformer: T',
+			'SwinTransformer_S' : 'Swin Transformer: S',
+			'SwinTransformer_B' : 'Swin Transformer: B',
 		}
 		
 class SwinTransformerV2(Model_Name):
@@ -171,9 +171,9 @@ class SwinTransformerV2(Model_Name):
 		return 'SwinTransformer V2'
 	def mappings(self):
 		return {
-			'SwinTransformerV2_T' : 'SwinT V2: T',
-			'SwinTransformerV2_S' : 'SwinT V2: S',
-			'SwinTransformerV2_B' : 'SwinT V2: B',
+			'SwinTransformerV2_T' : 'Swin Transformer V2: T',
+			'SwinTransformerV2_S' : 'Swin Transformer V2: S',
+			'SwinTransformerV2_B' : 'Swin Transformer V2: B',
 		}
 		
 class VGG(Model_Name):
@@ -196,9 +196,9 @@ class VisionTransformer(Model_Name):
 		return 'VisionTransformer'
 	def mappings(self):
 		return {
-			'VisionTransformer_L_16': 'ViT: L 16',
-			'VisionTransformer_L_32': 'ViT: L 32',
-			'VisionTransformer_H_14': 'ViT: H 14',
+			'VisionTransformer_L_16': 'Vision Transformer: L 16',
+			'VisionTransformer_L_32': 'Vision Transformer: L 32',
+			'VisionTransformer_H_14': 'Vision Transformer: H 14',
 		}
 		
 class WideResNet(Model_Name):
@@ -206,8 +206,8 @@ class WideResNet(Model_Name):
 		return 'Wide ResNet'
 	def mappings(self):
 		return {
-			'WideResNet50_2' : 'WideResNet: 50-2',
-			'WideResNet101_2' : 'WideResNet: 101-2'
+			'WideResNet50_2' : 'Wide ResNet: 50-2',
+			'WideResNet101_2' : 'Wide ResNet: 101-2'
 		}
 	
 class Group:
@@ -270,7 +270,6 @@ class Model_Names:
 					ResNet(),
 					ResNeXt(),
 					WideResNet(),
-					DenseNet(),
 				]
 			),
 			Group(
@@ -280,9 +279,15 @@ class Model_Names:
 					MobileNetV3(),
 				]
 			),
+			
+			Group(
+				'Extreme models', [
+					DenseNet(),
+					VGG(),
+				]
+			),
 			Group(
 				'Diverse', [ 
-					VGG(),
 					ShuffleNetV2(),  
 					ConvNeXt(),
 					AlexNet(),

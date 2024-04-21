@@ -8,12 +8,12 @@ if __name__=='__main__':
 	df = Preprocessor(df).get()
 	df = Selector.select(df)
 	
-	ViolinplotGenerator(df).generate('img/resultados/violinplots')
-	AveragesTableGenerator(df).generate('tex/tabelas/resultados/averages')
-	quit()
-	
 	benchmark_df = pd.read_csv('data/benchmark67+70.csv')
 	benchmark_df = Selector.select_benchmark(benchmark_df)
+	
+	
+	ViolinplotGenerator(df).generate('img/resultados/violinplots')
+	AveragesTableGenerator(df).generate('tex/tabelas/resultados/averages/models')
 	
 	TimeBoxplotsGenerator(benchmark_df).generate('img/resultados/boxplots')
 	MemoryTableGenerator(benchmark_df).generate('tex/tabelas/resultados/memory')

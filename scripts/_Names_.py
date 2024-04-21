@@ -22,7 +22,8 @@ class Names:
 			"accuracy_score": "Accuracy",
 			"f1_score": "F1 Score", 
 			"precision_score" : "Precision",
-			"recall_score": "Recall"
+			"recall_score": "Recall",
+			"cohen_kappa_score": "Cohen Kappa"
 		})
 
 	def get_group_list():

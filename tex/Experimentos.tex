@@ -129,21 +129,48 @@ Reviewing what was presented, the experiment will begin by splitting the \acrsho
 
 \section{Experimental results}
 
+
+In this section, the results will be analyzed by comparing the metrics in the following order: firstly, the Cohen Kappa Score, verifying if it's value is superior o equal to 90\%; then, the F1-Score; and, finally, the Precision score. Moreover, it will be considered the trade-off between models with respect to the inference time and the memory consumption. Since a large set of models was considered, the model comparision was done in sections, accordingly to the before-presented computer vision model classifications: Transformers, Residual nets, Parameter efficiency, Mobile nets and Diverse. In each of those sections, the best combinatons of model variant and projection method will be selected, if at least one of them is sufficiently good. Afterwards, the selections of each section will be compared, also discussing the differences between the projection methods. Lastly, the best combinations of models variants and projection methods will be compared to the best standard time series classification models present in the Aeon toolkit.
+
 \subsection{Transformers}
 
 \input{tex/tabelas/resultados/averages/Averages_of_Transformers}
 
+%\input{tex/figuras/resultados/averages/Averages_of_Transformers}
+
+\input{tex/tabelas/resultados/memory/Transformers/memory_table}
+
+\input{tex/figuras/resultados/boxplots/Transformers}
+
+Three transformers were considered: the Vision Transformer, the Multi-axis Vision Transformer and the Shifted Windows Transformer. Firsly, observing the tables \ref{tab:Averages_of_VisionTransformer} \ref{tab:Averages_of_SwinTransformer} \ref{tab:Averages_of_Maxvit}, it's noticeable that only some variants of the Vision Transformer obtained Cohen Kappa scores superior than 90\%, while the tiny Swin Transformer obtained almost 90\% in the same score. The highest Cohen Kappa scores and F1-scores were obtained by the large Vision Transformer variants for the \acrshort{RP} and \acrshort{Mix} projection methods, in contrast to the huge variant, that performed significantly worse for all projections. Specifically, the models Vision Transformer L 16, with \acrshort{RP} and \acrshort{Mix} and Vision Transformer L 32 with \acrshort{Mix} obtained the best scores, while having similar memory consumption and a sighly difference in inference time, with the 32x32 patch sized variant being the slowest, fact observed in the figure \ref{fig:Time_of_Transformers}. One drawback of the Vision Transformer models, if compared to the other transformers in this section, is that its memory consumption is drastically higher, as exposed in the table \ref{tab:Memory_of_Transformers}. 
 
 \subsection{ResNet based}
 
 \input{tex/tabelas/resultados/averages/Averages_of_ResNet based}
+%\input{tex/figuras/resultados/averages/Averages_of_ResNet based}
+
+\input{tex/tabelas/resultados/memory/ResNet based/memory_table}
+
+\input{tex/figuras/resultados/boxplots/ResNet based}
+
+This section contains the ResNet itself and two derivated models, the Wide ResNet, a model with more channels per block; and the ResNeXt, a model that, as oposed to the before-mentioned wide in channels model, employs an multipath philosophy, agreggating the paths by an additive operation. As it's clear in the table \ref{tab:Averages_of_ResNeXt}, every ResNeXt variant didn't obtained a sufficient Cohen Kappa score, which was the case for the Wide Res Net with 101 layers and 2 convolutions per block combined with the \acrshort{Mix} projection, as seen in \ref{tab:Averages_of_WideResNet}; and for the ResNets variants with 50 and 101 layers and the \acrshort{Mix} projection as well,  as seen in \ref{tab:Averages_of_ResNet}. Comparing these last variants, it can be concluded that the Wide ResNet 101-2 variant with the \acrshort{Mix} method obtained the best score, both for Cohen Kappa and F1 scores. However, that Wide ResNet posesses the largest memory occupation, according to the table \ref{tab:Memory_of_ResNet based}, and spends the fourth higher inference time, as seen in the figure \ref{fig:Time_of_ResNet based}. 
+
+
+\subsection{Parameter efficiency}
+
+\input{tex/tabelas/resultados/averages/Averages_of_Parameter efficiency}
+%\input{tex/figuras/resultados/averages/Averages_of_ResNet based}
+
+\input{tex/tabelas/resultados/memory/Parameter efficiency/memory_table}
+
+\input{tex/figuras/resultados/boxplots/Parameter efficiency}
 
 \subsection{Mobile nets}
 
-\input{tex/tabelas/resultados/averages/Averages_of_Mobile nets}
+%\input{tex/tabelas/resultados/averages/Averages_of_Mobile nets}
+%\input{tex/figuras/resultados/averages/Averages_of_Mobile nets}
 
 \subsection{Diverse}
 
-\input{tex/tabelas/resultados/averages/Averages_of_Diverse}
-
+%\input{tex/tabelas/resultados/averages/Averages_of_Diverse}
 

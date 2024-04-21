@@ -10,5 +10,8 @@
 *.pdf
 *.toc
 *.pyc	
+*.bbl
+*.blg
+*.brf
 */__pycache__/*
 data/*

@@ -10,20 +10,26 @@ from ._DataframeSplitter_ import DataframeSplitter
 class TimeBoxplotsGenerator(Generator):
 	def __init__(self, df):
 		self.df = df.copy()
+		self.df = self.df.sort_values(by='model')
 		
-	def generate(self, path):				
+	def generate(self, path):	
+		for model in Names.get_model_list():
+			self.generate_for_model(model, path)
+		
+	def generate_for_model(self, model, path):	
+		plt.rcParams["font.family"] = "monospace"
+		plt.rcParams["font.monospace"] = ["FreeMono"]
+		fontsize=24
+	
+		h = max(1*len(model.mappings()),2)
+		plt.figure(figsize=(10,h))
+		
 		df = self.df.copy()
-		
-		df = df.sort_values(by='model')
-		
-		for i,dfi in enumerate(DataframeSplitter(5).split(df)):
-			self.generate_fraction(path,dfi,i+1)
-		
-	def generate_fraction(self, path, df, number):	
-		plt.figure(figsize=(5,10))
+		df = df[df['model'].isin(model.mappings())]
 		
 		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
-		df['model'] = df['model'].apply(Names.get_model_mappings_function())
+		
+		df['model'] = df['model'].apply(lambda x: f'{model.mappings()[x]:>30}')
 		
 		ax = sns.boxplot(
 			df, x='inference_time', y='model', hue='projection', 
@@ -35,18 +41,21 @@ class TimeBoxplotsGenerator(Generator):
 	    		gap=0.1,
 	    		notch=True,
 		)
-		plt.title('')
+		plt.title(model.name(), fontsize=fontsize)
 	    	
 		#yticks = [0,10,20,30,40,50]
 	    	
 		#plt.yticks(yticks,[str(i) for i in yticks],fontsize=20)
 		ax.set_xlim(0,100)
 	    	
-		plt.legend(fontsize=12, ncols=1)
+	    	
+		plt.legend(fontsize=fontsize/1.5, ncols=1, loc='upper right')
 			
-		plt.xlabel('Inference Time (ms)', fontsize=12)
-		plt.yticks(rotation=45, ha='right', fontsize=12)	
+		plt.xticks(fontsize=fontsize)
+		plt.xlabel('Inference Time (ms)', fontsize=fontsize)
+		plt.yticks(ha='right', fontsize=fontsize)	
 		plt.ylabel('')
 	    	
-		plt.savefig(os.path.join(path,f'benchmark{number}.pdf'), bbox_inches='tight', dpi=1000)
+		plt.savefig(os.path.join(path,f'benchmark_of_{model.name()}.pdf'), bbox_inches='tight', dpi=500)
+		
 		plt.close()

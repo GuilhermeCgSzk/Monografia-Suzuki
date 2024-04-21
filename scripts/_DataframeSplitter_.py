@@ -1,14 +1,21 @@
+import pandas as pd
+
 class DataframeSplitter:
 	def __init__(self, n):
 		self.n = n	
 	
 	def split(self, df):
-		length = len(df)//self.n
-		base = (len(df)+(self.n-1))//self.n
+		length = (len(df)+self.n-1)//self.n
 				
-		yield df[:base].copy()
-				
-		for i in range(1,self.n):
-			l = base+(i-1)*length
+		for i in range(0,self.n):
+			l = length*i
 			r = l+length
-			yield df[l:r].copy()
+			
+			new_df = df[l:r].copy().reindex(range(l,r),fill_value=-1)
+			
+			for i in range(length):
+				for j in range(len(df.columns)):
+					if new_df.iloc[i,j]==-1:
+						new_df.iloc[i,j] = None	
+			
+			yield new_df
