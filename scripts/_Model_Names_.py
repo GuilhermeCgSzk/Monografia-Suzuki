@@ -259,9 +259,7 @@ class Model_Names:
 				]
 			),
 			Group(
-				'Parameter efficiency', [
-					EfficientNet(),
-					EfficientNetV2(),
+				'RegNet', [
 					RegNet(),
 				]
 			),
@@ -287,11 +285,17 @@ class Model_Names:
 				]
 			),
 			Group(
-				'Diverse', [ 
-					ShuffleNetV2(),  
+				'Purely convolutional', [  
 					ConvNeXt(),
 					AlexNet(),
+				]
+			),
+			Group(
+				'Diverse', [ 
+					ShuffleNetV2(),  
 					SqueezeNet(), 
+					EfficientNet(),
+					EfficientNetV2(),
 				]
 			)
 		]
