@@ -197,7 +197,28 @@ This section contain the mobile oriented networks MNASNet, a mobile plataform aw
 
 In this section, the set of variants of the RegNet networks are analyzed. RegNets are networks selected from a population of networks in a design space, that is, a space of networks resulting from a limited set of hyperparameters. By looking at the table \ref{tab:Averages_of_RegNet}, it can be seen that, of those variants, only 4 got a sufficient Cohen Kappa score: from the RegNet X design space, the 800 MF and 3.2 GF variants; and from the RegNet Y design space, the 400 MF and 800 MF variants. All of those variants obtained such a score by applying the \acrshort{Mix} method, except for the Reg Net Y 400 MF variant, that was combined with the \acrshort{RP} approach. Since all of those variants obtained a similar score in all metrics, the memory usage was considered to select the RegNet Y 400 MF variant, since this model is the smallest in memory occupation, using, according to the table \ref{tab:Memory_of_RegNet}, only 15 MB; even though the RegNet Y variants have, in general, a slower inference speed if compared to the RegNet X counterparts, as sighly noticeable in the figure \ref{fig:Time_of_RegNet}.
 
+\pagebreak
+
+\subsection{Extreme Nets}
+
+\input{tex/tabelas/resultados/averages/Averages_of_Extreme models}
+
+\input{tex/tabelas/resultados/memory/Extreme models/memory_table}
+
+\input{tex/figuras/resultados/boxplots/Extreme nets}
+
+
+In this section, it's discussed the results of neural models which are an exageration of a concept, as the VGG, which is a model that, for its biggest variants, is a very deep model when considering its number of layers; and the DenseNet, which apply the skipping connections of the residual nets to all pairs of blocks in the network. Accordingly to the tables \ref{tab:Averages_of_DenseNet} and \ref{tab:Averages_of_VGG}, only one variant have succeded to barely achieve an over the quota Cohen Kappa score: the VGG with 16 blocks without Batch Normalization, when combined with the \acrshort{RP} method. Additionally, as presented in the figure \ref{fig:Time_of_Extreme nets}, the VGGs have a considerable lower inference speed, with medians that have values near 20 ms. In contrast, the VGGs are not small-in-memory models, with occupation suprassing 500 MB, as seen in table \ref{tab:Memory_of_Extreme nets}, while the biggest DenseNet occupies 105 MB. Nonetheless, the VGG 16 variant is selected as the representative model of this section.
+
+\pagebreak
+
 \subsection{Diverse}
+
+\input{tex/tabelas/resultados/averages/Averages_of_Diverse}
+
+\input{tex/tabelas/resultados/memory/Diverse/memory_table}
+
+\input{tex/figuras/resultados/boxplots/Diverse}
 
 %\input{tex/tabelas/resultados/averages/Averages_of_Diverse}
 

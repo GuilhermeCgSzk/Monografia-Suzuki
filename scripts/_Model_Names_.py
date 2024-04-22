@@ -141,10 +141,10 @@ class ShuffleNetV2(Model_Name):
 		return 'ShuffleNet V2'
 	def mappings(self):
 		return {
-			'ShuffleNetV2_x0_5' : 'ShuffleNet V2: $\\times$0.5',
-			'ShuffleNetV2_x1_0' : 'ShuffleNet V2: $\\times$1.0',
-			'ShuffleNetV2_x1_5' : 'ShuffleNet V2: $\\times$1.5',
-			'ShuffleNetV2_x2_0' : 'ShuffleNet V2: $\\times$2.0',
+			'ShuffleNetV2_x0_5' : 'ShuffleNet V2: x0.5',
+			'ShuffleNetV2_x1_0' : 'ShuffleNet V2: x1.0',
+			'ShuffleNetV2_x1_5' : 'ShuffleNet V2: x1.5',
+			'ShuffleNetV2_x2_0' : 'ShuffleNet V2: x2.0',
 		}
 		
 class SqueezeNet(Model_Name):
