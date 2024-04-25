@@ -1,5 +1,7 @@
 import pandas as pd
 
+from scripts._Model_Names_ import Group
+from scripts._Model_Names_ import *
 
 if __name__=='__main__':
 	from scripts import *
@@ -12,8 +14,10 @@ if __name__=='__main__':
 	benchmark_df = Selector.select_benchmark(benchmark_df)
 	
 	
-	ViolinplotGenerator(df).generate('img/resultados/violinplots')
+	#ViolinplotGenerator(df).generate('img/resultados/violinplots')
 	AveragesTableGenerator(df).generate('tex/tabelas/resultados/averages/models')
 	
 	TimeBoxplotsGenerator(benchmark_df).generate('img/resultados/boxplots')
-	MemoryTableGenerator(benchmark_df).generate('tex/tabelas/resultados/memory')
+	
+	memory_table_generator = MemoryTableGenerator(benchmark_df)
+	memory_table_generator.generate('tex/tabelas/resultados/memory')

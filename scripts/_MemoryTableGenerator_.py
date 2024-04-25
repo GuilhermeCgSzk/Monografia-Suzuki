@@ -11,6 +11,9 @@ class MemoryTableGenerator(Generator):
 	def generate(self, path):
 		for group in Names.get_group_list():
 			self.generate_per_group(group, path)
+
+	def generate_per_pair_group(self, pair_group, path):
+		pass
 	
 	def generate_per_group(self, group, path):
 		df = self.df.copy()		
@@ -20,15 +23,9 @@ class MemoryTableGenerator(Generator):
 		df = df[['model','projection','memory_size (bytes)']].groupby(['model','projection'], as_index=False).max()
 		df['memory_size (Megabytes)'] = df['memory_size (bytes)'].apply(lambda x: x/10**6)
 		
-		df['use_mix'] = df['projection'] == 'ProjectionMix_V2'
+		df = df[['model','memory_size (Megabytes)']].groupby('model', as_index=False).max()
 		
-		
-		df = df[['model','use_mix','memory_size (Megabytes)']].groupby(['model','use_mix'], as_index=False).max()
-		
-		df['use_mix'] = df['use_mix'].apply(lambda x: {False:'Usual', True:'Proposed'}[x])
 		df['model'] = df['model'].apply(lambda x: group.mappings()[x])
-		
-		df = df.drop('use_mix', axis=1)
 		
 		def agg_func(x):
 			values = []

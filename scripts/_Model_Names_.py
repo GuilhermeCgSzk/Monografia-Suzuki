@@ -2,6 +2,27 @@ import pandas as pd
 
 from abc import ABC,abstractmethod
 
+__all__ = [
+	'AlexNet',
+	'ConvNeXt',
+	'DenseNet',				
+	'EfficientNet',					
+	'EfficientNetV2',
+	'MaxVit',
+	'MNASNet',
+	'MobileNetV2',
+	'MobileNetV3',
+	'RegNet',
+	'ResNet',
+	'ResNeXt',
+	'ShuffleNetV2',
+	'SqueezeNet',
+	'SwinTransformer',
+	'VGG',
+	'VisionTransformer',
+	'WideResNet'
+]
+
 class Model_Name(ABC):
 	@abstractmethod
 	def name(self):
@@ -223,7 +244,6 @@ class Group:
 		for model in self.model_list:
 			mapping_dict |= model.mappings()
 		return mapping_dict
-		
 
 
 class Model_Names:	
