@@ -31,6 +31,17 @@ class Model_Name(ABC):
 	def mappings(self):
 		return {self.name(): self.name()}
 	
+class SpecificModel(Model_Name):
+	def __init__(self, _name, _group):
+		self._name = _name
+		self._group=_group
+		
+	def mappings(self):
+		return {self.name(): self._group.mappings()[self.name()]}
+
+	def name(self):
+		return self._name
+	
 class AlexNet(Model_Name):
 	def name(self):
 		return 'AlexNet'
@@ -243,6 +254,7 @@ class Group:
 		mapping_dict = {}
 		for model in self.model_list:
 			mapping_dict |= model.mappings()
+		
 		return mapping_dict
 
 
@@ -317,7 +329,12 @@ class Model_Names:
 					EfficientNet(),
 					EfficientNetV2(),
 				]
-			)
+			),
+			Group(
+				'Aeon', [
+					,
+				]
+			),
 		]
 	
 		

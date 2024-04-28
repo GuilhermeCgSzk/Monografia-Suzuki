@@ -9,9 +9,7 @@ metrics = ["cohen_kappa_score","f1_score","precision_score"] # ,"recall_score""a
 
 class AveragesTableGenerator(Generator):
 	def __init__(self, df):
-		df = df.copy()
-	
-		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())	
+		df = df.copy()	
 			
 		df_grouped = df.groupby(['model','projection'],as_index=False).max()
 		
@@ -33,11 +31,19 @@ class AveragesTableGenerator(Generator):
 		for model in Names.get_model_list():
 			self.generate_for_group(model, path)
 		
-	def generate_for_group(self, group, path):
+	def generate_per_pair_group(self, path, pair_group):
+		self.generate_for_group(pair_group.get_group(), path, filter_obj=pair_group)
+		
+	def generate_for_group(self, group, path, filter_obj=None):
 		df = self.df.copy()
+		
+		if filter_obj is not None:
+			df = filter_obj.filter(df)
 		
 		df = df[df['model'].isin(group.mappings())]
 		df['model'] = df['model'].apply(lambda x: group.mappings()[x])
+	
+		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
 	
 		for metric in metrics:
 			minimum_mean,maximum_mean = df[self.get_mean_key(metric)].min(),df[self.get_mean_key(metric)].max()
@@ -91,13 +97,14 @@ class AveragesTableGenerator(Generator):
 	    		    	
 		df = df.rename(columns=Names.get_metric_mappings_function())
 	    
-		for i in range(len(df)):
-			if i%4!=0:
-				df.iat[i,0] = ''
-	    		
-		for i in range(len(df)):
-			if i%4==2:
-				df.iloc[i],df.iloc[i+1]= df.iloc[i+1].copy(),df.iloc[i].copy()
+		if filter_obj is None:
+			for i in range(len(df)):
+				if i%4!=0:
+					df.iat[i,0] = ''
+		    		
+			for i in range(len(df)):
+				if i%4==2:
+					df.iloc[i],df.iloc[i+1]= df.iloc[i+1].copy(),df.iloc[i].copy()
 	    
 		kwargs = {
 			'index':False,

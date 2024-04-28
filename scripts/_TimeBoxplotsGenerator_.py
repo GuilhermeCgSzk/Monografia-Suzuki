@@ -15,8 +15,11 @@ class TimeBoxplotsGenerator(Generator):
 	def generate(self, path):	
 		for model in Names.get_model_list():
 			self.generate_for_model(model, path)
+
+	def generate_per_pair_group(self, path, pair_group):
+		self.generate_for_model(pair_group.get_group(), path, filter_obj=pair_group)
 		
-	def generate_for_model(self, model, path):	
+	def generate_for_model(self, model, path, filter_obj=None):	
 		plt.rcParams["font.family"] = "monospace"
 		plt.rcParams["font.monospace"] = ["FreeMono"]
 		fontsize=24
@@ -25,6 +28,10 @@ class TimeBoxplotsGenerator(Generator):
 		plt.figure(figsize=(10,h))
 		
 		df = self.df.copy()
+		
+		if filter_obj is not None:
+			df = filter_obj.filter(df)		
+		
 		df = df[df['model'].isin(model.mappings())]
 		
 		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())

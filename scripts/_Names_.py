@@ -1,8 +1,13 @@
 import pandas as pd
 
-from ._Model_Names_ import Model_Names
+from ._Model_Names_ import Model_Names,Group
+from ._Filter_ import Filter
 
 from abc import ABC,abstractmethod
+
+__all__ = [
+	'GAF','MTF','RP','Mix'
+]
 
 class Projection_Name(ABC):
 	@abstractmethod
@@ -36,6 +41,7 @@ class RP(Projection_Name):
 			self.name(): "RP"
 		}
 		
+		
 class Mix(Projection_Name):
 	def name(self):
 		return 'ProjectionMix_V2'
@@ -49,16 +55,26 @@ class Pair:
 		self.model = model
 		self.projection = projection
 
-class Pair_Group:
+class Pair_Group(Filter, Group):
 	def __init__(self, name, pairs):
 		self.name = name
 		self.pairs = pairs
 		
 	def get_tuples(self):
-		return [(pair.model.name(), pair.projection.name()) for pair in pairs]
-	
-	def get_filter(self, df):
-		return df[['model','projection']].isin(get_tuples)
+		return [(pair.model.name(), pair.projection.name()) for pair in self.pairs]
+		
+	def get_models(self):
+		return [pair.model for pair in self.pairs]
+		
+	def get_group(self):
+		return Group(
+			self.name,
+			self.get_models(),
+		)
+		
+	def filter(self, df):
+		new_df = df[df[['model','projection']].apply(tuple,axis=1).isin(self.get_tuples())]
+		return new_df.copy()
 	 	
 
 class Mapping:

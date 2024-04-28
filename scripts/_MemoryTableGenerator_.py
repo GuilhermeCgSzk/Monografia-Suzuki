@@ -12,30 +12,23 @@ class MemoryTableGenerator(Generator):
 		for group in Names.get_group_list():
 			self.generate_per_group(group, path)
 
-	def generate_per_pair_group(self, pair_group, path):
-		pass
+	def generate_per_pair_group(self, path, pair_group):
+		self.generate_per_group(pair_group.get_group(), path, filter_obj=pair_group)
 	
-	def generate_per_group(self, group, path):
+	def generate_per_group(self, group, path, filter_obj=None):
 		df = self.df.copy()		
 		
+		if filter_obj is not None:
+			df = filter_obj.filter(df)
+		
 		df = df[df['model'].isin(group.mappings())]
-		
-		df = df[['model','projection','memory_size (bytes)']].groupby(['model','projection'], as_index=False).max()
-		df['memory_size (Megabytes)'] = df['memory_size (bytes)'].apply(lambda x: x/10**6)
-		
-		df = df[['model','memory_size (Megabytes)']].groupby('model', as_index=False).max()
-		
 		df['model'] = df['model'].apply(lambda x: group.mappings()[x])
 		
-		def agg_func(x):
-			values = []
-			for value in x:
-				values.append(value)
-			return values	
-			
-		df = df.groupby('model', as_index=False).agg(agg_func)
+		df = df[['model','memory_size (bytes)']].groupby('model', as_index=False).max()
 		
-		df['memory_size (Megabytes)'] = df['memory_size (Megabytes)'].apply(lambda x: x[0])
+		df['memory_size (Megabytes)'] = df['memory_size (bytes)'].apply(lambda x: x/10**6)
+		df = df.drop('memory_size (bytes)', axis=1)
+		
 		
 		df = df.rename(
 			{
