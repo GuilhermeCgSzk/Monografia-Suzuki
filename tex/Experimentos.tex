@@ -141,9 +141,7 @@ In this section, the results will be analyzed by comparing the metrics in the fo
 
 \input{tex/tabelas/resultados/averages/Averages_of_Transformers}
 
-%\input{tex/figuras/resultados/averages/Averages_of_Transformers}
-
-\input{tex/tabelas/resultados/memory/Transformers/memory_table}
+\IncludeMemoryTable{Transformers}
 
 \input{tex/figuras/resultados/boxplots/Transformers}
 
@@ -158,7 +156,7 @@ Three transformers were considered: the Vision Transformer, the Multi-axis Visio
 \input{tex/tabelas/resultados/averages/Averages_of_ResNet based}
 %\input{tex/figuras/resultados/averages/Averages_of_ResNet based}
 
-\input{tex/tabelas/resultados/memory/ResNet based/memory_table}
+\IncludeMemoryTable{ResNet based}
 
 \input{tex/figuras/resultados/boxplots/ResNet based}
 
@@ -174,7 +172,7 @@ This section contains the ResNet itself and two derivated models, the Wide ResNe
 
 \input{tex/figuras/resultados/boxplots/Purely convolutional}
 
-\input{tex/tabelas/resultados/memory/Purely convolutional/memory_table}
+\IncludeMemoryTable{Purely convolutional}
 
 \pagebreak
 
@@ -186,7 +184,7 @@ In this section, the AlexNet, a classic model, and the ConvNeXt, a mordenized pu
 
 \input{tex/tabelas/resultados/averages/Averages_of_Mobile nets}
 
-\input{tex/tabelas/resultados/memory/Mobile nets/memory_table}
+\IncludeMemoryTable{Mobile nets}
 
 \input{tex/figuras/resultados/boxplots/Mobile nets}
 
@@ -200,7 +198,7 @@ This section contain the mobile oriented networks MNASNet, a mobile plataform aw
 
 \input{tex/tabelas/resultados/averages/Averages_of_RegNet}
 
-\input{tex/tabelas/resultados/memory/RegNet/memory_table}
+\IncludeMemoryTable{RegNet}
 
 \input{tex/figuras/resultados/boxplots/RegNet}
 
@@ -212,7 +210,7 @@ In this section, the set of variants of the RegNet networks are analyzed. RegNet
 
 \input{tex/tabelas/resultados/averages/Averages_of_Extreme models}
 
-\input{tex/tabelas/resultados/memory/Extreme models/memory_table}
+\IncludeMemoryTable{Extreme models}
 
 \input{tex/figuras/resultados/boxplots/Extreme nets}
 
@@ -227,7 +225,7 @@ In this section, it's discussed the results of neural models which are an exager
 
 \input{tex/figuras/resultados/boxplots/Diverse}
 
-\input{tex/tabelas/resultados/memory/Diverse/memory_table}
+\IncludeMemoryTable{Diverse}
 
 \pagebreak
 
@@ -241,5 +239,18 @@ Finally, this section discusses the remaining computational vision models, the S
 
 \input{tex/figuras/resultados/boxplots/Selected Models}
 
-\input{tex/tabelas/resultados/memory/Selected Models/memory_table}
+\IncludeMemoryTable{Selected Models}
 
+This section aggregates all choices made in the past sections. In terms of the Cohen Kappa score, it can be observed in the table \ref{tab:Averages_of_Selected Models} that most of the models achieved a similiar score, with exception of the VGG 16 with \acrshort{RP}, which was the worse in performance for such a metric; and the Wide ResNet 101-2, which was the best model not only for this metric but also for the F1-Score metric, while mantaining the lowest standard deviation. However, that last model is the worst in inference speed, according to the figure \ref{fig:Time_of_Selected Models}. If it's considered only the models with less than 20 ms latency in inference, the SqueezeNet 1.1 is the best option, since, even though the score is not any better than the other models, it's the smallest in memory size, as seen in table \ref{tab:Memory_of_Selected Models}, and the second best in inference speed. Therefore, if we only consider the rate of correct predictions, the Wide ResNet 101-2 was the best, while if we consider the trade-off in speed and in memory consumption, the SqueezeNet 1.1 performed better.
+
+Moreover, besides recognizing the best models, it's possible to verify that two of the projection methods applied in this experiment, were dominant: the \acrshort{RP} and the \acrshort{Mix}. Of those methods, the \acrshort{Mix} was the one that allowed the Wide ResNet 101-2 and the SqueezeNet 1.1 to be preferable choices above the others.	
+
+\subsection{Non CV models comparison}
+
+\input{tex/tabelas/resultados/averages/Averages_of_Non CV}
+
+\input{tex/figuras/resultados/boxplots/Non CV}
+
+\IncludeMemoryTable{Non CV}
+
+Finally, in this section the non computationally visual models are exposed and dissected. Observing the table \ref{tab:Averages_of_Non CV},  

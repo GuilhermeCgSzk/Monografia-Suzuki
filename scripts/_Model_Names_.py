@@ -1,6 +1,6 @@
 import pandas as pd
 
-from abc import ABC,abstractmethod
+from ._Name_ import Name
 
 __all__ = [
 	'AlexNet',
@@ -23,13 +23,23 @@ __all__ = [
 	'WideResNet'
 ]
 
-class Model_Name(ABC):
-	@abstractmethod
-	def name(self):
-		pass
+class Model_Name(Name):
+	pass
 	
+class SimpleModel(Model_Name):
+	def __init__(self, _name, _final_name=None):
+		self._name = _name
+		
+		if _final_name is None:
+			self._final_name = self._name
+		else:
+			self._final_name = _final_name
+		
+	def name(self):
+		return self._final_name
+		
 	def mappings(self):
-		return {self.name(): self.name()}
+		return {self._name: self._final_name}
 	
 class SpecificModel(Model_Name):
 	def __init__(self, _name, _group):
@@ -330,11 +340,65 @@ class Model_Names:
 					EfficientNetV2(),
 				]
 			),
-			Group(
-				'Aeon', [
-					,
-				]
-			),
 		]
-	
+	         
+
+        
+Aeon_Group = Group(
+	'Non CV', [
+		SimpleModel('Arsenal'),
+		SimpleModel('RocketClassifier','Rocket Classifier'),
+		SimpleModel('CNNClassifier','CNN Classifier'),
+		SimpleModel('FCNClassifier','FCN Classifier'),
+		SimpleModel('MLPClassifier','MLP Classifier'),
+		SimpleModel('InceptionTimeClassifier','Inception Time Classifier'),
+		SimpleModel('IndividualInceptionClassifier','Individual Inception Classifier'),
+		SimpleModel('TapNetClassifier','TapNet Classifier'),
+		SimpleModel('EncoderClassifier','Encoder Classifier'),
+		SimpleModel('LITETimeClassifier','LITE Time Classifier'),
+		SimpleModel('BOSSEnsemble','BOSS Ensemble'),
+		SimpleModel('ContractableBOSS','Contractable BOSS'),
+		SimpleModel('IndividualBOSS','Individual BOSS'),
+		SimpleModel('IndividualTDE','Individual TDE'),
+		SimpleModel('MUSE'),
+		SimpleModel('TemporalDictionaryEnsemble','Temporal Dictionary Ensemble'),
+		SimpleModel('WEASEL'),
+		SimpleModel('WEASEL_V2','WEASEL V2'),
+		SimpleModel('REDCOMETS'),
+		SimpleModel('ElasticEnsemble','Elastic Ensemble'),
+		SimpleModel('KNeighborsTimeSeriesClassifier','K-Neighbors Time Series Classifier'),
+		SimpleModel('ShapeDTW','Shape DTW'),
+		SimpleModel('Catch22Classifier','Catch 22 Classifier'),
+		SimpleModel('FreshPRINCEClassifier','Fresh PRINCE Classifier'),
+		SimpleModel('MatrixProfileClassifier','Matrix Profile Classifier'),
+		SimpleModel('SignatureClassifier','Signature Classifier'),
+		SimpleModel('SummaryClassifier','Summary Classifier'),
+		SimpleModel('TSFreshClassifier','TS Fresh Classifier'),
+		SimpleModel('HIVECOTEV1','HIVECOTE V1'),
+		SimpleModel('HIVECOTEV2','HIVECOTE V2'),
+		SimpleModel('CanonicalIntervalForestClassifier','Canonical Interval Forest Classifier'),
+		SimpleModel('DrCIFClassifier','DrCIF Classifier'),
+		SimpleModel('RandomIntervalSpectralEnsembleClassifier','Random Interval Spectral Ensemble Classifier'),
+		SimpleModel('SupervisedTimeSeriesForest','Supervised Time Series Forest'),
+		SimpleModel('TimeSeriesForestClassifier','Time Series Forest Classifier'),
+		SimpleModel('RandomIntervalClassifier','Random Interval Classifier'),
+		SimpleModel('ShapeletTransformClassifier','Shapelet Transform Classifier'),
+		SimpleModel('MrSQMClassifier','MrSQM Classifier'),
+		SimpleModel('RDSTClassifier','RDST Classifier'),
+		SimpleModel('ContinuousIntervalTree','Continuous Interval Tree'),
+		SimpleModel('RotationForestClassifier','Rotation Forest Classifier'),
+		SimpleModel('ProbabilityThresholdEarlyClassifier','Probability Threshold Early Classifier'),
+		SimpleModel('TEASER'),
+		SimpleModel('IndividualOrdinalTDE','Individual Ordinal TDE'),
+		SimpleModel('OrdinalTDE','Ordinal TDE'),
+	]
+)
+
+
+         
+
+         
+
+
+        
 		

@@ -14,7 +14,7 @@ class Selector:
 
 		return df
 		
-	def select_benchmark(df):
+	def select_benchmark(df):		
 		timestamps = df[['model','timestamp']].groupby('model').max().timestamp
 		
 		df = df[df['timestamp'].isin(timestamps)]

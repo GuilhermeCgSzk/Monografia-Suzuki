@@ -3,19 +3,14 @@ import pandas as pd
 from ._Model_Names_ import Model_Names,Group
 from ._Filter_ import Filter
 
-from abc import ABC,abstractmethod
+from ._Name_ import Name
 
 __all__ = [
 	'GAF','MTF','RP','Mix'
 ]
 
-class Projection_Name(ABC):
-	@abstractmethod
-	def name(self):
-		pass
-		
-	def mappings(self):
-		return {self.name(): self.name()}
+class Projection_Name(Name):
+	pass
 		
 class GAF(Projection_Name):
 	def name(self):

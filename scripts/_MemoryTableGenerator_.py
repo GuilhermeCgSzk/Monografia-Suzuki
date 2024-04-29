@@ -10,19 +10,19 @@ class MemoryTableGenerator(Generator):
 		
 	def generate(self, path):
 		for group in Names.get_group_list():
-			self.generate_per_group(group, path)
+			self.generate_per_name_obj(group, path)
 
 	def generate_per_pair_group(self, path, pair_group):
-		self.generate_per_group(pair_group.get_group(), path, filter_obj=pair_group)
+		self.generate_per_name_obj(pair_group.get_group(), path, filter_obj=pair_group)
 	
-	def generate_per_group(self, group, path, filter_obj=None):
+	def generate_per_name_obj(self, name_obj, path, filter_obj=None):
 		df = self.df.copy()		
 		
 		if filter_obj is not None:
 			df = filter_obj.filter(df)
 		
-		df = df[df['model'].isin(group.mappings())]
-		df['model'] = df['model'].apply(lambda x: group.mappings()[x])
+		df = df[df['model'].isin(name_obj.mappings())]
+		df['model'] = df['model'].apply(lambda x: name_obj.mappings()[x])
 		
 		df = df[['model','memory_size (bytes)']].groupby('model', as_index=False).max()
 		
@@ -44,8 +44,8 @@ class MemoryTableGenerator(Generator):
 		}
 				
 		
-		for i,dfi in enumerate(DataframeSplitter(3).split(df)):
-			directory = os.path.join(path,group.name())
+		for i,dfi in enumerate(DataframeSplitter(2).split(df)):
+			directory = os.path.join(path,name_obj.name())
 			os.makedirs(directory, exist_ok=True)
 			full_path = os.path.join(directory,f'memory_table_{i+1}.tex')
 			dfi.to_latex(full_path, **kwargs)

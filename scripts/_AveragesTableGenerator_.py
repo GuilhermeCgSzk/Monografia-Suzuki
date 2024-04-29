@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os
 import math
 
@@ -11,13 +12,13 @@ class AveragesTableGenerator(Generator):
 	def __init__(self, df):
 		df = df.copy()	
 			
-		df_grouped = df.groupby(['model','projection'],as_index=False).max()
+		df_grouped = df.groupby(['model','projection'],as_index=False, dropna=False).max()
 		
 		for metric in metrics:
-			df_grouped[self.get_mean_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False).mean()[metric]	
+			df_grouped[self.get_mean_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False, dropna=False).mean()[metric]	
 			
 		for metric in metrics:
-			df_grouped[self.get_std_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False).std()[metric]
+			df_grouped[self.get_std_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False, dropna=False).std()[metric]
 			
 		self.df = df_grouped
 		
@@ -29,20 +30,20 @@ class AveragesTableGenerator(Generator):
 		
 	def generate(self, path):
 		for model in Names.get_model_list():
-			self.generate_for_group(model, path)
+			self.generate_for_name_obj(model, path)
 		
 	def generate_per_pair_group(self, path, pair_group):
-		self.generate_for_group(pair_group.get_group(), path, filter_obj=pair_group)
+		self.generate_for_name_obj(pair_group.get_group(), path, filter_obj=pair_group, delete_repeated=False)
 		
-	def generate_for_group(self, group, path, filter_obj=None):
+	def generate_for_name_obj(self, name_obj, path, *, filter_obj=None, delete_repeated=True):
 		df = self.df.copy()
 		
 		if filter_obj is not None:
 			df = filter_obj.filter(df)
+			
+		df = df[df['model'].isin(name_obj.mappings())]
+		df['model'] = df['model'].apply(lambda x: name_obj.mappings()[x])
 		
-		df = df[df['model'].isin(group.mappings())]
-		df['model'] = df['model'].apply(lambda x: group.mappings()[x])
-	
 		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
 	
 		for metric in metrics:
@@ -94,10 +95,16 @@ class AveragesTableGenerator(Generator):
 			
 		df = df[['model','projection']+metrics]
 
+	    
+		projections = df['projection'].unique()
+		if len(projections)==1 and np.isnan(projections[0]):
+			df = df.drop('projection',axis=1)
+		else:
+			df = df.fillna('')
 	    		    	
 		df = df.rename(columns=Names.get_metric_mappings_function())
 	    
-		if filter_obj is None:
+		if delete_repeated:
 			for i in range(len(df)):
 				if i%4!=0:
 					df.iat[i,0] = ''
@@ -105,7 +112,8 @@ class AveragesTableGenerator(Generator):
 			for i in range(len(df)):
 				if i%4==2:
 					df.iloc[i],df.iloc[i+1]= df.iloc[i+1].copy(),df.iloc[i].copy()
-	    
+	    	
+	    		    
 		kwargs = {
 			'index':False,
 			'position':'t',
@@ -118,5 +126,5 @@ class AveragesTableGenerator(Generator):
 			y = y.replace('\\end{table}','')
 			return y
 	    
-		with open(os.path.join(path,f'Averages_of_{group.name()}.tex'),'w') as f:
+		with open(os.path.join(path,f'Averages_of_{name_obj.name()}.tex'),'w') as f:
 			f.write(to_latex(df))

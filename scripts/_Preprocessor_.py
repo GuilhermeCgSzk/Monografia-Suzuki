@@ -7,7 +7,7 @@ class Preprocessor:
 	def get(self):
 		return self.df.copy()
 		
-	def process(df):  
+	def process(df):  	
 		def f(x, idx):
 			return Parser.parse_study_name(x)[idx]
 	    		
