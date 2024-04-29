@@ -1,49 +1,55 @@
 import pandas as pd
 
+from abc import ABC,abstractmethod
+
 from ._Model_Names_ import Model_Names,Group
 from ._Filter_ import Filter
 
 from ._Name_ import Name
 
 __all__ = [
-	'GAF','MTF','RP','Mix'
+	'GAF','MTF','RP','Mix','NoProjection'
 ]
 
-class Projection_Name(Name):
-	pass
+class Projection_Name(Name, ABC):
+	@abstractmethod
+	def final_name(self):
+		pass
+		
+	def mappings(self):
+		return {
+			self.name(): self.final_name()
+		}
 		
 class GAF(Projection_Name):
 	def name(self):
 		return 'GramianAngularField'
-	def mappings(self):
-		return {
-			self.name(): "GAF"
-		}
+	def final_name(self):
+		return 'GAF'
 
 class MTF(Projection_Name):
 	def name(self):
 		return 'MarkovTransitionField'
-	def mappings(self):
-		return {
-			self.name(): "MTF"
-		}
+	def final_name(self):
+		return 'MTF'
 
 class RP(Projection_Name):
 	def name(self):
 		return 'RecurrencePlot'
-	def mappings(self):
-		return {
-			self.name(): "RP"
-		}
-		
+	def final_name(self):
+		return 'RP'
 		
 class Mix(Projection_Name):
 	def name(self):
 		return 'ProjectionMix_V2'
-	def mappings(self):
-		return {
-			self.name(): "Mix"
-		}
+	def final_name(self):
+		return 'Mix'
+		
+class NoProjection(Projection_Name):
+	def name(self):
+		return 'None'
+	def final_name(self):
+		return 'Not projected'
 		
 class Pair:
 	def __init__(self, model, projection):
@@ -103,10 +109,8 @@ class Names:
 		return Model_Names.models_list() 
 
 	def get_projection_mappings_function():
-		return Mapping({
-			"ProjectionMix_V2" : "Mix",
-			"RecurrencePlot" : "RP",
-			"GramianAngularField" : "GAF",
-			"MarkovTransitionField" : "MTF"
-		})
+		mappings = {}
+		for projection_class in [GAF,RP,MTF,Mix,NoProjection]:
+			mappings |= projection_class().mappings()
+		return Mapping(mappings)
 		

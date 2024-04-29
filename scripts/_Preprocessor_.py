@@ -1,4 +1,5 @@
 from ._Parser_ import Parser
+from ._Names_ import NoProjection
 
 class Preprocessor:
 	def __init__(self, dataframe):
@@ -8,6 +9,7 @@ class Preprocessor:
 		return self.df.copy()
 		
 	def process(df):  	
+	
 		def f(x, idx):
 			return Parser.parse_study_name(x)[idx]
 	    		
@@ -16,5 +18,8 @@ class Preprocessor:
 		
 		df['cohen_kappa_score'] -= -1
 		df['cohen_kappa_score'] /= 2
+		
+		
+		df['projection'] = df['projection'].fillna(NoProjection().name())
 		
 		return df

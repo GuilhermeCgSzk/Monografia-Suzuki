@@ -3,7 +3,7 @@ import numpy as np
 import os
 import math
 
-from ._Names_ import Names
+from ._Names_ import Names,NoProjection
 from ._Generator_ import Generator
 
 metrics = ["cohen_kappa_score","f1_score","precision_score"] # ,"recall_score""accuracy_score",
@@ -12,13 +12,13 @@ class AveragesTableGenerator(Generator):
 	def __init__(self, df):
 		df = df.copy()	
 			
-		df_grouped = df.groupby(['model','projection'],as_index=False, dropna=False).max()
+		df_grouped = df.groupby(['model','projection'],as_index=False).max()
 		
 		for metric in metrics:
-			df_grouped[self.get_mean_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False, dropna=False).mean()[metric]	
+			df_grouped[self.get_mean_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False).mean()[metric]	
 			
 		for metric in metrics:
-			df_grouped[self.get_std_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False, dropna=False).std()[metric]
+			df_grouped[self.get_std_key(metric)] = df[['model','projection',metric]].groupby(['model','projection'],as_index=False).std()[metric]
 			
 		self.df = df_grouped
 		
@@ -36,15 +36,13 @@ class AveragesTableGenerator(Generator):
 		self.generate_for_name_obj(pair_group.get_group(), path, filter_obj=pair_group, delete_repeated=False)
 		
 	def generate_for_name_obj(self, name_obj, path, *, filter_obj=None, delete_repeated=True):
-		df = self.df.copy()
+		df = self.df.copy()			
 		
 		if filter_obj is not None:
 			df = filter_obj.filter(df)
 			
 		df = df[df['model'].isin(name_obj.mappings())]
 		df['model'] = df['model'].apply(lambda x: name_obj.mappings()[x])
-		
-		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
 	
 		for metric in metrics:
 			minimum_mean,maximum_mean = df[self.get_mean_key(metric)].min(),df[self.get_mean_key(metric)].max()
@@ -91,16 +89,15 @@ class AveragesTableGenerator(Generator):
 				
 					
 				df.iloc[i,loc] = f'{df.iloc[i,loc_mean]} $\\pm$ {df.iloc[i,loc_std]}'
-	    		    	
-			
+				
 		df = df[['model','projection']+metrics]
-
 	    
 		projections = df['projection'].unique()
-		if len(projections)==1 and np.isnan(projections[0]):
+		
+		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
+		
+		if len(projections)==1 and projections[0]==NoProjection().name():
 			df = df.drop('projection',axis=1)
-		else:
-			df = df.fillna('')
 	    		    	
 		df = df.rename(columns=Names.get_metric_mappings_function())
 	    

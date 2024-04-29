@@ -132,12 +132,15 @@ Reviewing what was presented, the experiment will begin by splitting the \acrsho
 
 In this section, the results will be analyzed by comparing the metrics in the following order: firstly, the Cohen Kappa Score, verifying if it's value is superior o equal to 90\%; then, the F1-Score; and, finally, the Precision score. Moreover, it will be considered the trade-off between models with respect to the inference time and the memory consumption. Since a large set of models was considered, the model comparision was done in sections, accordingly to the before-presented computer vision model classifications: Transformers, Residual nets, Parameter efficiency, Mobile nets and Diverse. In each of those sections, the best combinatons of model variant and projection method will be selected, if at least one of them is sufficiently good. Afterwards, the selections of each section will be compared, also discussing the differences between the projection methods. Lastly, the best combinations of models variants and projection methods will be compared to the best standard time series classification models present in the Aeon toolkit.
 
-
 \pagebreak
 
 \subsection{Categories analysis}
 
 \subsubsection{Transformers}
+
+Three transformers were considered: the Vision Transformer, the Multi-axis Vision Transformer and the Shifted Windows Transformer. Firsly, observing the tables \ref{tab:Averages_of_VisionTransformer} \ref{tab:Averages_of_SwinTransformer} \ref{tab:Averages_of_Maxvit}, it's noticeable that only some variants of the Vision Transformer obtained Cohen Kappa scores superior than 90\%, while the tiny Swin Transformer obtained almost 90\% in the same score. The highest Cohen Kappa scores and F1-scores were obtained by the large Vision Transformer variants for the \acrshort{RP} and \acrshort{Mix} projection methods, in contrast to the huge variant, that performed significantly worse for all projections. Specifically, the models Vision Transformer L 16, with \acrshort{RP} and \acrshort{Mix} and Vision Transformer L 32 with \acrshort{Mix} obtained the best scores, while having similar memory consumption and a sighly difference in inference time, with the 32x32 patch sized variant being the slowest, fact observed in the figure \ref{fig:Time_of_Transformers}. One drawback of the Vision Transformer models, if compared to the other transformers in this section, is that its memory consumption is drastically higher, as exposed in the table \ref{tab:Memory_of_Transformers}. Regardless, the Vision Transformer L 16 with \acrshort{RP} was selected as the best model of this section, since this model was, primally, one of those that achieved the highest score, and, if compared with the Vision Transformer L 32 and with the \acrshort{Mix} projection, was the fastest in inference speed.
+
+\pagebreak
 
 \input{tex/tabelas/resultados/averages/Averages_of_Transformers}
 
@@ -147,26 +150,24 @@ In this section, the results will be analyzed by comparing the metrics in the fo
 
 \pagebreak
 
-Three transformers were considered: the Vision Transformer, the Multi-axis Vision Transformer and the Shifted Windows Transformer. Firsly, observing the tables \ref{tab:Averages_of_VisionTransformer} \ref{tab:Averages_of_SwinTransformer} \ref{tab:Averages_of_Maxvit}, it's noticeable that only some variants of the Vision Transformer obtained Cohen Kappa scores superior than 90\%, while the tiny Swin Transformer obtained almost 90\% in the same score. The highest Cohen Kappa scores and F1-scores were obtained by the large Vision Transformer variants for the \acrshort{RP} and \acrshort{Mix} projection methods, in contrast to the huge variant, that performed significantly worse for all projections. Specifically, the models Vision Transformer L 16, with \acrshort{RP} and \acrshort{Mix} and Vision Transformer L 32 with \acrshort{Mix} obtained the best scores, while having similar memory consumption and a sighly difference in inference time, with the 32x32 patch sized variant being the slowest, fact observed in the figure \ref{fig:Time_of_Transformers}. One drawback of the Vision Transformer models, if compared to the other transformers in this section, is that its memory consumption is drastically higher, as exposed in the table \ref{tab:Memory_of_Transformers}. Regardless, the Vision Transformer L 16 with \acrshort{RP} was selected as the best model of this section, since this model was, primally, one of those that achieved the highest score, and, if compared with the Vision Transformer L 32 and with the \acrshort{Mix} projection, was the fastest in inference speed.
-
-\pagebreak
-
 \subsubsection{ResNet based}
-
-\input{tex/tabelas/resultados/averages/Averages_of_ResNet based}
-%\input{tex/figuras/resultados/averages/Averages_of_ResNet based}
-
-\IncludeMemoryTable{ResNet based}
-
-\input{tex/figuras/resultados/boxplots/ResNet based}
-
-\pagebreak
 
 This section contains the ResNet itself and two derivated models, the Wide ResNet, a model with more channels per block; and the ResNeXt, a model that, as oposed to the before-mentioned wide in channels model, employs an multipath philosophy, agreggating the paths by an additive operation. As it's clear in the table \ref{tab:Averages_of_ResNeXt}, every ResNeXt variant didn't obtained a sufficient Cohen Kappa score, which was the case for the Wide Res Net with 101 layers and 2 convolutions per block combined with the \acrshort{Mix} projection, as seen in \ref{tab:Averages_of_WideResNet}; and for the ResNets variants with 50 and 101 layers and the \acrshort{Mix} projection as well,  as seen in \ref{tab:Averages_of_ResNet}. Comparing these last variants, it can be concluded that the Wide ResNet 101-2 variant with the \acrshort{Mix} method obtained the best score, both for Cohen Kappa and F1 scores. However, that Wide ResNet posesses the largest memory occupation, according to the table \ref{tab:Memory_of_ResNet based}, and spends the fourth higher inference time, as seen in the figure \ref{fig:Time_of_ResNet based}.  Despite this disavantage, the Wide ResNet 101-2 variant with the \acrshort{Mix} was the choice of this section.
 
 \pagebreak
 
+
+\input{tex/tabelas/resultados/averages/Averages_of_ResNet based}
+
+\IncludeMemoryTable{ResNet based}
+
+\input{tex/figuras/resultados/boxplots/ResNet based}
+
+\FloatBarrier
+
 \subsubsection{Purely Convolutional}
+
+In this section, the AlexNet, a classic model, and the ConvNeXt, a mordenized pure convolutional network, are present. As seen in tables \ref{tab:Averages_of_AlexNet} and \ref{tab:Averages_of_ConvNeXt}, only the AlexNet combined with the \acrshort{Mix} projection method obtained a CohenKappa score superior than 90\%, while achieving a very fast inference speed, with less than 20 ms latency, and comparable to the ConvNeXt memory occupation. Therefore, such combination was selected.  
 
 \input{tex/tabelas/resultados/averages/Averages_of_Purely convolutional}
 
@@ -174,13 +175,11 @@ This section contains the ResNet itself and two derivated models, the Wide ResNe
 
 \IncludeMemoryTable{Purely convolutional}
 
-\pagebreak
-
-In this section, the AlexNet, a classic model, and the ConvNeXt, a mordenized pure convolutional network, are present. As seen in tables \ref{tab:Averages_of_AlexNet} and \ref{tab:Averages_of_ConvNeXt}, only the AlexNet combined with the \acrshort{Mix} projection method obtained a CohenKappa score superior than 90\%, while achieving a very fast inference speed, with less than 20 ms latency, and comparable to the ConvNeXt memory occupation. Therefore, such combination was selected.  
-
-\pagebreak
+\FloatBarrier
 
 \subsubsection{Mobile Oriented}
+
+This section contain the mobile oriented networks MNASNet, a mobile plataform aware seach algorithm; Mobile Net V2, which uses inverted residuals and linear bottlenecks to better fit the mobile context; and Mobile Net V3, which combines architectural search with various network improvements. Of those models, only the MNASNet obtained a sufficient Cohen Kappa score, as visible in the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNet V2} e \ref{tab:Averages_of_MobileNet V3}. Specifically, the MNASNet with depth multiplier of 1.0, that is, with exaclty the same number of channels in each layer of the base model; combined with the \acrshort{Mix} projection method method. According to the table \ref{tab:Memory_of_Mobile nets} and the figure \ref{fig:Time_of_Mobile nets}, all of those networks have very small memory size, with values inferior to 30 MB; and very fast inference time, with medians bellow to 20 ms. For this reason, the MNASNet 1.0 with \acrshort{Mix} was chosen. 
 
 \input{tex/tabelas/resultados/averages/Averages_of_Mobile nets}
 
@@ -188,13 +187,11 @@ In this section, the AlexNet, a classic model, and the ConvNeXt, a mordenized pu
 
 \input{tex/figuras/resultados/boxplots/Mobile nets}
 
-\pagebreak
-
-This section contain the mobile oriented networks MNASNet, a mobile plataform aware seach algorithm; Mobile Net V2, which uses inverted residuals and linear bottlenecks to better fit the mobile context; and Mobile Net V3, which combines architectural search with various network improvements. Of those models, only the MNASNet obtained a sufficient Cohen Kappa score, as visible in the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNet V2} e \ref{tab:Averages_of_MobileNet V3}. Specifically, the MNASNet with depth multiplier of 1.0, that is, with exaclty the same number of channels in each layer of the base model; combined with the \acrshort{Mix} projection method method. According to the table \ref{tab:Memory_of_Mobile nets} and the figure \ref{fig:Time_of_Mobile nets}, all of those networks have very small memory size, with values inferior to 30 MB; and very fast inference time, with medians bellow to 20 ms. For this reason, the MNASNet 1.0 with \acrshort{Mix} was chosen. 
-
-\pagebreak
+\FloatBarrier
 
 \subsubsection{RegNet}
+
+In this section, the set of variants of the RegNet networks are analyzed. RegNets are networks selected from a population of networks in a design space, that is, a space of networks resulting from a limited set of hyperparameters. By looking at the table \ref{tab:Averages_of_RegNet}, it can be seen that, of those variants, only 4 got a sufficient Cohen Kappa score: from the RegNet X design space, the 800 MF and 3.2 GF variants; and from the RegNet Y design space, the 400 MF and 800 MF variants. All of those variants obtained such a score by applying the \acrshort{Mix} method, except for the Reg Net Y 400 MF variant, that was combined with the \acrshort{RP} approach. Since all of those variants obtained a similar score in all metrics, the memory usage was considered to select the RegNet Y 400 MF variant, since this model is the smallest in memory occupation, using, according to the table \ref{tab:Memory_of_RegNet}, only 15 MB; even though the RegNet Y variants have, in general, a slower inference speed if compared to the RegNet X counterparts, as sighly noticeable in the figure \ref{fig:Time_of_RegNet}.
 
 \input{tex/tabelas/resultados/averages/Averages_of_RegNet}
 
@@ -202,11 +199,11 @@ This section contain the mobile oriented networks MNASNet, a mobile plataform aw
 
 \input{tex/figuras/resultados/boxplots/RegNet}
 
-In this section, the set of variants of the RegNet networks are analyzed. RegNets are networks selected from a population of networks in a design space, that is, a space of networks resulting from a limited set of hyperparameters. By looking at the table \ref{tab:Averages_of_RegNet}, it can be seen that, of those variants, only 4 got a sufficient Cohen Kappa score: from the RegNet X design space, the 800 MF and 3.2 GF variants; and from the RegNet Y design space, the 400 MF and 800 MF variants. All of those variants obtained such a score by applying the \acrshort{Mix} method, except for the Reg Net Y 400 MF variant, that was combined with the \acrshort{RP} approach. Since all of those variants obtained a similar score in all metrics, the memory usage was considered to select the RegNet Y 400 MF variant, since this model is the smallest in memory occupation, using, according to the table \ref{tab:Memory_of_RegNet}, only 15 MB; even though the RegNet Y variants have, in general, a slower inference speed if compared to the RegNet X counterparts, as sighly noticeable in the figure \ref{fig:Time_of_RegNet}.
-
-\pagebreak
+\FloatBarrier
 
 \subsubsection{Extreme Nets}
+
+In this section, it's discussed the results of neural models which are an exageration of a concept, as the VGG, which is a model that, for its biggest variants, is a very deep model when considering its number of layers; and the DenseNet, which apply the skipping connections of the residual nets to all pairs of blocks in the network. Accordingly to the tables \ref{tab:Averages_of_DenseNet} and \ref{tab:Averages_of_VGG}, only one variant have succeded to barely achieve an over the quota Cohen Kappa score: the VGG with 16 blocks without Batch Normalization, when combined with the \acrshort{RP} method. Additionally, as presented in the figure \ref{fig:Time_of_Extreme nets}, the VGGs have a considerable lower inference speed, with medians that have values near 20 ms. In contrast, the VGGs are not small-in-memory models, with occupation suprassing 500 MB, as seen in table \ref{tab:Memory_of_Extreme nets}, while the biggest DenseNet occupies 105 MB. Nonetheless, the VGG 16 variant combined with the \acrshort{RP} projection method is selected as the representative model of this section.
 
 \input{tex/tabelas/resultados/averages/Averages_of_Extreme models}
 
@@ -214,12 +211,11 @@ In this section, the set of variants of the RegNet networks are analyzed. RegNet
 
 \input{tex/figuras/resultados/boxplots/Extreme nets}
 
-
-In this section, it's discussed the results of neural models which are an exageration of a concept, as the VGG, which is a model that, for its biggest variants, is a very deep model when considering its number of layers; and the DenseNet, which apply the skipping connections of the residual nets to all pairs of blocks in the network. Accordingly to the tables \ref{tab:Averages_of_DenseNet} and \ref{tab:Averages_of_VGG}, only one variant have succeded to barely achieve an over the quota Cohen Kappa score: the VGG with 16 blocks without Batch Normalization, when combined with the \acrshort{RP} method. Additionally, as presented in the figure \ref{fig:Time_of_Extreme nets}, the VGGs have a considerable lower inference speed, with medians that have values near 20 ms. In contrast, the VGGs are not small-in-memory models, with occupation suprassing 500 MB, as seen in table \ref{tab:Memory_of_Extreme nets}, while the biggest DenseNet occupies 105 MB. Nonetheless, the VGG 16 variant combined with the \acrshort{RP} projection method is selected as the representative model of this section.
-
-\pagebreak
+\FloatBarrier
 
 \subsubsection{Diverse}
+
+Finally, this section discusses the remaining computational vision models, the ShuffleNet V2, which uses an operator that shuffles the channels of certain input layer to increase accuracy by comunicating distinct channels; the SqueezeNet, which applies a squeeze operation that outputs a layer with a lesser number of channels to avoid linking that layer to 3x3 convolutional filters of the later layer; and the Efficient Net, which proposes a model scaling thechnique that conserve the proportion between different hyperparameter dimensions, and its second version, Efficient Net V2, that improves the first version by using network architectural search and changes the scaling method. As exhibited in the tables \ref{tab:Averages_of_ShuffleNet V2}, \ref{tab:Averages_of_SqueezeNet}, \ref{tab:Averages_of_EfficientNet} and \ref{tab:Averages_of_EfficientNetV2}, only the Efficient Net model didn't obtained sufficient scores for the Cohen Kappa metric. As for the other models, only the following variants achieved such a requirement, with similar scores: SuffleNet V2 with $\times 0.5$ and $\times 1.0$ channels; SqueezeNet v1.1; and the EfficientNet V2. All of those variants were capable of reaching the score by using the \acrshort{Mix} projection method. Since there are multiple options, it's observed in the table \ref{tab:Memory_of_Diverse} that the SqueezeNet achitecture is the smallest and it's noticed in the figure \ref{fig:Time_of_Diverse} that such a model is the fastest as well. For this reason, the SqueezeNet v1.1 variant in conjunction with the \acrshort{Mix} method is chosen as this category representative.
 
 \input{tex/tabelas/resultados/averages/Averages_of_Diverse}
 
@@ -227,13 +223,13 @@ In this section, it's discussed the results of neural models which are an exager
 
 \IncludeMemoryTable{Diverse}
 
-\pagebreak
-
-Finally, this section discusses the remaining computational vision models, the ShuffleNet V2, which uses an operator that shuffles the channels of certain input layer to increase accuracy by comunicating distinct channels; the SqueezeNet, which applies a squeeze operation that outputs a layer with a lesser number of channels to avoid linking that layer to 3x3 convolutional filters of the later layer; and the Efficient Net, which proposes a model scaling thechnique that conserve the proportion between different hyperparameter dimensions, and its second version, Efficient Net V2, that improves the first version by using network architectural search and changes the scaling method. As exhibited in the tables \ref{tab:Averages_of_ShuffleNet V2}, \ref{tab:Averages_of_SqueezeNet}, \ref{tab:Averages_of_EfficientNet} and \ref{tab:Averages_of_EfficientNetV2}, only the Efficient Net model didn't obtained sufficient scores for the Cohen Kappa metric. As for the other models, only the following variants achieved such a requirement, with similar scores: SuffleNet V2 with $\times 0.5$ and $\times 1.0$ channels; SqueezeNet v1.1; and the EfficientNet V2. All of those variants were capable of reaching the score by using the \acrshort{Mix} projection method. Since there are multiple options, it's observed in the table \ref{tab:Memory_of_Diverse} that the SqueezeNet achitecture is the smallest and it's noticed in the figure \ref{fig:Time_of_Diverse} that such a model is the fastest as well. For this reason, the SqueezeNet v1.1 variant in conjunction with the \acrshort{Mix} method is chosen as this category representative.
-
-\pagebreak
+\FloatBarrier
 
 \subsection{Choices evaluation}
+
+This section aggregates all choices made in the past sections. In terms of the Cohen Kappa score, it can be observed in the table \ref{tab:Averages_of_Selected Models} that most of the models achieved a similiar score, with exception of the VGG 16 with \acrshort{RP}, which was the worse in performance for such a metric; and the Wide ResNet 101-2, which was the best model not only for this metric but also for the F1-Score metric, while mantaining the lowest standard deviation. However, that last model is the worst in inference speed, according to the figure \ref{fig:Time_of_Selected Models}. If it's considered only the models with less than 20 ms latency in inference, the SqueezeNet 1.1 is the best option, since, even though the score is not any better than the other models, it's the smallest in memory size, as seen in table \ref{tab:Memory_of_Selected Models}, and the second best in inference speed. Therefore, if we only consider the rate of correct predictions, the Wide ResNet 101-2 was the best, while if we consider the trade-off in speed and in memory consumption, the SqueezeNet 1.1 performed better.
+
+Moreover, besides recognizing the best models, it's possible to verify that two of the projection methods applied in this experiment, were dominant: the \acrshort{RP} and the \acrshort{Mix}. Of those methods, the \acrshort{Mix} was the one that allowed the Wide ResNet 101-2 and the SqueezeNet 1.1 to be preferable choices above the others.	
 
 \input{tex/tabelas/resultados/averages/Averages_of_Selected Models}
 
@@ -241,16 +237,26 @@ Finally, this section discusses the remaining computational vision models, the S
 
 \IncludeMemoryTable{Selected Models}
 
-This section aggregates all choices made in the past sections. In terms of the Cohen Kappa score, it can be observed in the table \ref{tab:Averages_of_Selected Models} that most of the models achieved a similiar score, with exception of the VGG 16 with \acrshort{RP}, which was the worse in performance for such a metric; and the Wide ResNet 101-2, which was the best model not only for this metric but also for the F1-Score metric, while mantaining the lowest standard deviation. However, that last model is the worst in inference speed, according to the figure \ref{fig:Time_of_Selected Models}. If it's considered only the models with less than 20 ms latency in inference, the SqueezeNet 1.1 is the best option, since, even though the score is not any better than the other models, it's the smallest in memory size, as seen in table \ref{tab:Memory_of_Selected Models}, and the second best in inference speed. Therefore, if we only consider the rate of correct predictions, the Wide ResNet 101-2 was the best, while if we consider the trade-off in speed and in memory consumption, the SqueezeNet 1.1 performed better.
+\FloatBarrier
 
-Moreover, besides recognizing the best models, it's possible to verify that two of the projection methods applied in this experiment, were dominant: the \acrshort{RP} and the \acrshort{Mix}. Of those methods, the \acrshort{Mix} was the one that allowed the Wide ResNet 101-2 and the SqueezeNet 1.1 to be preferable choices above the others.	
+\subsection{Non-CV models comparison}
 
-\subsection{Non CV models comparison}
+In this section the non computationally visual models are exposed and dissected. It's noticeable as well from the table \ref{tab:Memory_of_Non CV} and the figure \ref{fig:Time_of_Non CV} that the Non \acrshort{CV} models, in general, if compared with the \acrshort{CV} models are both very fast in inferece and small in memory occupation, with most of the models achieving less than 10 ms and than 10 MB in those aspects, respectively. Of those models, observing the table \ref{tab:Averages_of_Non CV}, it can be concluded that, by the metric Cohen Kappa score and the F1 score, the best models are the Random Interval Spectral Ensemble Classifier and the Temporal Dictionary Ensemble. Those models are competitive in memory size if compared to the other models, but the Temporal Dicionary Ensemble is slow in inference speed in the context of Non-\acrshort{CV} models, even thoght it is fast if juxtaposed with the \acrshort{CV} models. For this reason, the Random Interval Spectral Ensemble Classifier was selected as the best model of this section.
 
 \input{tex/tabelas/resultados/averages/Averages_of_Non CV}
 
-\input{tex/figuras/resultados/boxplots/Non CV}
-
 \IncludeMemoryTable{Non CV}
 
-Finally, in this section the non computationally visual models are exposed and dissected. Observing the table \ref{tab:Averages_of_Non CV},  
+\input{tex/figuras/resultados/boxplots/Non CV}
+
+\FloatBarrier
+
+\subsection{Best models comparison}
+
+Finally, it's compared in this section the best models that were selected from the past sections. Primally, it can be seen in the table \ref{tab:Averages_of_Best Models} that the Wide ResNet with \acrshort{Mix} was the best in all metrics except Precision, both in mean and in standard deviation. However, as confirmed in the table \ref{tab:Memory_of_Best Models}, that same model is, by far, the biggest, being more than $200\times$ bigger than every other model of this section. Also, that model is the slowest according to the figure \ref{fig:Time_of_Best Models}. When considering the other models, the Non \acrshort{CV} model, Random Interval Spectral Ensemble Classifier, not only performed better than the SqueezeNet in the classification metrics, but also is faster and smaller. From this analysis, it's infered that the Wide ResNet with \acrshort{Mix} was the best in classification and the Random Interval Spectral Ensemble Classifier was the most compact and faster when compared with the best models, which summarizes the advantages and the disavantages of each phylosophy: the projection-and-\acrshort{CV} approach requires more memory usage and inference time to perform a better classification performance, while the non-\acrshort{CV} approach don't have those disadvantages, but it did't achieved the same score in the predictions.
+
+\input{tex/tabelas/resultados/averages/Averages_of_Best Models}
+
+\IncludeMemoryTable{Best Models}
+
+\input{tex/figuras/resultados/boxplots/Best Models}

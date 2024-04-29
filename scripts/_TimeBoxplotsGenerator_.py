@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from ._Names_ import Names
+from ._Names_ import *
 from ._Generator_ import Generator
 from ._DataframeSplitter_ import DataframeSplitter
 
@@ -43,11 +44,11 @@ class TimeBoxplotsGenerator(Generator):
 		plt.figure(figsize=(10,h))
 		
 		hue_dict = {
-			"GAF": 'firebrick',
-			"MTF": 'green',
-			"RP": '#0c5fef',
-			"Mix": '#8c5fef', 
-			"None": '#aaaaaa',
+			GAF().final_name(): 'firebrick',
+			MTF().final_name(): 'green',
+			RP().final_name(): '#0c5fef',
+			Mix().final_name(): '#8c5fef', 
+			NoProjection().final_name(): 'black',
 		}
 		
 		ax = sns.boxplot(
