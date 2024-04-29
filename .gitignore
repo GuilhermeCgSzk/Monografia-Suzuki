@@ -14,4 +14,6 @@
 *.blg
 *.brf
 */__pycache__/*
-*.csv/
+*.csv
+!data/*.csv
+.*
