@@ -3,3 +3,13 @@
 		\input{tex/tabelas/resultados/memory/#2/memory_table_\index.tex}
 	}
 }
+
+\newcommand{\AveragesTable}[1]{
+	\begin{table}[h!]
+		\adjustbox{width=\averagesTableWidth,center}{
+			\input{tex/tabelas/resultados/averages/models/Averages_of_#1}
+		}
+		\caption{\AveragesTableDescription{#1}}
+		\label{tab:Averages_of_#1}
+	\end{table}
+}

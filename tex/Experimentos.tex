@@ -69,48 +69,11 @@ With the dataset in hands and considering the fact that, for machine learning ta
 
 \subsection{The models}
 
-In order to evaluate the proposed projection-based framework, besides comparing it with other existing approaches, which was done using the Aeon toolkit python library, it's necessary to combine it with various classification models which, in that case, are computational vision based. Such a kind of models were implemented in the pytorch python library, in which a wide variety of neural network design strategies were used, as pure convolutional networks, which use the convolution operation to extract features reducing 2d images into smaller ones; residual networks, which uses bypass links between further layers; transformers, that combines the convolution operation with language processing self attention mecanisms; parameter optmized networks, which focuses on having the best parameters selection; models optimized for mobile applications; and more. A complete list of all models involved in the experiment follows:
+To evaluate the proposed projection-based framework, besides comparing it with other existing approaches, which was done using the Aeon toolkit python library, with models listed in table \ref{tab:non_cv_list}, it's necessary to combine it with various classification models which, in that case, are computational vision based. Such a kind of models were implemented in the pytorch python library, in which a wide variety of neural network design strategies were used, as pure convolutional networks, which use the convolution operation to extract features reducing 2d images into smaller ones; residual networks, which uses bypass links between further layers; transformers, that combines the convolution operation with language processing self attention mecanisms; parameter optmized networks, which focuses on having the best parameters selection; models optimized for mobile applications; and more. The table \ref{tab:cv_list} lists all \acrshort{CV} models involved in the experiment.
 
-\begin{itemize}
-	\item Diverse
-		\begin{itemize}
-		    	\item AlexNet
-		    	\item ConvNeXt
-		    	\item ShuffleNet V2  
-			\item VGG	
-		\end{itemize}
+\input{tex/tabelas/cv_listing}
 
-	\item  Transformers
-		\begin{itemize}
-			\item VisionTransformer
-			\item MaxVit
-			\item SwinTransformer
-		\end{itemize}
-	
-	\item  Residual nets
-		\begin{itemize}
-			\item ResNet
-			\item ResNeXt
-			\item Wide ResNet
-			\item DenseNet
-		\end{itemize}
-		
-	\item Parameter efficiency
-		\begin{itemize}
-		    	\item EfficientNet
-		    	\item EfficientNetV2
-		    	\item RegNet
-    			\item SqueezeNet  
-		\end{itemize}
-	
-	\item Mobile nets
-		\begin{itemize}
-			\item MNASNet
-			\item MobileNet V2
-			\item MobileNet V3
-		\end{itemize}
-	
-\end{itemize}
+\input{tex/tabelas/aeon_listing}
 
 Even though the models were estabilished, it was still missing the choice of their hyperparameters, that is, high level parameters that doesn't change during the training procedure. For the Aeon models, default hyperparameters were set. But, for the computational vision model, while most of them were set to default, hyperparameter search was done for the learning rate hyperparameter, used in the training. That seach was done applying the Optuna python library, which does heuristic search over the values of the model performance on the validation dataset, in terms of accuracy, to try to find the optimal combination of parameters without testing cases exhaustively. With the finallity of reducing the search space, ramifications the search-space tree can be prunned with a variety of methods, of which median prunning was chosen. Therefore, it was possible to search for the best setting of hyperparameters in a reasonable ammount of time.
 
@@ -225,20 +188,6 @@ Finally, this section discusses the remaining computational vision models, the S
 
 \FloatBarrier
 
-\subsection{Choices evaluation}
-
-This section aggregates all choices made in the past sections. In terms of the Cohen Kappa score, it can be observed in the table \ref{tab:Averages_of_Selected Models} that most of the models achieved a similiar score, with exception of the VGG 16 with \acrshort{RP}, which was the worse in performance for such a metric; and the Wide ResNet 101-2, which was the best model not only for this metric but also for the F1-Score metric, while mantaining the lowest standard deviation. However, that last model is the worst in inference speed, according to the figure \ref{fig:Time_of_Selected Models}. If it's considered only the models with less than 20 ms latency in inference, the SqueezeNet 1.1 is the best option, since, even though the score is not any better than the other models, it's the smallest in memory size, as seen in table \ref{tab:Memory_of_Selected Models}, and the second best in inference speed. Therefore, if we only consider the rate of correct predictions, the Wide ResNet 101-2 was the best, while if we consider the trade-off in speed and in memory consumption, the SqueezeNet 1.1 performed better.
-
-Moreover, besides recognizing the best models, it's possible to verify that two of the projection methods applied in this experiment, were dominant: the \acrshort{RP} and the \acrshort{Mix}. Of those methods, the \acrshort{Mix} was the one that allowed the Wide ResNet 101-2 and the SqueezeNet 1.1 to be preferable choices above the others.	
-
-\input{tex/tabelas/resultados/averages/Averages_of_Selected Models}
-
-\input{tex/figuras/resultados/boxplots/Selected Models}
-
-\IncludeMemoryTable{Selected Models}
-
-\FloatBarrier
-
 \subsection{Non-CV models comparison}
 
 In this section the non computationally visual models are exposed and dissected. It's noticeable as well from the table \ref{tab:Memory_of_Non CV} and the figure \ref{fig:Time_of_Non CV} that the Non \acrshort{CV} models, in general, if compared with the \acrshort{CV} models are both very fast in inferece and small in memory occupation, with most of the models achieving less than 10 ms and than 10 MB in those aspects, respectively. Of those models, observing the table \ref{tab:Averages_of_Non CV}, it can be concluded that, by the metric Cohen Kappa score and the F1 score, the best models are the Random Interval Spectral Ensemble Classifier and the Temporal Dictionary Ensemble. Those models are competitive in memory size if compared to the other models, but the Temporal Dicionary Ensemble is slow in inference speed in the context of Non-\acrshort{CV} models, even thoght it is fast if juxtaposed with the \acrshort{CV} models. For this reason, the Random Interval Spectral Ensemble Classifier was selected as the best model of this section.
@@ -252,6 +201,10 @@ In this section the non computationally visual models are exposed and dissected.
 \FloatBarrier
 
 \subsection{Best models comparison}
+
+%This section aggregates all choices made in the past sections. In terms of the Cohen Kappa score, it can be observed in the table \ref{tab:Averages_of_Selected Models} that most of the models achieved a similiar score, with exception of the VGG 16 with \acrshort{RP}, which was the worse in performance for such a metric; and the Wide ResNet 101-2, which was the best model not only for this metric but also for the F1-Score metric, while mantaining the lowest standard deviation. However, that last model is the worst in inference speed, according to the figure \ref{fig:Time_of_Selected Models}. If it's considered only the models with less than 20 ms latency in inference, the SqueezeNet 1.1 is the best option, since, even though the score is not any better than the other models, it's the smallest in memory size, as seen in table \ref{tab:Memory_of_Selected Models}, and the second best in inference speed. Therefore, if we only consider the rate of correct predictions, the Wide ResNet 101-2 was the best, while if we consider the trade-off in speed and in memory consumption, the SqueezeNet 1.1 performed better.
+
+%Moreover, besides recognizing the best models, it's possible to verify that two of the projection methods applied in this experiment, were dominant: the \acrshort{RP} and the \acrshort{Mix}. Of those methods, the \acrshort{Mix} was the one that allowed the Wide ResNet 101-2 and the SqueezeNet 1.1 to be preferable choices above the others.	
 
 Finally, it's compared in this section the best models that were selected from the past sections. Primally, it can be seen in the table \ref{tab:Averages_of_Best Models} that the Wide ResNet with \acrshort{Mix} was the best in all metrics except Precision, both in mean and in standard deviation. However, as confirmed in the table \ref{tab:Memory_of_Best Models}, that same model is, by far, the biggest, being more than $200\times$ bigger than every other model of this section. Also, that model is the slowest according to the figure \ref{fig:Time_of_Best Models}. When considering the other models, the Non \acrshort{CV} model, Random Interval Spectral Ensemble Classifier, not only performed better than the SqueezeNet in the classification metrics, but also is faster and smaller. From this analysis, it's infered that the Wide ResNet with \acrshort{Mix} was the best in classification and the Random Interval Spectral Ensemble Classifier was the most compact and faster when compared with the best models, which summarizes the advantages and the disavantages of each phylosophy: the projection-and-\acrshort{CV} approach requires more memory usage and inference time to perform a better classification performance, while the non-\acrshort{CV} approach don't have those disadvantages, but it did't achieved the same score in the predictions.
 

@@ -14,14 +14,14 @@ class TimeBoxplotsGenerator(Generator):
 		
 		self.df = self.df.sort_values(by='model')
 		
-	def generate(self, path):	
+	def generate(self, path, **kwargs):	
 		for model in Names.get_model_list():
-			self.generate_for_name_obj(model, path)
+			self.generate_for_name_obj(model, path, **kwargs)
 
-	def generate_per_pair_group(self, path, pair_group):
-		self.generate_for_name_obj(pair_group.get_group(), path, filter_obj=pair_group)
+	def generate_per_pair_group(self, path, pair_group, **kwargs):
+		self.generate_for_name_obj(pair_group.get_group(), path, filter_obj=pair_group, **kwargs)
 		
-	def generate_for_name_obj(self, name_obj, path, filter_obj=None):	
+	def generate_for_name_obj(self, name_obj, path, *, filter_obj=None, lim=None):	
 		plt.rcParams["font.family"] = "monospace"
 		plt.rcParams["font.monospace"] = ["FreeMono"]
 		fontsize=24
@@ -66,7 +66,9 @@ class TimeBoxplotsGenerator(Generator):
 		#yticks = [0,10,20,30,40,50]
 	    	
 		#plt.yticks(yticks,[str(i) for i in yticks],fontsize=20)
-		#ax.set_xlim(0,100)
+		
+		if lim is not None:
+			ax.set_xlim(-1,lim)
 	    	
 	    	
 		plt.legend(fontsize=fontsize/1.5, ncols=1, loc='upper right')

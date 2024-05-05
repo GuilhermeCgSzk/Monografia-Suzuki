@@ -286,6 +286,7 @@ class Model_Names:
 			ShuffleNetV2(),
 			SqueezeNet(),
 			SwinTransformer(),
+			SwinTransformerV2(),
 			VGG(),
 			VisionTransformer(),
 			WideResNet()
@@ -297,6 +298,7 @@ class Model_Names:
 				'Transformers', [
 					VisionTransformer(),
 					SwinTransformer(),
+					SwinTransformerV2(),
 					MaxVit(),
 				]
 			),
