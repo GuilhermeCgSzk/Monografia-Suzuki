@@ -51,21 +51,23 @@
 
 \section{Experimental Setup}
 
-In this section, the experimental setup will be discussed, analyzing elements used in the experiment, such as datasets, programming libraries and predictive models, and clarifying metrics to be evaluated and approaches to measure them.  
+This section discusses the experimental setup, analyzing elements used in the experiment, such as datasets, programming libraries and predictive models. Additionally, it clarifies metrics to be evaluated and approaches to measure them.  
 
 \subsection{The dataset}
 
-As for every machine learning task, a dataset is needed to provide data to feed the predictive models for their parameters fitting, molding them to the domain of the specific task. In this work, the task of assessing the quality of the signal is cleary a supervised classification problem, that is, can be described as the problem of finding a function that best defines a set of pairs of variables and label, $(X,y)$, which, in this scope, corresponds to the signal itself mapped to its quality label, ``Good'' or ``Bad''. For the purpose of training the predictive methods and evaluating their ability to fit to the problem of classifying the quality of heartbeat time series, it was employed the \acrshort{BUTPPG}~\cite{butppg} dataset.
+As for every machine learning task, we need a dataset to provide data to feed the predictive models for their parameters fitting, molding them to the domain of the specific task. In this work, the task of assessing the quality of the signal is cleary a supervised classification problem, that is, can be described as the problem of finding a function that best defines a predefined set of pairs of variables and label, $(X,y)$. In this scope, the pair corresponds to the signal itself mapped to its quality label, ``Good'' or ``Bad''. For the purpose of training the predictive methods and evaluating their ability to fit to the problem of classifying the quality of heartbeat time series, I employed the \acrshort{BUTPPG}~\cite{butppg} dataset.
 
-The \acrfull{BUTPPG}, in essence, is a publicly available database produced by the Department of Biomedical Engineering of the the Brno University of Technology containing samples of \acrshort{PPG} signals, its quality labels and its heat rate estimations. Those signals were extracted using a low-cost method: recording the subject finger with the camera of a smartphone. To be more precise, it was placed the index finger in a way that the camera and its led were covered; it was recorded; it measured, for each video frame, the average of the red channel of every image pixel, resulting in a time series of averages; and, finally, the signal was inverted.  
+\input{tex/figuras/samples}
 
-This method of obtaining \acrshort{PPG} signals was done 48 times, ammount distributed equally between 12 subjects, that is, for each subject, 4 measurements were done. Moreover, those recordings were done in two possible situations: one which the subject was sat down and static, case which the quality label ``Good'' is probable; and other which the subject was walking, hence, likely to be a ``Bad'' recording. That distinction is relevant, since the walking situation occurred only 1 time for each subject, biasing the labels proportion to be nearly 25\% of ``Bad'' ones. Therefore, this dataset is imbalanced, factor that need to be handled in the monography experiment.
+The \acrfull{BUTPPG} is a publicly available database produced by the Department of Biomedical Engineering of the the Brno University of Technology. It contains samples of \acrshort{PPG} signals, its quality labels and its heat rate estimations. Those signals were extracted using a low-cost method: recording with the camera of a smartphone. To be more precise, they recorded the subject's index finger, covering the lens of the camera and its LED light. Then, they measured, for each video frame, the average of the intensities of the red channel of every image pixel, resulting in a time series of averages. Finally, they inverted the signal. The Figure \ref{fig:butppg_samples} shows examples of the results of such a sequence of procedures.  
 
-As for the definition of the signal quality labels, specialists were designated to estimate the heart rate associated with the \acrshort{PPG} signals, with the help of a software specialized for the analysis. Then, the number they gave were compared with the one given by a gold standard method that, instead of using the \acrshort{PPG} signal, used an ECG recording, which was syncronized mannually. If their measurement error was less or equal than 5 bpm, then their estimation were considered correct. Finally, if 3 specialists of 5 gave correct estimations, the quality of the \acrshort{PPG} signal was considered correct. Thus, the quality labels assigned to the signals were obtained by a low-biased method. 
+They done this method of obtaining \acrshort{PPG} signals  48 times, ammount distributed equally between 12 subjects. That is, for each subject, they did 4 measurements. Moreover, they did those recordings in two possible situations: one which the subject sat down and stayed static, case which the quality label ``Good'' was probable; and other in which the subject walked, hence, case likely to be a ``Bad'' recording. That distinction is relevant, since the walking situation occurred only 1 time for each subject, biasing the labels proportion to be nearly 25\% of ``Bad'' ones. Therefore, this dataset is imbalanced, factor that we need to handle in our experiment.
+
+As for the definition of the signal quality labels, they designated specialists to estimate the heart rate associated with the \acrshort{PPG} signals, with the help of a software specialized for the analysis. Then, the organizers compared the number they gave with the one given by a gold standard method that, instead of using the \acrshort{PPG} signal, used an ECG recording. The measurer syncronized the ECG mannually. If the specialist measured with an error less or equal than 5 bpm, then the organizers considered the estimative correct. Finally, if 3 specialists of 5 gave correct estimations, the organizers considered the quality of the \acrshort{PPG} signal as correct. Thus, the dataset ``Good'' labels, in essence, identify if a signal is human-readable. 
 
 \subsection{The dataset split}
 
-With the dataset in hands and considering the fact that, for machine learning tasks, the dataset need to be separated into a training dataset, used for the models parameters adjustment, a test dataset, used for evaluating the models efficiency, and, optionally, a validation dataset, used to choose the set of best hyperparameters of a trained models. In this experiment case, to define the training-test splits, it was used a cross validation method named \acrfull{LOSO}, in which the dataset is particioned into k pieces and k train-test splits are produced, where the i-th train-test split is made assigning the i-th piece as the test dataset, lefting the other k-1 pieces to be used as the training dataset. In the \acrshort{BUTPPG} case, the k value is 12. In conclusion, a more robust testing method was used in this experiment. Such robustness comes from the fact that it uses every sample in the dataset as a test object at least once, without biasing the results, what would not occurr if a simple split was made, where the train-test separation is unique. Finally the training datset was divided producing a validation dataset of size 3.
+Machine learning tasks also requires the separation the dataset into fragments. One of them is the training dataset, used for the models parameters adjustment. Another is the test dataset, used for evaluating the models efficiency. An optional one is the validation dataset, used to choose the set of best hyperparameters of a trained models. In this experiment case, to define the training-test splits, I used a cross validation method named \acrfull{LOSO}, which partitions the dataset into k pieces and k train-test splits. It makes the i-th train-test split assigning the i-th piece as the test dataset, lefting the other k-1 pieces as the training dataset. In the \acrshort{BUTPPG} case, the k value is 12, the number of subjects. Notice that the smaller unity of division is the subject, not the signals that are associated with it. I did it to increase the difference between training samples and testing samples. Since the dataset is small, such a split method allows the maximum provect of the avaliable resources, because it uses every sample in the dataset as a test object at least once, without biasing the results. Additionally, the training datset was divided producing a validation dataset of size 3, with usage that will be explained later.
 
 \subsection{The models}
 
@@ -85,9 +87,35 @@ Given the before-mentioned models, the dataset and its divisions, it is needed t
 
 Finally, it's necessary to chose the metrics, used to evaluate objectivelly the solution efficacy. The metrics to be used, in this work, can be separated into two groups: prediction metrics, which measures the quality of the models signal quality assessments; and benchmarking metrics, which measures resources usage and viability. The prediction metrics used were the accuracy, which measure the proportion of correct predictions over all that were made; the precision and the recall, which, similarly to the accuracy, measures the right answers, but for the subsets of all ``Good'' predictions and of all ``Good'' samples, respectively; the f1-score, which combine the precision and the recall into one metric by calculating the harmonice mean between them; and, lastly, the Cohen Kappa score, which measures the simillarity between the observed agreement proportion and the expected agreement probability. Those metrics are summarized in ?. Regarding the benchmarking metrics, it was measured the memory usage in bytes of the model and the inference time (added to the 1d-to-2d projection time for the projection-based models) in seconds.
 
+\begin{equation} \label{eq:Precision}
+Precision = \frac{TP}{TP+FP}
+\end{equation}
+
+
+\begin{equation} \label{eq:Recall}
+Recall = \frac{TP}{TP+FN}
+\end{equation}
+
+\begin{equation} \label{eq:F1-Score}
+\Mathenize{F1-Score}  = \Mathenize{Harmonic-Mean}(Precision,Recall) 
+\end{equation}
+
+
+\begin{equation} 
+p_o = \frac{TP+TN}{TP+TN+FP+FN}
+\end{equation}
+
+\begin{equation}
+p_e  = \mathbb{P}(f(X)=p) \cdot \mathbb{P}(y=p) + \mathbb{P}(f(X)=n) \cdot \mathbb{P}(y=n)
+\end{equation}
+
+\begin{equation} \label{eq:Cohen Kappa}
+Cohen Kappa  = \frac{p_o - p_e}{1 - p_e} 
+\end{equation}
+
 \subsection{The overall schema}
 
-Reviewing what was presented, the experiment will begin by splitting the \acrshort{BUTPPG} dataset using simple division for the purpose of, subsequentially, selecting the best hyperparameters of the \acrshort{CV} models. With the best hyperparameters chosen, all models, including the non \acrshort{CV} models, were evaluated using the \acrshort{LOSO} strattegy, producing the metrics for each fold.
+Reviewing what was presented, the experiment will begin by splitting the \acrshort{BUTPPG} dataset using simple division for the purpose of, subsequentially, selecting the best hyperparameters of the \acrshort{CV} models. With the best hyperparameters chosen, all models, including the non \acrshort{CV} models, will be evaluated using the \acrshort{LOSO} strategy, producing the metrics for each fold.
 
 
 \section{Experimental results}

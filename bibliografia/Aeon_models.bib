@@ -336,6 +336,217 @@ series = {CIKM '17}
 }
 
 
+@article{ShapeDTW,
+title = {shapeDTW: Shape Dynamic Time Warping},
+journal = {Pattern Recognition},
+volume = {74},
+pages = {171-184},
+year = {2018},
+issn = {0031-3203},
+doi = {https://doi.org/10.1016/j.patcog.2017.09.020},
+url = {https://www.sciencedirect.com/science/article/pii/S0031320317303710},
+author = {Jiaping Zhao and Laurent Itti},
+keywords = {Dynamic Time Warping, Sequence alignment, Time series classification},
+abstract = {Dynamic Time Warping (DTW) is an algorithm to align temporal sequences with possible local non-linear distortions, and has been widely applied to audio, video and graphics data alignments. DTW is essentially a point-to-point matching method under some boundary and temporal consistency constraints. Although DTW obtains a global optimal solution, it does not necessarily achieve locally sensible matchings. Concretely, two temporal points with entirely dissimilar local structures may be matched by DTW. To address this problem, we propose an improved alignment algorithm, named shape Dynamic Time Warping (shapeDTW), which enhances DTW by taking point-wise local structural information into consideration. shapeDTW is inherently a DTW algorithm, but additionally attempts to pair locally similar structures and to avoid matching points with distinct neighborhood structures. We apply shapeDTW to align audio signal pairs having ground-truth alignments, as well as artificially simulated pairs of aligned sequences, and obtain quantitatively much lower alignment errors than DTW and its two variants. When shapeDTW is used as a distance measure in a nearest neighbor classifier (NN-shapeDTW) to classify time series, it beats DTW on 64 out of 84 UCR time series datasets, with significantly improved classification accuracies. By using a properly designed local structure descriptor, shapeDTW improves accuracies by more than 10% on 18 datasets. To the best of our knowledge, shapeDTW is the first distance measure under the nearest neighbor classifier scheme to significantly outperform DTW, which had been widely recognized as the best distance measure to date. Our code is publicly accessible at: https://github.com/jiapingz/shapeDTW.}
+}
+
+@article{TSFreshClassifier,
+title = {Time Series FeatuRe Extraction on basis of Scalable Hypothesis tests (tsfresh – A Python package)},
+journal = {Neurocomputing},
+volume = {307},
+pages = {72-77},
+year = {2018},
+issn = {0925-2312},
+doi = {https://doi.org/10.1016/j.neucom.2018.03.067},
+url = {https://www.sciencedirect.com/science/article/pii/S0925231218304843},
+author = {Maximilian Christ and Nils Braun and Julius Neuffer and Andreas W. Kempa-Liehr},
+keywords = {Feature engineering, Time series, Feature extraction, Feature selection, Machine learning},
+abstract = {Time series feature engineering is a time-consuming process because scientists and engineers have to consider the multifarious algorithms of signal processing and time series analysis for identifying and extracting meaningful features from time series. The Python package tsfresh (Time Series FeatuRe Extraction on basis of Scalable Hypothesis tests) accelerates this process by combining 63 time series characterization methods, which by default compute a total of 794 time series features, with feature selection on basis automatically configured hypothesis tests. By identifying statistically significant time series characteristics in an early stage of the data science process, tsfresh closes feedback loops with domain experts and fosters the development of domain specific features early on. The package implements standard APIs of time series and machine learning libraries (e.g. pandas and scikit-learn) and is designed for both exploratory analyses as well as straightforward integration into operational data science applications.}
+}
+
+@inproceedings{HIVECOTEV1,
+author = {Bagnall, Anthony and Flynn, Michael and Large, James and Lines, Jason and Middlehurst, Matthew},
+title = {On the Usage and Performance of the Hierarchical Vote Collective of Transformation-Based Ensembles Version 1.0 (HIVE-COTE v1.0)},
+year = {2020},
+isbn = {978-3-030-65741-3},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+url = {https://doi.org/10.1007/978-3-030-65742-0_1},
+doi = {10.1007/978-3-030-65742-0_1},
+abstract = {The Hierarchical Vote Collective of Transformation-based Ensembles (HIVE-COTE) is a heterogeneous meta ensemble for time series classification. Since it was first proposed in 2016, the algorithm has undergone some minor changes and there is now a configurable, scalable and easy to use version available in two open source repositories. We present an overview of the latest stable HIVE-COTE, version 1.0, and describe how it differs to the original. We provide a walkthrough guide of how to use the classifier, and conduct extensive experimental evaluation of its predictive performance and resource usage. We compare the performance of HIVE-COTE to three recently proposed algorithms.},
+booktitle = {Advanced Analytics and Learning on Temporal Data: 5th ECML PKDD Workshop, AALTD 2020, Ghent, Belgium, September 18, 2020, Revised Selected Papers},
+pages = {3–18},
+numpages = {16},
+keywords = {HIVE-COTE, Heterogeneous ensembles, Classification, Time series},
+location = {Ghent, Belgium}
+}
+
+@article{RandomIntervalSpectralEnsembleClassifier,
+author = {Lines, Jason and Taylor, Sarah and Bagnall, Anthony},
+title = {Time Series Classification with HIVE-COTE: The Hierarchical Vote Collective of Transformation-Based Ensembles},
+year = {2018},
+issue_date = {October 2018},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {12},
+number = {5},
+issn = {1556-4681},
+url = {https://doi.org/10.1145/3182382},
+doi = {10.1145/3182382},
+abstract = {A recent experimental evaluation assessed 19 time series classification (TSC) algorithms and found that one was significantly more accurate than all others: the Flat Collective of Transformation-based Ensembles (Flat-COTE). Flat-COTE is an ensemble that combines 35 classifiers over four data representations. However, while comprehensive, the evaluation did not consider deep learning approaches. Convolutional neural networks (CNN) have seen a surge in popularity and are now state of the art in many fields and raises the question of whether CNNs could be equally transformative for TSC.We implement a benchmark CNN for TSC using a common structure and use results from a TSC-specific CNN from the literature. We compare both to Flat-COTE and find that the collective is significantly more accurate than both CNNs. These results are impressive, but Flat-COTE is not without deficiencies. We significantly improve the collective by proposing a new hierarchical structure with probabilistic voting, defining and including two novel ensemble classifiers built in existing feature spaces, and adding further modules to represent two additional transformation domains. The resulting classifier, the Hierarchical Vote Collective of Transformation-based Ensembles (HIVE-COTE), encapsulates classifiers built on five data representations. We demonstrate that HIVE-COTE is significantly more accurate than Flat-COTE (and all other TSC algorithms that we are aware of) over 100 resamples of 85 TSC problems and is the new state of the art for TSC. Further analysis is included through the introduction and evaluation of 3 new case studies and extensive experimentation on 1,000 simulated datasets of 5 different types.},
+journal = {ACM Trans. Knowl. Discov. Data},
+month = {jul},
+articleno = {52},
+numpages = {35},
+keywords = {meta ensembles, heterogeneous ensembles, deep learning, Time series classification}
+}
+
+@INPROCEEDINGS{SupervisedTimeSeriesForest,
+  author={Cabello, Nestor and Naghizade, Elham and Qi, Jianzhong and Kulik, Lars},
+  booktitle={2020 IEEE International Conference on Data Mining (ICDM)}, 
+  title={Fast and Accurate Time Series Classification Through Supervised Interval Search}, 
+  year={2020},
+  volume={},
+  number={},
+  pages={948-953},
+  keywords={Training;Computational modeling;Time series analysis;Vegetation;Forestry;Search problems;Time measurement;Time series classification;Interval-based classifier;Feature selection},
+  doi={10.1109/ICDM50108.2020.00107}}
+
+@article{TimeSeriesForestClassifier,
+title = {A time series forest for classification and feature extraction},
+journal = {Information Sciences},
+volume = {239},
+pages = {142-153},
+year = {2013},
+issn = {0020-0255},
+doi = {https://doi.org/10.1016/j.ins.2013.02.030},
+url = {https://www.sciencedirect.com/science/article/pii/S0020025513001473},
+author = {Houtao Deng and George Runger and Eugene Tuv and Martyanov Vladimir},
+keywords = {Decision tree, Ensemble, Entrance gain, Interpretability, Large margin, Time series classification},
+abstract = {A tree-ensemble method, referred to as time series forest (TSF), is proposed for time series classification. TSF employs a combination of entropy gain and a distance measure, referred to as the Entrance (entropy and distance) gain, for evaluating the splits. Experimental studies show that the Entrance gain improves the accuracy of TSF. TSF randomly samples features at each tree node and has computational complexity linear in the length of time series, and can be built using parallel computing techniques. The temporal importance curve is proposed to capture the temporal characteristics useful for classification. Experimental studies show that TSF using simple features such as mean, standard deviation and slope is computationally efficient and outperforms strong competitors such as one-nearest-neighbor classifiers with dynamic time warping.}
+}
+
+
+
+@article{ShapeletTransformClassifier-1,
+  author       = {Jon Hills and
+                  Jason Lines and
+                  Edgaras Baranauskas and
+                  James Mapp and
+                  Anthony J. Bagnall},
+  title        = {Classification of time series by shapelet transformation},
+  journal      = {Data Min. Knowl. Discov.},
+  volume       = {28},
+  number       = {4},
+  pages        = {851--881},
+  year         = {2014},
+  url          = {https://doi.org/10.1007/s10618-013-0322-1},
+  doi          = {10.1007/S10618-013-0322-1},
+  timestamp    = {Wed, 14 Nov 2018 10:41:43 +0100},
+  biburl       = {https://dblp.org/rec/journals/datamine/HillsLBMB14.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+
+@article{ShapeletTransformClassifier-2,
+  author       = {Aaron Bostrom and
+                  Anthony J. Bagnall},
+  title        = {Binary Shapelet Transform for Multiclass Time Series Classification},
+  journal      = {Trans. Large Scale Data Knowl. Centered Syst.},
+  volume       = {32},
+  pages        = {24--46},
+  year         = {2017},
+  url          = {https://doi.org/10.1007/978-3-662-55608-5\_2},
+  doi          = {10.1007/978-3-662-55608-5\_2},
+  timestamp    = {Mon, 02 Mar 2020 16:30:08 +0100},
+  biburl       = {https://dblp.org/rec/journals/tlsdkcs/BostromB17.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+
+@inproceedings{RDSTClassifier-1,
+  author       = {Antoine Guillaume and
+                  Christel Vrain and
+                  Wael Elloumi},
+  editor       = {Mounim A. El{-}Yacoubi and
+                  Eric Granger and
+                  Pong Chi Yuen and
+                  Umapada Pal and
+                  Nicole Vincent},
+  title        = {Random Dilated Shapelet Transform: {A} New Approach for Time Series
+                  Shapelets},
+  booktitle    = {Pattern Recognition and Artificial Intelligence - Third International
+                  Conference, {ICPRAI} 2022, Paris, France, June 1-3, 2022, Proceedings,
+                  Part {I}},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {13363},
+  pages        = {653--664},
+  publisher    = {Springer},
+  year         = {2022},
+  url          = {https://doi.org/10.1007/978-3-031-09037-0\_53},
+  doi          = {10.1007/978-3-031-09037-0\_53},
+  timestamp    = {Mon, 13 Jun 2022 20:56:40 +0200},
+  biburl       = {https://dblp.org/rec/conf/icprai/GuillaumeVE22.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+
+@phdthesis{RDSTClassifier-2,
+  author       = {Antoine Guillaume and
+                  Christel Vrain and
+                  Wael Elloumi},
+  title        = {Time series classification with Shapelets: Application to predictive
+                  maintenance on event logs. (Classification de s{\'{e}}ries temporelles
+                  avec les Shapelets : application {\`{a}} la maintenance pr{\'{e}}dictive
+                  via journaux d'{\'{e}}v{\'{e}}nements)},
+  school       = {University of Orl{\'{e}}ans, France},
+  year         = {2023},
+  url          = {https://tel.archives-ouvertes.fr/tel-04368849},
+  timestamp    = {Wed, 24 Jan 2024 08:30:10 +0100},
+  biburl       = {https://dblp.org/rec/phd/hal/GuillaumeCW23.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{OrdinalTDE,
+author = {Ayll\'{o}n-Gavil\'{a}n, Rafael and Guijo-Rubio, David and Guti\'{e}rrez, Pedro Antonio and Herv\'{a}s-Mart\'{\i}nez, C\'{e}sar},
+title = {A Dictionary-Based Approach to Time Series Ordinal Classification},
+year = {2023},
+isbn = {978-3-031-43077-0},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+url = {https://doi.org/10.1007/978-3-031-43078-7_44},
+doi = {10.1007/978-3-031-43078-7_44},
+abstract = {Time Series Classification (TSC) is an extensively researched field from which a broad range of real-world problems can be addressed obtaining excellent results. One sort of the approaches performing well are the so-called dictionary-based techniques. The Temporal Dictionary Ensemble (TDE) is the current state-of-the-art dictionary-based TSC approach. In many TSC problems we find a natural ordering in the labels associated with the time series. This characteristic is referred to as ordinality, and can be exploited to improve the methods performance. The area dealing with ordinal time series is the Time Series Ordinal Classification (TSOC) field, which is yet unexplored. In this work, we present an ordinal adaptation of the TDE algorithm, known as ordinal TDE (O-TDE). For this, a comprehensive comparison using a set of 18 TSOC problems is performed. Experiments conducted show the improvement achieved by the ordinal dictionary-based approach in comparison to four other existing nominal dictionary-based techniques.},
+booktitle = {Advances in Computational Intelligence: 17th International Work-Conference on Artificial Neural Networks, IWANN 2023, Ponta Delgada, Portugal, June 19–21, 2023, Proceedings, Part II},
+pages = {541–552},
+numpages = {12},
+keywords = {ordinal classification, dictionary-based approaches, time series},
+location = {Ponta Delgada, Portugal}
+}
+
+
+
+@article{RotationForestClassifier,
+  author       = {Juan Jos{\'{e}} Rodr{\'{\i}}guez and
+                  Ludmila I. Kuncheva and
+                  Carlos J. Alonso},
+  title        = {Rotation Forest: {A} New Classifier Ensemble Method},
+  journal      = {{IEEE} Trans. Pattern Anal. Mach. Intell.},
+  volume       = {28},
+  number       = {10},
+  pages        = {1619--1630},
+  year         = {2006},
+  url          = {https://doi.org/10.1109/TPAMI.2006.211},
+  doi          = {10.1109/TPAMI.2006.211},
+  timestamp    = {Wed, 14 Nov 2018 10:51:14 +0100},
+  biburl       = {https://dblp.org/rec/journals/pami/RodriguezKA06.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+
 
 
 
