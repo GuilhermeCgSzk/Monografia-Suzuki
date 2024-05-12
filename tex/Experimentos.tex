@@ -71,21 +71,47 @@ Machine learning tasks also requires the separation the dataset into fragments. 
 
 \subsection{The models}
 
-To evaluate the proposed projection-based framework, besides comparing it with other existing approaches, which was done using the Aeon toolkit python library, with models listed in table \ref{tab:non_cv_list}, it's necessary to combine it with various classification models which, in that case, are computational vision based. Such a kind of models were implemented in the pytorch python library, in which a wide variety of neural network design strategies were used, as pure convolutional networks, which use the convolution operation to extract features reducing 2d images into smaller ones; residual networks, which uses bypass links between further layers; transformers, that combines the convolution operation with language processing self attention mecanisms; parameter optmized networks, which focuses on having the best parameters selection; models optimized for mobile applications; and more. The table \ref{tab:cv_list} lists all \acrshort{CV} models involved in the experiment.
+To evaluate the proposed projection-based framework and find particular overperforming cases, it is necessary to involve a big ammount of machine learning models. Firstly, I compared the projection-based framework with other existing approaches, by utilizing the Aeon-toolkit\footnote{Documentation avaliable at \url{https://www.aeon-toolkit.org/en/stable/}} python library, with models listed in table \ref{tab:non_cv_list}. Furthermore, I combined the proposed method with a wide variet of classification \acrshort{CV} models. For that, I used the Pytorch\footnote{Documentation avaliable at \url{https://pytorch.org/docs/stable/index.html}} python library, which aggregates a wide variety of neural network design strategies. Those strategies varies from simply convolutional networks to vision transformers. The table \ref{tab:cv_list} lists all \acrshort{CV} models involved in the experiment. With that, I submited the method to an abrangent set of scenarios.
 
 \input{tex/tabelas/cv_listing}
 
 \input{tex/tabelas/aeon_listing}
 
-Even though the models were estabilished, it was still missing the choice of their hyperparameters, that is, high level parameters that doesn't change during the training procedure. For the Aeon models, default hyperparameters were set. But, for the computational vision model, while most of them were set to default, hyperparameter search was done for the learning rate hyperparameter, used in the training. That seach was done applying the Optuna python library, which does heuristic search over the values of the model performance on the validation dataset, in terms of accuracy, to try to find the optimal combination of parameters without testing cases exhaustively. With the finallity of reducing the search space, ramifications the search-space tree can be prunned with a variety of methods, of which median prunning was chosen. Therefore, it was possible to search for the best setting of hyperparameters in a reasonable ammount of time.
+However, even though I defined the models, my setting lacks the choice of their hyperparameters. Those kind of parameters are high level parameters that does not change during the training procedure. For the Aeon models, I chosed the default hyperparameters provided by the library. But, for the computational vision model, while I set most of them to default, I did hyperparameter search for the learning rate hyperparameter, used by the optimizing algorithm. I did that seach by applying the Optuna\footnote{Documentation avaliable at \url{https://optuna.readthedocs.io/en/stable/}} python library, which does heuristic search over the set of all parameters requested dynamically in the user code. That libray prunes ramifications of the search-space tree with a variety of methods, of which I choosed the median prunning. This functionallity allowed me to find a near-optimal combination of parameters without testing cases exhaustively, using as heuristic the score of the model in the validation dataset.
 
 \subsection{The training strategy}
 
-Given the before-mentioned models, the dataset and its divisions, it is needed to estabilish a training method for the models parameters adjustment. Since the Aeon implementation already contained a default training procedure, it was only necessary to estabilish the fitting framework for the pytorch computational vision models and the data feeding method. The data feeding was implement using the Data Loader pytorch solution, configuring it to load in batches of size 32. However, before constructing those batches, it was applied a random over sampling, since, as already mentioned, the dataset was unbalanced. As for the pytorch models fitting, the Adam optimizer was used to minimize the Cross Entropy loss function, with and ammount of epochs limited by an early stop technique. In such an early stopping, it is evaluated the median of the absolute deviation values of the last 10 epochs centered in their median. If the obtained number absolute value was less or equal than $0.1$, the training stops. With that estabilished, it is only left to determine the metrics to be measured.     
+Given the before-mentioned models, the dataset and its divisions, I need to estabilish the training method for the models parameters adjustment. Since the Aeon implementation already contained a default training procedure, I only estabilished the fitting framework for the pytorch computational vision models and the data feeding method. The Pytorch library implements a multithreading data feeding solution named Data Loader. I configured it to load in batches of size 32. However, before constructing those batches, I applied random over sampling, since, as already mentioned, the dataset was unbalanced. As for the pytorch models fitting, I used the Adam optimizing algorithm \cite{Adam} to minimize the Cross Entropy loss function. My implementation of the training startegy did this optimization cycle with an ammount of epochs depending on an median-based early stop technique. The formula bellow gives the score of the n-th epoch:
+
+\begin{equation}
+\Mathenize{Early-Stop-Score}(n) = M_{i=0}^{9}(|l_{n-i} - M_{i=0}^{9}(l_{n-i})|)
+\end{equation}
+
+\noindent Where $l_k$ is the loss value (the Cross Entropy Loss) of the k-th epoch and $M_{i=0}^k(f(i))$ is the median of the values of $f(i)$ that result from the variation of $i$ from $0$ to $k$. In other words, the formula calculates the median absolute deviation of the last 10 losses values using the median as the central value. If $\Mathenize{Early-Stop-Score(n)} \leq 0.1$, the training stops in the n-th epoch. With that estabilished, I am only left to determine the metrics to be measured.     
 
 \subsection{The measurements}
 
-Finally, it's necessary to chose the metrics, used to evaluate objectivelly the solution efficacy. The metrics to be used, in this work, can be separated into two groups: prediction metrics, which measures the quality of the models signal quality assessments; and benchmarking metrics, which measures resources usage and viability. The prediction metrics used were the accuracy, which measure the proportion of correct predictions over all that were made; the precision and the recall, which, similarly to the accuracy, measures the right answers, but for the subsets of all ``Good'' predictions and of all ``Good'' samples, respectively; the f1-score, which combine the precision and the recall into one metric by calculating the harmonice mean between them; and, lastly, the Cohen Kappa score, which measures the simillarity between the observed agreement proportion and the expected agreement probability. Those metrics are summarized in ?. Regarding the benchmarking metrics, it was measured the memory usage in bytes of the model and the inference time (added to the 1d-to-2d projection time for the projection-based models) in seconds.
+Finally, I chose the metrics, used to evaluate objectivelly efficacy of the sollution. I separated the metrics that I used into two groups: prediction metrics, which measures the quality of the models signal quality assessments; and benchmarking metrics, which measures the resources usage and the model speed. As the prediction metrics, I used the Cohen kappa score, the f1-score, and the precision. The Cohen kappa score, in binary classification tasks, measures the relation between the obtained accuracy $acc_o$ and the expected accuracy $acc_e$. The following equations define those accuracies and the Cohen Kappa score, in terms of confusion matrix cell values:
+
+\begin{equation} 
+acc_o(R) = \frac{TP+TN}{N}
+\end{equation}
+
+\begin{equation}
+acc_e(R)  = \left(\frac{TP+FP}{N} \cdot \frac{TP+FN}{N}\right) + \left(\frac{TN+FP}{N} \cdot \frac{TN+FN}{N}\right)
+\end{equation}
+
+\begin{equation} \label{eq:Cohen Kappa}
+\Mathenize{Cohen-Kappa(R)}  = \frac{acc_o(R) - acc_e(R)}{1 - acc_e(R)} 
+\end{equation}  
+
+\noindent Where N is the total number of samples and R is the set of pairs $\{(f(X),y') | \forall (X,y') \in Dataset\}$, where $f$ is the predictor. For the purpose of aligning this metric with others, I reescaled that metric from $[-1,1]$ to $[0,1]$:
+
+\begin{equation}
+\Mathenize{Cohen-Kappa-Rescaled(R)} = \frac{\Mathenize{Cohen-Kappa(R)}+1}{2} 
+\end{equation}  
+
+In sequence, the Precision is a metric that measures the ratio of hits in the set of positive predictions. In our context, a higher Precision imply that the predictor aproved a low ammount of ``Bad'' signals, which is desireable in applications where we do not want to show to the user wrong results. From the Precision and from the Recall, the ratio of hits in the set of all existing positives, we can obtain the F1-Score. Precisely, the F1-Score is the harmonic mean between those two metrics. In other words, a high F1-Score indicates a good balance between Precision and Recall scores. In our application, it measures the same as the Precision plus the Recall, which would measure the ammount of ``Good'' signals that would feed the application. This is an desireable quality when we want to provide constant feedback to the user. Therefore, the Cohen Kappa provides an overall sense of accuracy, the F1-Score suggest the usability level of the model and the Precision indicates the security of the predictor. The following equations define those metrics:
 
 \begin{equation} \label{eq:Precision}
 Precision = \frac{TP}{TP+FP}
@@ -97,25 +123,16 @@ Recall = \frac{TP}{TP+FN}
 \end{equation}
 
 \begin{equation} \label{eq:F1-Score}
-\Mathenize{F1-Score}  = \Mathenize{Harmonic-Mean}(Precision,Recall) 
+\Mathenize{F1-Score}  = \Mathenize{Harmonic-Mean}(Precision,Recall) = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
 \end{equation}
 
-
-\begin{equation} 
-p_o = \frac{TP+TN}{TP+TN+FP+FN}
-\end{equation}
-
-\begin{equation}
-p_e  = \mathbb{P}(f(X)=p) \cdot \mathbb{P}(y=p) + \mathbb{P}(f(X)=n) \cdot \mathbb{P}(y=n)
-\end{equation}
-
-\begin{equation} \label{eq:Cohen Kappa}
-Cohen Kappa  = \frac{p_o - p_e}{1 - p_e} 
-\end{equation}
+Regarding the benchmarking metrics, I measured the memory usage of the model in bytes and the inference time (added to the 1d-to-2d projection time for the projection-based models) in seconds. The memory measurement is important since practical applications of heart rate estimations often imposes hardware constraints that limits the allowed memory occupation. Additionally, the inference time, even though less important than the antecedent metric, is desireable for an almost-instant evaluation of the result, making the application more responsive.
 
 \subsection{The overall schema}
 
-Reviewing what was presented, the experiment will begin by splitting the \acrshort{BUTPPG} dataset using simple division for the purpose of, subsequentially, selecting the best hyperparameters of the \acrshort{CV} models. With the best hyperparameters chosen, all models, including the non \acrshort{CV} models, will be evaluated using the \acrshort{LOSO} strategy, producing the metrics for each fold.
+\input{tex/figuras/framework}
+
+Reviewing what was presented, the experiment will begin by splitting the \acrshort{BUTPPG} dataset using simple division for the purpose of, subsequentially, selecting the best hyperparameters of the \acrshort{CV} models. With the best hyperparameters chosen, all models, including the non \acrshort{CV} models, will be evaluated using the \acrshort{LOSO} strategy, producing the metrics for each fold, as the Figure \ref{fig:framework} expresses.
 
 
 \section{Experimental results}
