@@ -40,7 +40,7 @@ class TimeBoxplotsGenerator(Generator):
 		
 		projections = df['projection'].unique()
 	
-		h = max(0.25*(len(name_obj.mappings())*max(2,len(projections))),2)
+		h = max(0.25*(len(name_obj.mappings())*max(2,len(projections))), 2)
 		plt.figure(figsize=(10,h))
 		
 		hue_dict = {

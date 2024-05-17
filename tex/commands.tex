@@ -16,3 +16,14 @@
 
 
 \newcommand{\Mathenize}[1]{\textit{\text{#1}}}
+
+\newcommand{\IncludeMemoryTable}[2]{
+	\begin{table}[h!]
+	\centering
+	\scalebox{\MemoryTableReduction}{
+		\MemoryTabularsInclusion{\NumberOfMemoryTableColumns}{#1}
+	}
+	\caption{\MemoryTableDescription{#2}}
+	\label{tab:Memory_of_#1}
+\end{table}
+}

@@ -18,6 +18,7 @@ __all__ = [
 	'ShuffleNetV2',
 	'SqueezeNet',
 	'SwinTransformer',
+	'SwinTransformerV2',
 	'VGG',
 	'VisionTransformer',
 	'WideResNet'
@@ -303,11 +304,6 @@ class Model_Names:
 				]
 			),
 			Group(
-				'RegNet', [
-					RegNet(),
-				]
-			),
-			Group(
 				'ResNet based', [
 					ResNet(),
 					ResNeXt(),
@@ -325,21 +321,22 @@ class Model_Names:
 			Group(
 				'Extreme models', [
 					DenseNet(),
+					SqueezeNet(), 
 					VGG(),
 				]
 			),
 			Group(
-				'Purely convolutional', [  
-					ConvNeXt(),
-					AlexNet(),
+				'Efficiency Oriented', [ 
+					ShuffleNetV2(),  
+					EfficientNet(),
+					EfficientNetV2(),
 				]
 			),
 			Group(
 				'Diverse', [ 
-					ShuffleNetV2(),  
-					SqueezeNet(), 
-					EfficientNet(),
-					EfficientNetV2(),
+					ConvNeXt(),
+					AlexNet(),
+					RegNet(),
 				]
 			),
 		]

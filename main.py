@@ -18,7 +18,7 @@ if __name__=='__main__':
 	
 	pair_group = Pair_Group(
 		'Best Models', [
-			Pair(SpecificModel('VisionTransformer_L_16',VisionTransformer()),RP()),
+			Pair(SpecificModel('SwinTransformerV2_S',SwinTransformerV2()),RP()),
 			Pair(SpecificModel('WideResNet101_2',WideResNet()),Mix()),
 			Pair(SpecificModel('AlexNet',AlexNet()),Mix()),
 			Pair(SpecificModel('MNASNet_1_0',MNASNet()),Mix()),
