@@ -18,16 +18,13 @@ if __name__=='__main__':
 	
 	pair_group = Pair_Group(
 		'Best Models', [
-			Pair(SpecificModel('SwinTransformerV2_S',SwinTransformerV2()),RP()),
+			Pair(SpecificModel('SwinTransformerV2_S',SwinTransformerV2()),Mix()),
 			Pair(SpecificModel('WideResNet101_2',WideResNet()),Mix()),
-			Pair(SpecificModel('AlexNet',AlexNet()),Mix()),
 			Pair(SpecificModel('MNASNet_1_0',MNASNet()),Mix()),
+			Pair(SpecificModel('SqueezeNet_1_1',SqueezeNet()),Mix()),
+			Pair(SpecificModel('ShuffleNetV2_x0_5',ShuffleNetV2()),Mix()),
 			Pair(SpecificModel('RegNetY_400MF',RegNet()),RP()),
-			Pair(SpecificModel('VGG16',VGG()),RP()),
-			Pair(SpecificModel('SqueezeNet_1_1',SqueezeNet()),Mix()),
-			Pair(SpecificModel('SqueezeNet_1_1',SqueezeNet()),Mix()),
-			Pair(SpecificModel('WideResNet101_2',WideResNet()),Mix()),
-			Pair(SimpleModel('RandomIntervalSpectralEnsembleClassifier'),NoProjection()),
+			Pair(SimpleModel('TemporalDictionaryEnsemble'),NoProjection()),
 		]
 		
 	)

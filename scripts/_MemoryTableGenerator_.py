@@ -29,6 +29,7 @@ class MemoryTableGenerator(Generator):
 		df['memory_size (Megabytes)'] = df['memory_size (bytes)'].apply(lambda x: x/10**6)
 		df = df.drop('memory_size (bytes)', axis=1)
 		
+		df = df.sort_values('memory_size (Megabytes)', axis=0)
 		
 		df = df.rename(
 			{
