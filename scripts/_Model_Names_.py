@@ -96,7 +96,9 @@ class EfficientNetV2(Model_Name):
 		return 'EfficientNetV2'
 	def mappings(self):
 		return {
-			'EfficientNetV2_S' : 'EfficientNet V2'
+			'EfficientNetV2_S' : 'EfficientNet V2',
+			'EfficientNetV2_M' : 'EfficientNet V2 M',
+			'EfficientNetV2_L' : 'EfficientNet V2 L',
 		}
 		
 class MaxVit(Model_Name):
@@ -239,6 +241,8 @@ class VisionTransformer(Model_Name):
 		return 'VisionTransformer'
 	def mappings(self):
 		return {
+			'VisionTransformer_B_16': 'Vision Transformer: B 16',
+			'VisionTransformer_B_32': 'Vision Transformer: B 32',
 			'VisionTransformer_L_16': 'Vision Transformer: L 16',
 			'VisionTransformer_L_32': 'Vision Transformer: L 32',
 			'VisionTransformer_H_14': 'Vision Transformer: H 14',
