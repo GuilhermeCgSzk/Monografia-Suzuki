@@ -89,6 +89,9 @@ class EfficientNet(Model_Name):
 			'EfficientNet_B2' : 'EfficientNet: B2',
 			'EfficientNet_B3' : 'EfficientNet: B3',
 			'EfficientNet_B4' : 'EfficientNet: B4',
+			'EfficientNet_B5' : 'EfficientNet: B5',
+			'EfficientNet_B6' : 'EfficientNet: B6',
+			'EfficientNet_B7' : 'EfficientNet: B7',
 		}
 		
 class EfficientNetV2(Model_Name):
@@ -157,6 +160,7 @@ class RegNet(Model_Name):
 			'RegNetY_8FG'	: 'RegNet: Y; 8 GF',
 			'RegNetY_16FG'	: 'RegNet: Y; 16 GF',
 			'RegNetY_32FG'	: 'RegNet: Y; 32 GF',
+			'RegNetY_128FG'	: 'RegNet: Y; 128 GF',
 		}
 		
 class ResNet(Model_Name):
