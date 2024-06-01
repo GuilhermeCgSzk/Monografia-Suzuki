@@ -1,0 +1,587 @@
+@ A review of methods for the signal quality assessment to improve reliability of heart rate and blood pressures derived parameters
+	- Autores: Nicolò Gambarotta · Federico Aletti · Giuseppe Baselli · Manuela Ferrario
+	- Tempo: 2014
+	- Tema: Health SQA
+	- # Survey #
+
+@ Dynamic time warping and machine learning for signal quality assessment of pulsatile signals
+	- Autores: Q Li and G D Clifford
+	- Tempo: 2012
+	- Síntese: O artigo trata do SQA de sinais cardíacos PPG por meio do uso de DTW como uma SQI. Essa SQI alimenta, juntamente com outras SQIs complementares, uma MLP a fim de estimar um nível de qualidade do sinal. Em testes realizados em uma base PPG anotada a partir da base MIMIC II, o método alcançou uma alta acurácia de 95% no dataset de teste. Isso mostra que o método proposto é funcional, além de ser genérico, possibilitando sua aplicação para outros tipos de sinais.
+	- Críticas: Não comparou com outros métodos e não testou diferentes datasets
+	
+@ Electrocardiogram Signal Quality Assessment Based on Structural Image Similarity Metric
+	- Autores: Yalda Shahriari , Richard Fidler, Michele M Pelter, Yong Bai, Andrea Villaroman, and Xiao Hu
+	- Tempo: 2018
+	- Síntese: O artigo trata do SQA de sinais ECG aplicando a métrica Structural Similarity Measure (SSIM) sobre imagens contendo os sinais (são múltiplos canais) plotados, com o intuito de medir a similaridade entre um dado sinal e sinais-template que representam sinais bons. Esses sinais template são sinais selecionados em um algoritmo de clusterização, usando o SSIM como distância. Então, para estimar o SQI, cada distância entre o sinal e um template alimenta uma entrada de um Linear Discriminant Analysis e este estima o valor. Com isso, em um dataset próprio com rótulos de qualidade, o SQI proposto alcançou resultados superiores a um agregado de SQIs existentes (baseSQI, kSQI, and sSQI). Isso demonstra que métodos baseados em representações visuais do sinal podem superar os SQIs tradicionais.
+	- Críticas: Apenas chegaram-se a essas conclusões em um único dataset próprio. Limitou-se a estimar um SQI.
+	
+@ Deep Learning approaches for Plethysmography Signal Quality Assessment in the Presence of Atrial Fibrillation
+	- Autores: Tania Pereira, Cheng Ding, Kais Gadhoumi, Nate Tran, Rene A. Colorado, Karl Meisel, Xiao Hu
+	- Tempo: 2019
+	- Síntese: O artigo trata do SQA de sinais PPG cardiológicos por meio de algoritmos deep learning 1d e 2d, sendo estes últimos alimetados com plots 2d do sinal. O objetivo foi classificar os sinais como bons, ruins ou incerto. Em um experimento envolvendo esses modelos deep learning e um SVM alimentado com features diversas, em um dataset próprio, a ResNet18 foi o melhor modelo, obtendo alta acurácia. Com isso, conclui-se que modelos deep learning podem superar classificadores alimentado por features ao existir uma grande disponibilidade de dados.	
+	- Críticas: Poucos modelos foram comparados
+	
+@ Non-invasive Fetal ECG Signal Quality Assessment for Multichannel Heart Rate Estimation
+	- Autores: Fernando Andreotti , Felix Gr ¨aßer, Hagen Malberg, and Sebastian Zaunseder
+	- Tempo: 2017
+	- Tema: SQA de ECG de fetos
+	- Objetivos: Melhorar estimativas HR de sinais ECG fetais 
+	- Metodologia: Fetal SQIs alimetam um Naive Bayes Classifier + Kalman filter para melhorar o HR estimado
+	- Resultados: Alguns SQIs são mais importantes que outros e a fusão de SQI com KF produziu boas estimativas
+	- Conclusões: 
+	- Método: 
+	- Críticas:
+	
+	
+@ Electrocardiogram signal quality assessment using an artificially reconstructed target lead
+	- Autores: H. Naseri a,b * and M.R. Homaeinezhad
+	- Tempo: 2014
+	- Tema: ECG SQA
+	- Objetivos: Desenvolver uma técnica de SQA do ECG
+	- Metodologia: Preprocessar, analisar Energy-Concavity Indices (ECI) e usar exame de correlação  
+	- Resultados: Obteve alta pontuação no CinC Challenge 2011
+	- Conclusões: A solução proposta é funcional
+	- Críticas: Não comparou com outras abordagens
+	
+@ Signal-Quality Indices for the Electrocardiogram and Photoplethysmogram: Derivation and Applications to Wireless Monitoring
+	- Autores: Christina Orphanidou, Timothy Bonnici, Peter Charlton, David Clifton, David Vallance, and Lionel Tarassenko
+	- Tempo: 2015
+	- Tema: 
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A multi-step method with signal quality assessment and fine-tuning procedure to locate maternal and fetal QRS complexes from abdominal ECG recordings
+	- Autores: Chengyu Liu, Peng Li, Costanzo Di Maria, Lina Zhao, Henggui Zhang and Zhiqing Chen
+	- Tempo: 2014
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Quality Assessment of Ambulatory ECG Using Wavelet Entropy of the HRV Signal
+	- Autores: Christina Orphanidou and Ivana Drobnjak
+	- Tempo: 2017
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A Real-time PPG Quality Assessment Approach for Healthcare Internet-of-Things
+	- Autores: Emad Kasaeyan Naeini , Iman Azimib , Amir M. Rahmani , Pasi Liljeberg , Nikil Dutt
+	- Tempo: 2019
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A Supervised Approach to Robust Photoplethysmography Quality Assessment
+	- Autores: Tania Pereira, Kais Gadhoumi, Mitchell Ma, Xiuyun Liu, Ran Xiao, Rene A. Colorado, Kevin J. Keenan, Karl Meisel, Xiao Hu
+	- Tempo: 2019
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Template Matching and Matrix Profile for Signal Quality Assessment of Carotid and Femoral Laser Doppler Vibrometer Signals
+	- Autores: Silvia Seoni , Simeon Beeckman , Yanlu Li , Soren Aasmul , Umberto Morbiducci ,Roel Baets , Pierre Boutouyrie , Filippo Molinari , Nilesh Madhu and Patrick Segers
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Artefact detection and quality assessment of ambulatory ECG signals
+	- Autores: Jonathan Moeyersons, Elena Smets , John Morales , Amalia Villa , Walter De Raedt , Dries Testelmans , Bertien Buyse , Chris Van Hoof , Rik Willems, Sabine Van Huffel, Carolina Varon
+	- Tempo: 2019
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Recurrence Plot and Machine Learning for Signal Quality Assessment of Photoplethysmogram in Mobile Environment
+	- Autores: Donggeun Roh and Hangsik Shin
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A LSTM-Based Realtime Signal Quality Assessment for Photoplethysmogram and Remote Photoplethysmogram
+	- Autores: Haoyuan Gao, Xiaopei Wu, Chenyun Shi, Qing Gao, Jidong Geng
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Transfer learning of CNN-based signal quality assessment from clinical to non-clinical PPG signals
+	- Autores: Serena Zanelli, Mounim A. El Yacoubi, Magid Hallab, Mehdi Ammi
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Automated Signal Quality Assessment for Heart Sound Signal by Novel Features and Evaluation in Open Public Datasets
+	- Autores: Hong Tang , Miao Wang  Yating Hu , Binbin Guo , and Ting Li
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Optimized Signal Quality Assessment for Photoplethysmogram Signals using Feature Selection
+	- Autores: Fahimeh Mohagheghian, Dong Han, Andrew Peitzsch, Nishat Nishita, Eric Ding, Emily L. Dickson, Danielle DiMezza, Edith M. Otabil, Kamran Noorishirazi, Jessica Scott, Darleen Lessard, Ziyue Wang, Cody Whitcomb, Khanh-Van Tran, Timothy P. Fitzgibbons, David D. McManus, Ki. H. Chon 
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Signal Quality Assessment of PPG Signals using STFT Time-Frequency Spectra and Deep Learning Approaches
+	- Autores: Jianzhong Chen1,2,3, Ke Sun1, Yi Sun1and Xinxin Li
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+
+@ Machine learning-based signal quality assessment for cardiac volume monitoring in electrical impedance tomography
+	- Autores: Chang Min Hyun, Tae Jun Jang, Jeongchan Nam, Hyeuknam Kwon, Kiwan Jeon and Kyounghun Lee
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Automatic ECG Quality Assessment Techniques: A Systematic Review
+	- Autores: Kirina van der Bijl, Mohamed Elgendi, and Carlo Menon
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Lightweight Photoplethysmography Quality Assessment for Real-time IoT-based Health Monitoring using Unsupervised Anomaly Detection
+	- Autores: Aysan Mahmoudzadeh , Iman Azimia, Amir M. Rahmani , Pasi Liljeberg 
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Explainability Metrics of Deep Convolutional Networks for Photoplethysmography Quality Assessment
+	- Autores: OLIVER ZHANG, CHENG DING , TANIA PEREIRA, RAN XIAO , KAIS GADHOUMI, KARL MEISEL, RANDALL J. LEE, YIRAN CHEN, AND XIAO HU
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ ECG quality assessment based on hand-crafted statistics and deep-learned S-transform spectrogram features
+	- Autores: GUOYANG LIU, XIAO HAN, LAN TIAN , WEIDONG ZHOU, HUI LIU
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Wearable Electrocardiogram Quality Assessment Using Wavelet Scattering and LSTM
+	- Autores: Feifei Liu, Shengxiang Xia, Shoushui Wei, Lei Chen, Yonglian Ren, Xiaofei Ren, Zheng Xu, Sen Ai and Chengyu Liu 
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Imaging Blood Volume Pulse Dataset: RGB-Thermal Remote Photoplethysmography Dataset with High-Resolution Signal-Quality Labels
+	- Autores: Jitesh Joshi and Youngjun Cho 
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Unsupervised sequence-to-sequence learning for automatic signal quality assessment in multi-channel electrical impedance-based hemodynamic monitoring
+	- Autores: Chang Min Hyun , Tae-Geun Kim , Kyounghun Lee
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots
+	- Autores: Álvaro Huerta , Arturo Martinez-Rodrigo , Vicente Bertomeu-González, Óscar Ayo-Martin , José J. Rieta , Raúl Alcaraz
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Validation of a New and Straightforward Algorithm to Evaluate Signal Quality during ECG Monitoring with Wearable Devices Used in a Clinical Setting
+	- Autores: Luca Neri , Ilaria Gallelli , Massimo Dall’Olio , Jessica Lago , Claudio Borghi , Igor Diemberger and Ivan Corazza
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Hearables: In-Ear Multimodal Data Fusion for Robust Heart Rate Estimation
+	- Autores: Marek ˙Zyli ´nski , Amir Nassibi , Edoardo Occhipinti , Adil Malik , Matteo Bermond , Harry J. Davies and Danilo P. Mandic
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A Deep Learning–based PPG Quality Assessment Approach for Heart Rate and Heart Rate Variability
+	- Autores: EMAD KASAEYAN NAEINI, FATEMEH SARHADDI, IMAN AZIMI, and PASI LILJEBERG, NIKIL DUTT and AMIR M. RAHMANI
+	- Tempo: 2023 
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Brno University of Technology Smartphone PPG Database (BUT PPG): Annotated Dataset for PPG Quality Assessment and Heart Rate Estimation
+	- Autores: Andrea Nemcova , Enikö Vargova,Radovan Smisek , Lucie Marsanova , Lukas Smital , and Martin Vitek
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Evaluation of Objective Distortion Measures for Automatic Quality Assessment of Processed PPG Signals for Real-Time Health Monitoring Devices
+	- Autores: GANGIREDDY NARENDRA KUMAR REDDY , M. SABARIMALAI MANIKANDAN , AND N. V. L. NARASIMHA MURTY
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ An energy-efficient semi-supervised approach for on-device photoplethysmogram signal quality assessment
+	- Autores: Mohammad Feli, Iman Azimi, Arman Anzanpour, Amir M. Rahmani, Pasi Liljeberg
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Continuous cuffless arterial blood pressure measurement based on PPG quality assessment
+	- Autores: Lin Xu and Kunpeng Gao
+	- Tempo: 2015
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Wavelet Analysis and Self-Similarity of Photoplethysmography Signals for HRV Estimation and Quality Assessment
+	- Autores: Alexander Neshitov, Konstantin Tyapochkin , Evgeniya Smorodnikova and Pavel Pravdin
+	- Tempo: 
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Learned Kernels for Sparse, Interpretable, and Efficient Medical Time Series Processing
+	- Autores: Sully F. Chen, Zhicheng Guo, Cheng Ding, Xiao Hu, Cynthia Rudin 
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Wrist Photoplethysmography Signal Quality Assessment for Reliable Heart Rate Estimate and Morphological Analysis
+	- Autores: Serena Moscato , Stella Lo Giudice, Giulia Massaro and Lorenzo Chiari 
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Personalised and Adjustable Interval Type-2 Fuzzy-Based PPG Quality Assessment for the Edge
+	- Autores: Jose A. Miranda, Celia L´opez-Ongil, Javier Andreu-Perez
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Photoplethysmography beat detection and pulse morphology quality assessment for signal reliability estimation
+	- Autores: Gabriele B. Papini, Pedro Fonseca, Xavier L. Aubert, Sebastiaan Overeem, Jan W.M. Bergmans, Rik Vullings
+	- Tempo: 2017
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ End-to-End PPG Processing Pipeline for Wearables: From Quality Assessment and Motion Artifacts Removal to HR/HRV Feature Extraction
+	- Autores: Mohammad Feli, Kianoosh Kazemi, Iman Azimi, Yuning Wang, Amir M. Rahmani, and Pasi Liljeberg
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Signal Quality Assessment of Photoplethysmogram Signals using Quantum Pattern Recognition and lightweight CNN Architecture
+	- Autores: Tamaghno Chatterjee, Aayushman Ghosh and Sayan Sarkar
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A Lightweight Hybrid Model Using Multiscale Markov Transition Field for Real-Time Quality Assessment of Photoplethysmography Signals
+	- Autores: Jian Liu , Shuaicong Hu , Ya’nan Wang , Qihan Hu , Daomiao Wang , and Cuiwei Yang 
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Photoplethysmogram Signal Quality Assessment via 1D-to-2D Projections and Vision Transformers
+	- Autores: Pedro Garcia Freitas, Rafael G. de Lima, Giovani D. Lucafo, and Ot´avio A. B. Penatti
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Quality Assessment and Morphological Analysis of Photoplethysmography in Daily Life
+	- Autores: Serena Moscato, Luca Palmerini, Pierpaolo Palumbo and Lorenzo Chiari
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Automated Multi-Wavelength Quality Assessment of Photoplethysmography Signals Using Modulation Spectrum Shape Features
+	- Autores: Abhishek Tiwari, Gordon Gray, Parker Bondi, Amin Mahnam and Tiago H. Falk
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Photoplethysmogram Signal Quality Evaluation by Unsupervised Learning Approach
+	- Autores: Monalisa Singha Roy, Rajarshi Gupta, Kaushik Das Sharma
+	- Tempo: 2020
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Signal Quality Assessment of Photoplethysmogram Signals Using Hybrid Rule- and Learning-Based Models
+	- Autores: Giovani Lucafó, Pedro Freitas, Rafael Lima, Gustavo da Luz, Ruan Bispo, Paula Rodrigues, Frank Cabello, Otavio Penatti
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A Survey of Photoplethysmography and Imaging Photoplethysmography Quality Assessment Methods
+	- Autores: Théo Desquins, Frédéric Bousefsaf , Alain Pruski and Choubeila Maaoui 
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Assessment of a standalone photoplethysmography (PPG) algorithm for detection of atrial fibrillation on wristband-derived data
+	- Autores: JL Selder , T Proesmans , L Breukel , O Dur , W Gielen , AC van Rossum , CP Allaart 
+	- Tempo: 2020
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ LSTM-based real-time signal quality assessment for blood volume pulse analysis
+	- Autores: HAOYUAN GAO, CHAO ZHANG, SHENGBING PEI, AND XIAOPEI WU
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Survey: smartphone-based assessment of cardiovascular diseases using ECG and PPG analysis
+	- Autores: Muhammad Shabaan , Kaleem Arshid, Muhammad Yaqub , Feng Jinchao , M. Sultan Zia , Giridhar Reddy Bojja, Muazzam Iftikhar, Usman Ghani, Loknath Sai Ambati, and Rizwan Munir 
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ On-Device Reliability Assessment and Prediction of Missing Photoplethysmographic Data Using Deep Neural Networks
+	- Autores: Monalisa Singha Roy, Biplab Roy, Rajarshi Gupta, and Kaushik Das Sharma
+	- Tempo: 2020
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Influence of Photoplethysmogram Signal Quality on Pulse Arrival Time during Polysomnography
+	- Autores: Mantas Rinkeviˇcius , Peter H. Charlton , Raquel Bailón and Vaidotas Marozas
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Assessing the Quality of Photoplethysmograms via Gramian Angular Fields and Vision Transformer
+	- Autores: Pedro Garcia Freitas, Rafael G. de Lima, Giovani D. Lucafo, and Ot´avio A. B. Penatti
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Robust Assessment of Photoplethysmogram Signal Quality in the Presence of Atrial Fibrillation
+	- Autores: Tania Pereira, Kais Gadhoumi, Mitchell Ma, Rene Colorado, Kevin J Keenan, Karl Meisel, Xiao Hu
+	- Tempo: 2018
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ SQUWA: Signal Quality Aware DNN Architecture for Enhanced Accuracy in Atrial Fibrillation Detection from Noisy PPG Signals
+	- Autores: Runze Yan, Ding Cheng, Ran Xiao, Aleksandr Fedorov, Randall J Lee, Fadi B Nahab, Xiao Hu
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ iBVP Dataset: RGB-Thermal rPPG Dataset with High Resolution Signal Quality Labels
+	- Autores: Jitesh Joshi and Youngjun Cho 
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Speckle Plethysmograph-Based Blood Pressure Assessment
+	- Autores: Floranne T. Ellington, Anh Nguyen, Mao-Hsiang Huang , Tai Le , Bernard Choi and Hung Cao
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ SiamQuality: A ConvNet-Based Foundation Model for Imperfect Physiological Signals
+	- Autores: Cheng Ding, Zhicheng Guo, Zhaoliang Chen, Randall J Lee, Cynthia Rudin, Xiao Hu
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+	
