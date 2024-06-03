@@ -1,0 +1,25 @@
+@ A review of methods for the signal quality assessment to improve reliability of heart rate and blood pressures derived parameters
+	- Autores: Nicolò Gambarotta · Federico Aletti · Giuseppe Baselli · Manuela Ferrario
+	- Tempo: 2014
+	- Tema: Health SQA
+	- # Survey #
+
+@ Survey: smartphone-based assessment of cardiovascular diseases using ECG and PPG analysis
+	- Autores: Muhammad Shabaan , Kaleem Arshid, Muhammad Yaqub , Feng Jinchao , M. Sultan Zia , Giridhar Reddy Bojja, Muazzam Iftikhar, Usman Ghani, Loknath Sai Ambati, and Rizwan Munir 
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ A Survey of Photoplethysmography and Imaging Photoplethysmography Quality Assessment Methods
+	- Autores: Théo Desquins, Frédéric Bousefsaf , Alain Pruski and Choubeila Maaoui 
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
