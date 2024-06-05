@@ -333,14 +333,10 @@
 	- Conclusões:
 	- Críticas:
 	
-@ LSTM-based real-time signal quality assessment for blood volume pulse analysis
+@$ LSTM-based real-time signal quality assessment for blood volume pulse analysis
 	- Autores: HAOYUAN GAO, CHAO ZHANG, SHENGBING PEI, AND XIAOPEI WU
 	- Tempo: 2023
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
+	- Síntese: O artigo trata do SQA de sinais rPPG, isto é, sinais PPG extraídos remotamente. Para esse fim, foi desenvolvida uma Long-Short Term Memory Network (LSTMN) que recebe três janelas do sinal e, na saída, fornece uma SQI. Experimentos em datasets rPPG próprios mostram que o SQI do método proposto tem relação com as qualidades das estimativas de HR. A acurácia em datsets PPG não foi alta, mas indica que o modelo converge para a solução. Conclui-se que o método até certo ponto tende a fornecer SQI corretos, mas existe a limitação dos sinais rPPG em si terem qualidade inferior a sinais PPG convencionais.
 	- Críticas:
 	
 
