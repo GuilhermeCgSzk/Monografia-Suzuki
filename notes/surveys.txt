@@ -23,3 +23,23 @@
 	- Resultados:
 	- Conclusões:
 	- Críticas:
+	
+@ Automatic ECG Quality Assessment Techniques: A Systematic Review
+	- Autores: Kirina van der Bijl, Mohamed Elgendi, and Carlo Menon
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ Explainability Metrics of Deep Convolutional Networks for Photoplethysmography Quality Assessment
+	- Autores: OLIVER ZHANG, CHENG DING , TANIA PEREIRA, RAN XIAO , KAIS GADHOUMI, KARL MEISEL, RANDALL J. LEE, YIRAN CHEN, AND XIAO HU
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:

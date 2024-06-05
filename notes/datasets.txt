@@ -17,3 +17,14 @@
 	- Resultados:
 	- Conclusões:
 	- Críticas:
+
+	
+@ Imaging Blood Volume Pulse Dataset: RGB-Thermal Remote Photoplethysmography Dataset with High-Resolution Signal-Quality Labels
+	- Autores: Jitesh Joshi and Youngjun Cho 
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
