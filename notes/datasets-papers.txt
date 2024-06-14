@@ -1,0 +1,30 @@
+@ Brno University of Technology Smartphone PPG Database (BUT PPG): Annotated Dataset for PPG Quality Assessment and Heart Rate Estimation
+	- Autores: Andrea Nemcova , Enikö Vargova,Radovan Smisek , Lucie Marsanova , Lukas Smital , and Martin Vitek
+	- Tempo: 2021
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@ iBVP Dataset: RGB-Thermal rPPG Dataset with High Resolution Signal Quality Labels
+	- Autores: Jitesh Joshi and Youngjun Cho 
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+
+	
+@ Imaging Blood Volume Pulse Dataset: RGB-Thermal Remote Photoplethysmography Dataset with High-Resolution Signal-Quality Labels
+	- Autores: Jitesh Joshi and Youngjun Cho 
+	- Tempo: 2024
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
