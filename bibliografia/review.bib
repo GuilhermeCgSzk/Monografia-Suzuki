@@ -130,4 +130,112 @@ abstract = {Photoplethysmography (PPG) as a non-invasive and low-cost technique 
   keywords={Training;Adaptation models;Computational modeling;Transfer learning;Photoplethysmography;Data models;Quality assessment},
   doi={10.1109/EMBC46164.2021.9629640}}
 
+@article{review-10,
+  title={Signal quality assessment of photoplethysmogram signals using hybrid rule-and learning-based models},
+  author={Lucaf{\'o}, Giovani Decico and Freitas, Pedro and Lima, Rafael and da Luz, Gustavo and Bispo, Ruan and Rodrigues, Paula and Cabello, Frank and Penatti, Otavio},
+  journal={Journal of Health Informatics},
+  volume={15},
+  number={Especial},
+  year={2023}
+}
+
+@article{review-11,
+author = {Haoyuan Gao and Chao Zhang and Shengbing Pei and Xiaopei Wu},
+journal = {Biomed. Opt. Express},
+keywords = {Deep learning; Illumination; Light sources; Machine learning; Machine vision; Neural networks},
+number = {3},
+pages = {1119--1136},
+publisher = {Optica Publishing Group},
+title = {LSTM-based real-time signal quality assessment for blood volume pulse analysis},
+volume = {14},
+month = {Mar},
+year = {2023},
+url = {https://opg.optica.org/boe/abstract.cfm?URI=boe-14-3-1119},
+doi = {10.1364/BOE.477143},
+abstract = {Remote photoplethysmogram (rPPG) is a low-cost method to extract blood volume pulse (BVP). Some crucial vital signs, such as heart rate (HR) and respiratory rate (RR) etc. can be achieved from BVP for clinical medicine and healthcare application. As compared to the conventional PPG methods, rPPG is more promising because of its non-contacted measurement. However, both BVP detection methods, especially rPPG, are susceptible to motion and illumination artifacts, which lead to inaccurate estimation of vital signs. Signal quality assessment (SQA) is a method to measure the quality of BVP signals and ensure the credibility of estimated physiological parameters. But the existing SQA methods are not suitable for real-time processing. In this paper, we proposed an end-to-end BVP signal quality evaluation method based on a long short-term memory network (LSTM-SQA). Two LSTM-SQA models were trained using the BVP signals obtained with PPG and rPPG techniques so that the quality of BVP signals derived from these two methods can be evaluated, respectively. As there is no publicly available rPPG dataset with quality annotations, we designed a training sample generation method with blind source separation, by which two kinds of training datasets respective to PPG and rPPG were built. Each dataset consists of 38400 high and low-quality BVP segments. The achieved models were verified on three public datasets (IIP-HCI dataset, UBFC-Phys dataset, and LGI-PPGI dataset). The experimental results show that the proposed LSTM-SQA models can effectively predict the quality of the BVP signal in real-time.},
+}
+
+@INPROCEEDINGS{review-12,
+  author={Chen, Jianzhong and Sun, Ke and Sun, Yi and Li, Xinxin},
+  booktitle={2021 43rd Annual International Conference of the IEEE Engineering in Medicine \& Biology Society (EMBC)}, 
+  title={Signal Quality Assessment of PPG Signals using STFT Time-Frequency Spectra and Deep Learning Approaches}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={1153-1156},
+  keywords={Deep learning;Heart rate;Time-frequency analysis;Sensitivity;Electrocardiography;Photoplethysmography;Physiology},
+  doi={10.1109/EMBC46164.2021.9630758}}
+
+@INPROCEEDINGS{review-13,
+  author={Chatterjee, Tamaghno and Ghosh, Aayushman and Sarkar, Sayan},
+  booktitle={2022 44th Annual International Conference of the IEEE Engineering in Medicine \& Biology Society (EMBC)}, 
+  title={Signal Quality Assessment of Photoplethysmogram Signals using Quantum Pattern Recognition Technique and lightweight CNN Module}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={3382-3386},
+  keywords={Deep learning;Maximum likelihood estimation;Image segmentation;Sensitivity;System performance;Photoplethysmography;Physiology},
+  doi={10.1109/EMBC48229.2022.9871494}}
+  
+@article{review-14,
+title = {Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots},
+journal = {Biomedical Signal Processing and Control},
+volume = {91},
+pages = {105920},
+year = {2024},
+issn = {1746-8094},
+doi = {https://doi.org/10.1016/j.bspc.2023.105920},
+url = {https://www.sciencedirect.com/science/article/pii/S1746809423013538},
+author = {Álvaro Huerta and Arturo Martinez-Rodrigo and Vicente Bertomeu-González and Óscar Ayo-Martin and José J. Rieta and Raúl Alcaraz},
+keywords = {Signal quality assessment, Paroxysmal atrial fibrillation, Phase space portraits, Machine learning classifiers, Deep learning algorithms},
+abstract = {Current wearable electrocardiogram (ECG) recording systems have great potential to revolutionize early diagnosis of paroxysmal atrial fibrillation (AF). They are able to continuously acquire an ECG signal for long weeks and then increase the probability of detecting first brief, intermittent signs of the arrhythmia. However, the recorded signal is often broadly corrupted by noise and artifacts, and accurate assessment of its quality to avoid automated misdiagnosis and false alarms of AF is still an unsolved challenge. In this context, the present work is pioneer in exploring the usefulness of transforming the single-lead ECG signal into two common phase space (PS) representations, such as the Poincaré plot and the first order difference graph, for evaluation of its quality. Several machine and deep learning models fed with features and images derived from these PS portraits reported a better performance than well-known previous methods, even when they were trained and validated on two separate databases. Indeed, in binary classification of high- and low-quality ECG excerpts, the generated PS-based algorithms reported a discriminant power greater than 85%, misclassifying less than 20% of high-quality AF episodes and non-normal rhythms as noisy excerpts. Moreover, because both PS reconstructions do not require any mathematical transformation, these algorithms also spent much less time in classifying each ECG excerpt in validation and testing stages than previous methods. As a consequence, ECG transformation to both PS portraits enables novel, simple, effective, and computational low-cost techniques, based both on machine and deep learning classifiers, for ECG quality assessment.}
+}
+
+@Article{review-15,
+AUTHOR = {Roh, Donggeun and Shin, Hangsik},
+TITLE = {Recurrence Plot and Machine Learning for Signal Quality Assessment of Photoplethysmogram in Mobile Environment},
+JOURNAL = {Sensors},
+VOLUME = {21},
+YEAR = {2021},
+NUMBER = {6},
+ARTICLE-NUMBER = {2188},
+URL = {https://www.mdpi.com/1424-8220/21/6/2188},
+PubMedID = {33804794},
+ISSN = {1424-8220},
+ABSTRACT = {The purpose of this study was to develop a machine learning model that could accurately evaluate the quality of a photoplethysmogram based on the shape of the photoplethysmogram and the phase relevance in a pulsatile waveform without requiring complicated pre-processing. Photoplethysmograms were recorded for 76 participants (5 min for each participant). All recorded photoplethysmograms were segmented for each beat to obtain a total of 49,561 pulsatile segments. These pulsatile segments were manually labeled as ‘good’ and ‘poor’ classes and converted to a two-dimensional phase space trajectory image using a recurrence plot. The classification model was implemented using a convolutional neural network with a two-layer structure. As a result, the proposed model correctly classified 48,827 segments out of 49,561 segments and misclassified 734 segments, showing a balanced accuracy of 0.975. Sensitivity, specificity, and positive predictive values of the developed model for the test dataset with a ‘poor’ class classification were 0.964, 0.987, and 0.848, respectively. The area under the curve was 0.994. The convolutional neural network model with recurrence plot as input proposed in this study can be used for signal quality assessment as a generalized model with high accuracy through data expansion. It has an advantage in that it does not require complicated pre-processing or a feature detection process.},
+DOI = {10.3390/s21062188}
+}
+
+@INPROCEEDINGS{review-16,
+  author={Freitas, Pedro Garcia and De Lima, Rafael G. and Lucafo, Giovani D. and Penatti, Otávio A.B.},
+  booktitle={2023 15th International Conference on Quality of Multimedia Experience (QoMEX)}, 
+  title={Photoplethysmogram Signal Quality Assessment via 1D-to-2D Projections and Vision Transformers}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={165-170},
+  keywords={Tracking;Wearable computers;Working environment noise;Transformers;Real-time systems;Quality assessment;Reliability;Signal Quality Assessment;Vision Transformers;Markov Transition Fields;Recurrence Plots;1D-to-2D Projection;QoE},
+  doi={10.1109/QoMEX58391.2023.10178569}}
+
+@INPROCEEDINGS{review-17,
+  author={Freitas, Pedro Garcia and De Lima, Rafael G. and Lucafo, Giovani D. and Penatti, Otávio A. B.},
+  booktitle={2023 31st European Signal Processing Conference (EUSIPCO)}, 
+  title={Assessing the Quality of Photoplethysmograms via Gramian Angular Fields and Vision Transformer}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1035-1039},
+  keywords={Visualization;Tracking;Wearable computers;Time series analysis;Signal processing algorithms;Transformers;Circuit faults;photoplethysmography;digital health;Gramian angular fields;signal quality;vision transformers},
+  doi={10.23919/EUSIPCO58844.2023.10290014}}
+
+@ARTICLE{review-18,
+  author={Liu, Jian and Hu, Shuaicong and Wang, Ya'nan and Hu, Qihan and Wang, Daomiao and Yang, Cuiwei},
+  journal={IEEE Journal of Biomedical and Health Informatics}, 
+  title={A Lightweight Hybrid Model Using Multiscale Markov Transition Field for Real-Time Quality Assessment of Photoplethysmography Signals}, 
+  year={2024},
+  volume={28},
+  number={2},
+  pages={1078-1088},
+  keywords={Real-time systems;Quality assessment;Markov processes;Databases;Computational modeling;MIMICs;Classification algorithms;Knowledge distillation (KD);lightweight hybrid model (LHM);multiscale Markov transition field (MMTF);photoplethysmography (PPG);real-time assessment},
+  doi={10.1109/JBHI.2023.3331975}}
 

@@ -109,12 +109,6 @@
 		- Síntese: Este artigo trata do SQA de sinais PPG, classificando-o como "bom" ou "ruim". O autor propõe o seguinte pipline: projeta-se o sinal 1d em uma imagem usando o método Quantum Patern Recognition (QPR) e, depois, a imagem alimenta uma CNN classificadora que usa o módulo Slim. Experimentos em um dataset próprio mostram que o método proposto superou os baselines e obteve resultados competitivos em comparação com outros trabalhos. Obteve alta acurácia: 99,3%. Portanto, o método proposto foi capaz de obter uma performance de topo no estado da arte. 
 		- Críticas:		
 	
-	@$ Automated Multi-Wavelength Quality Assessment of Photoplethysmography Signals Using Modulation Spectrum Shape Features
-		- Autores: Abhishek Tiwari, Gordon Gray, Parker Bondi, Amin Mahnam and Tiago H. Falk
-		- Tempo: 2023
-		- Síntese: O artigo trata do SQA de sinais PPG, transformando o sinal em uma representação de modulation spectogram e, a partir dela, extraindo métricas SQI spectrais, a fim de alimentar um classificador. Experimentos foram feitos em um dataset com três  comprimentos de onda, usando um classificador de regressão logística, envolvendo várias outras SQIs existentes. Houveram testes intra e inter comprimento de onda. Ele resultou na métrica de entropia spectral como sendo a feature mais importante, além de ter o subconjunto de SQIs spectrais como o maior em acurácia, embora a junção de todas SQIs seja superior. Conclui-se que as métricas propostas conseguiram ser mais importante que as outras testadas, além de saber que ela generalizou bem para diferentes comprimentos de onda.
-		- Críticas: Apenas considera SQIs de features.
-
 	@$ Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots
 		- Autores: Álvaro Huerta , Arturo Martinez-Rodrigo , Vicente Bertomeu-González, Óscar Ayo-Martin , José J. Rieta , Raúl Alcaraz
 		- Tempo: 2024
@@ -163,6 +157,12 @@
 		- Tempo: 2019
 		- Síntese: O artigo trata do SQA de sinais ECG cardíacos por meio da extração de features de diferentes janelas usando a Auto Correlation Function (ACF), que alimentam o classificador RUSBoost, robusto para datasets não balanceados. O SQI corresponde à probabilidade da classe ser "contaminada". Experimentos entre diferentes datsets e envolvendo outros modelos existentes mostram que o método proposto preserva a acurácia mesmo tendo sido treinado em um dataset e testado em outro, ainda mantendo resultados que competem com os outros métodos existentes. Conclui-se que o método é robusto à mudança de condições no dataset e também é flexível para quantas classes de qualidade se deseja, pois atua com regressão.
 		- Críticas: Poucas abordagens foram comparadas e poucas combinações de validação entre datsets foram exploradas.
+
+	@$ Automated Multi-Wavelength Quality Assessment of Photoplethysmography Signals Using Modulation Spectrum Shape Features
+		- Autores: Abhishek Tiwari, Gordon Gray, Parker Bondi, Amin Mahnam and Tiago H. Falk
+		- Tempo: 2023
+		- Síntese: O artigo trata do SQA de sinais PPG, transformando o sinal em uma representação de modulation spectogram e, a partir dela, extraindo métricas SQI spectrais, a fim de alimentar um classificador. Experimentos foram feitos em um dataset com três  comprimentos de onda, usando um classificador de regressão logística, envolvendo várias outras SQIs existentes. Houveram testes intra e inter comprimento de onda. Ele resultou na métrica de entropia spectral como sendo a feature mais importante, além de ter o subconjunto de SQIs spectrais como o maior em acurácia, embora a junção de todas SQIs seja superior. Conclui-se que as métricas propostas conseguiram ser mais importante que as outras testadas, além de saber que ela generalizou bem para diferentes comprimentos de onda.
+		- Críticas: Apenas considera SQIs de features.
 
 ================================================================================================================================
 	
