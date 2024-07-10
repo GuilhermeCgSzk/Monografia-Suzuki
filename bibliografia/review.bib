@@ -1,19 +1,102 @@
-@article{review-1,
-doi = {10.1088/0967-3334/33/9/1491},
-url = {https://dx.doi.org/10.1088/0967-3334/33/9/1491},
-year = {2012},
-month = {aug},
-publisher = {IOP Publishing},
-volume = {33},
-number = {9},
-pages = {1491},
-author = {Q Li and G D Clifford},
-title = {Dynamic time warping and machine learning for signal quality assessment of pulsatile signals},
+
+% origins ---------------------------------------------------------------------------------------------------------------
+
+@ARTICLE{origins-1,
+  author={Rice, S. O.},
+  journal={The Bell System Technical Journal}, 
+  title={Mathematical analysis of random noise}, 
+  year={1944},
+  volume={23},
+  number={3},
+  pages={282-332},
+  keywords={},
+  doi={10.1002/j.1538-7305.1944.tb00874.x}}
+
+@ARTICLE{origins-2,
+  author={Shannon, C. E.},
+  journal={The Bell System Technical Journal}, 
+  title={A mathematical theory of communication}, 
+  year={1948},
+  volume={27},
+  number={3},
+  pages={379-423},
+  keywords={},
+  doi={10.1002/j.1538-7305.1948.tb01338.x}}
+
+@ARTICLE{origins-3,
+  author={Stehle, R.H.},
+  journal={IEEE Transactions on Broadcasting}, 
+  title={A double-sideband shortwave-broadcast signal-quality estimation algorithm}, 
+  year={1988},
+  volume={34},
+  number={2},
+  pages={263-282},
+  keywords={Broadcasting;Humans;Monitoring;Speech processing;Acoustic measurements;Quality assessment;Signal processing;Natural languages;Acoustic distortion;Automation},
+  doi={10.1109/11.1443}}
+
+% 2000s ---------------------------------------------------------------------------------------------------------------
+
+@INPROCEEDINGS{2000s-1,
+  author={Wang, J.Y.},
+  booktitle={Computers in Cardiology}, 
+  title={A new method for evaluating ECG signal quality for multi-lead arrhythmia analysis}, 
+  year={2002},
+  volume={},
+  number={},
+  pages={85-88},
+  keywords={Electrocardiography;Signal analysis;Signal processing;Area measurement;Noise measurement;Histograms;Quality assessment;Statistical distributions;Databases;Information analysis},
+  doi={10.1109/CIC.2002.1166713}}
+
+@article{2000s-2,
+doi = {10.1088/0967-3334/29/1/002},
+url = {https://dx.doi.org/10.1088/0967-3334/29/1/002},
+year = {2007},
+month = {dec},
+publisher = {},
+volume = {29},
+number = {1},
+pages = {15},
+author = {Q Li and R G Mark and G D Clifford},
+title = {Robust heart rate estimation from multiple asynchronous noisy sources using signal quality indices and a Kalman filter},
 journal = {Physiological Measurement},
-abstract = {In this work, we describe a beat-by-beat method for assessing the clinical utility of pulsatile waveforms, primarily recorded from cardiovascular blood volume or pressure changes, concentrating on the photoplethysmogram (PPG). Physiological blood flow is nonstationary, with pulses changing in height, width and morphology due to changes in heart rate, cardiac output, sensor type and hardware or software pre-processing requirements. Moreover, considerable inter-individual and sensor-location variability exists. Simple template matching methods are therefore inappropriate, and a patient-specific adaptive initialization is therefore required. We introduce dynamic time warping to stretch each beat to match a running template and combine it with several other features related to signal quality, including correlation and the percentage of the beat that appeared to be clipped. The features were then presented to a multi-layer perceptron neural network to learn the relationships between the parameters in the presence of good- and bad-quality pulses. An expert-labeled database of 1055 segments of PPG, each 6 s long, recorded from 104 separate critical care admissions during both normal and verified arrhythmic events, was used to train and test our algorithms. An accuracy of 97.5% on the training set and 95.2% on test set was found. The algorithm could be deployed as a stand-alone signal quality assessment algorithm for vetting the clinical utility of PPG traces or any similar quasi-periodic signal.}
+abstract = {Physiological signals such as the electrocardiogram (ECG) and arterial blood pressure (ABP) in the intensive care unit (ICU) are often severely corrupted by noise, artifact and missing data, which lead to large errors in the estimation of the heart rate (HR) and ABP. A robust HR estimation method is described that compensates for these problems. The method is based upon the concept of fusing multiple signal quality indices (SQIs) and HR estimates derived from multiple electrocardiogram (ECG) leads and an invasive ABP waveform recorded from ICU patients. Physiological SQIs were obtained by analyzing the statistical characteristics of each waveform and their relationships to each other. HR estimates from the ECG and ABP are tracked with separate Kalman filters, using a modified update sequence based upon the individual SQIs. Data fusion of each HR estimate was then performed by weighting each estimate by the Kalman filters' SQI-modified innovations. This method was evaluated on over 6000 h of simultaneously acquired ECG and ABP from a 437 patient subset of ICU data by adding real ECG and realistic artificial ABP noise. The method provides an accurate HR estimate even in the presence of high levels of persistent noise and artifact, and during episodes of extreme bradycardia and tachycardia.}
 }
 
-@article{review-2,
+@mastersthesis{2000s-3,
+  title={False arrhythmia alarm suppression using ECG, ABP, and photoplethysmogram},
+  author={Deshmane, Anagha Vishwas},
+  year={2009},
+  school={Massachusetts Institute of Technology}
+}
+
+@INPROCEEDINGS{2000s-4,
+  author={Zhang, Pandeng and Liu, Jia and Wu, Xinyu and Liu, Xiaochang and Gao, Qingchun},
+  booktitle={2010 4th International Conference on Bioinformatics and Biomedical Engineering}, 
+  title={A Novel Feature Extraction Method for Signal Quality Assessment of Arterial Blood Pressure for Monitoring Cerebral Autoregulation}, 
+  year={2010},
+  volume={},
+  number={},
+  pages={1-4},
+  keywords={Feature extraction;Quality assessment;Arterial blood pressure;Biomedical monitoring;Hospitals;Distribution functions;Testing;Physiology;Design methodology;Signal processing},
+  doi={10.1109/ICBBE.2010.5515739}}
+
+% ecg ---------------------------------------------------------------------------------------------------------------
+
+@article{ecg-1,
+title = {A survey on ECG analysis},
+journal = {Biomedical Signal Processing and Control},
+volume = {43},
+pages = {216-235},
+year = {2018},
+issn = {1746-8094},
+doi = {https://doi.org/10.1016/j.bspc.2018.03.003},
+url = {https://www.sciencedirect.com/science/article/pii/S1746809418300636},
+author = {Selcan {Kaplan Berkaya} and Alper Kursat Uysal and Efnan {Sora Gunal} and Semih Ergin and Serkan Gunal and M. Bilginer Gulmezoglu},
+keywords = {ECG, Electrocardiogram, Classification, Database, QRS, Feature extraction, Feature selection, Preprocessing},
+abstract = {The electrocardiogram (ECG) signal basically corresponds to the electrical activity of the heart. In the literature, the ECG signal has been analyzed and utilized for various purposes, such as measuring the heart rate, examining the rhythm of heartbeats, diagnosing heart abnormalities, emotion recognition and biometric identification. ECG analysis (depending on the type of the analysis) can contain several steps, such as preprocessing, feature extraction, feature selection, feature transformation and classification. Performing each step is crucial for the sake of the related analysis. In addition, the employed success measures and appropriate constitution of the ECG signal database play important roles in the analysis as well. In this work, the literature on ECG analysis, mostly from the last decade, is comprehensively reviewed based on all of the major aspects mentioned above. Each step in ECG analysis is briefly described, and the related studies are provided.}
+}
+
+@article{ecg-2,
 author = {H. Naseri and M.R. Homaeinezhad},
 title = {Electrocardiogram signal quality assessment using an artificially reconstructed target lead},
 journal = {Computer Methods in Biomechanics and Biomedical Engineering},
@@ -34,7 +117,7 @@ eprint = {
 }
 }
 
-@ARTICLE{review-3,
+@ARTICLE{ecg-3,
   author={Orphanidou, Christina and Drobnjak, Ivana},
   journal={IEEE Journal of Biomedical and Health Informatics}, 
   title={Quality Assessment of Ambulatory ECG Using Wavelet Entropy of the HRV Signal}, 
@@ -45,7 +128,7 @@ eprint = {
   keywords={Heart rate variability;Electrocardiography;Entropy;Wearable sensors;Resonant frequency;Noise measurement;Electrocardiogram (ECG);heart rate (HR);heart rate variability (HRV);signal quality;wavelets;wearable sensors},
   doi={10.1109/JBHI.2016.2615316}}
 
-@ARTICLE{review-4,
+@ARTICLE{ecg-4,
   author={Shahriari, Yalda and Fidler, Richard and Pelter, Michele M. and Bai, Yong and Villaroman, Andrea and Hu, Xiao},
   journal={IEEE Transactions on Biomedical Engineering}, 
   title={Electrocardiogram Signal Quality Assessment Based on Structural Image Similarity Metric}, 
@@ -55,6 +138,74 @@ eprint = {
   pages={745-753},
   keywords={Electrocardiography;Indexes;Biomedical monitoring;Standards;Alarm fatigue;cluster analysis;electrocardiogram (ECG);image quality index (IQI);intensive care unit (ICU);structural similarity index measure (SSIM)},
   doi={10.1109/TBME.2017.2717876}}
+  
+@article{ecg-5,
+title = {Artefact detection and quality assessment of ambulatory ECG signals},
+journal = {Computer Methods and Programs in Biomedicine},
+volume = {182},
+pages = {105050},
+year = {2019},
+issn = {0169-2607},
+doi = {https://doi.org/10.1016/j.cmpb.2019.105050},
+url = {https://www.sciencedirect.com/science/article/pii/S0169260719312817},
+author = {Jonathan Moeyersons and Elena Smets and John Morales and Amalia Villa and Walter {De Raedt} and Dries Testelmans and Bertien Buyse and Chris {Van Hoof} and Rik Willems and Sabine {Van Huffel} and Carolina Varon},
+keywords = {ECG, Ambulatory monitoring, Artefacts, Quality assessment},
+abstract = {Background and Objectives
+The presence of noise sources could reduce the diagnostic capability of the ECG signal and result in inappropriate treatment decisions. To mitigate this problem, automated algorithms to detect artefacts and quantify the quality of the recorded signal are needed. In this study we present an automated method for the detection of artefacts and quantification of the signal quality. The suggested methodology extracts descriptive features from the autocorrelation function and feeds these to a RUSBoost classifier. The posterior probability of the clean class is used to create a continuous signal quality assessment index. Firstly, the robustness of the proposed algorithm is investigated and secondly, the novel signal quality assessment index is evaluated.
+Methods
+Data were used from three different studies: a Sleep study, the PhysioNet 2017 Challenge and a Stress study. Binary labels, clean or contaminated, were available from different annotators with experience in ECG analysis. Two types of realistic ECG noise from the MIT-BIH Noise Stress Test Database (NSTDB) were added to the Sleep study to test the quality index. Firstly, the model was trained on the Sleep dataset and subsequently tested on a subset of the other two datasets. Secondly, all recording conditions were taken into account by training the model on a subset derived from the three datasets. Lastly, the posterior probabilities of the model for the different levels of agreement between the annotators were compared.
+Results
+AUC values between 0.988 and 1.000 were obtained when training the model on the Sleep dataset. These results were further improved when training on the three datasets and thus taking all recording conditions into account. A Pearson correlation coefficient of 0.8131 was observed between the score of the clean class and the level of agreement. Additionally, significant quality decreases per noise level for both types of added noise were observed.
+Conclusions
+The main novelty of this study is the new approach to ECG signal quality assessment based on the posterior clean class probability of the classifier.}
+}
+
+@article{ecg-6,
+title = {Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots},
+journal = {Biomedical Signal Processing and Control},
+volume = {91},
+pages = {105920},
+year = {2024},
+issn = {1746-8094},
+doi = {https://doi.org/10.1016/j.bspc.2023.105920},
+url = {https://www.sciencedirect.com/science/article/pii/S1746809423013538},
+author = {Álvaro Huerta and Arturo Martinez-Rodrigo and Vicente Bertomeu-González and Óscar Ayo-Martin and José J. Rieta and Raúl Alcaraz},
+keywords = {Signal quality assessment, Paroxysmal atrial fibrillation, Phase space portraits, Machine learning classifiers, Deep learning algorithms},
+abstract = {Current wearable electrocardiogram (ECG) recording systems have great potential to revolutionize early diagnosis of paroxysmal atrial fibrillation (AF). They are able to continuously acquire an ECG signal for long weeks and then increase the probability of detecting first brief, intermittent signs of the arrhythmia. However, the recorded signal is often broadly corrupted by noise and artifacts, and accurate assessment of its quality to avoid automated misdiagnosis and false alarms of AF is still an unsolved challenge. In this context, the present work is pioneer in exploring the usefulness of transforming the single-lead ECG signal into two common phase space (PS) representations, such as the Poincaré plot and the first order difference graph, for evaluation of its quality. Several machine and deep learning models fed with features and images derived from these PS portraits reported a better performance than well-known previous methods, even when they were trained and validated on two separate databases. Indeed, in binary classification of high- and low-quality ECG excerpts, the generated PS-based algorithms reported a discriminant power greater than 85%, misclassifying less than 20% of high-quality AF episodes and non-normal rhythms as noisy excerpts. Moreover, because both PS reconstructions do not require any mathematical transformation, these algorithms also spent much less time in classifying each ECG excerpt in validation and testing stages than previous methods. As a consequence, ECG transformation to both PS portraits enables novel, simple, effective, and computational low-cost techniques, based both on machine and deep learning classifiers, for ECG quality assessment.}
+}
+
+% ppg ------------------------------------------------------------------------------------------------------------------
+
+@article{ppg-1,
+title = {Photoplethysmograhic sensors, potential and limitations: Is it time for regulation? A comprehensive review},
+journal = {Measurement},
+volume = {218},
+pages = {113150},
+year = {2023},
+issn = {0263-2241},
+doi = {https://doi.org/10.1016/j.measurement.2023.113150},
+url = {https://www.sciencedirect.com/science/article/pii/S0263224123007145},
+author = {Francesco Scardulla and Gloria Cosoli and Susanna Spinsante and Angelica Poli and Grazia Iadarola and Riccardo Pernice and Alessandro Busacca and Salvatore Pasta and Lorenzo Scalise and Leonardo D'Acquisto},
+keywords = {Photoplethysmography (PPG), Optical sensors, Heart Rate (HR), Sources of inaccuracy, Motion artifacts, Standardization},
+abstract = {Healthcare is expected to increasingly shift care out of inpatient settings thanks to wearable monitoring systems. Photoplethysmography (PPG) is an optical technique already integrated into wrist-worn commercial products which presents significant advantages in terms of cost and dimensions. PPG-based devices, despite their ability to detect multiple cardiovascular parameters, are affected by several influencing conditions that depend both on technological or environmental variables, and on intra- and inter-subject variability that influences the whole measurement chain and reliability, hindering an objective characterization of PPG devices. Plus, the lack of standardization for data collection and processing leads to the lack of generalizability and reproducibility of results, preventing the full exploitation of the potential prognostic capacity of this technology. Thus, this review aims not only to summarize the main influencing parameters of PPG technology, which should be addressed when testing the sensor, but also to suggest tentative guidelines for a possible future standardization initiative.}
+}
+
+% review ---------------------------------------------------------------------------------------------------------------
+
+@article{review-1,
+doi = {10.1088/0967-3334/33/9/1491},
+url = {https://dx.doi.org/10.1088/0967-3334/33/9/1491},
+year = {2012},
+month = {aug},
+publisher = {IOP Publishing},
+volume = {33},
+number = {9},
+pages = {1491},
+author = {Q Li and G D Clifford},
+title = {Dynamic time warping and machine learning for signal quality assessment of pulsatile signals},
+journal = {Physiological Measurement},
+abstract = {In this work, we describe a beat-by-beat method for assessing the clinical utility of pulsatile waveforms, primarily recorded from cardiovascular blood volume or pressure changes, concentrating on the photoplethysmogram (PPG). Physiological blood flow is nonstationary, with pulses changing in height, width and morphology due to changes in heart rate, cardiac output, sensor type and hardware or software pre-processing requirements. Moreover, considerable inter-individual and sensor-location variability exists. Simple template matching methods are therefore inappropriate, and a patient-specific adaptive initialization is therefore required. We introduce dynamic time warping to stretch each beat to match a running template and combine it with several other features related to signal quality, including correlation and the percentage of the beat that appeared to be clipped. The features were then presented to a multi-layer perceptron neural network to learn the relationships between the parameters in the presence of good- and bad-quality pulses. An expert-labeled database of 1055 segments of PPG, each 6 s long, recorded from 104 separate critical care admissions during both normal and verified arrhythmic events, was used to train and test our algorithms. An accuracy of 97.5% on the training set and 95.2% on test set was found. The algorithm could be deployed as a stand-alone signal quality assessment algorithm for vetting the clinical utility of PPG traces or any similar quasi-periodic signal.}
+}
 
 @article{arrhythmia,
   title={Overview of basic mechanisms of cardiac arrhythmia},
@@ -176,20 +327,6 @@ abstract = {Remote photoplethysmogram (rPPG) is a low-cost method to extract blo
   pages={3382-3386},
   keywords={Deep learning;Maximum likelihood estimation;Image segmentation;Sensitivity;System performance;Photoplethysmography;Physiology},
   doi={10.1109/EMBC48229.2022.9871494}}
-  
-@article{review-14,
-title = {Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots},
-journal = {Biomedical Signal Processing and Control},
-volume = {91},
-pages = {105920},
-year = {2024},
-issn = {1746-8094},
-doi = {https://doi.org/10.1016/j.bspc.2023.105920},
-url = {https://www.sciencedirect.com/science/article/pii/S1746809423013538},
-author = {Álvaro Huerta and Arturo Martinez-Rodrigo and Vicente Bertomeu-González and Óscar Ayo-Martin and José J. Rieta and Raúl Alcaraz},
-keywords = {Signal quality assessment, Paroxysmal atrial fibrillation, Phase space portraits, Machine learning classifiers, Deep learning algorithms},
-abstract = {Current wearable electrocardiogram (ECG) recording systems have great potential to revolutionize early diagnosis of paroxysmal atrial fibrillation (AF). They are able to continuously acquire an ECG signal for long weeks and then increase the probability of detecting first brief, intermittent signs of the arrhythmia. However, the recorded signal is often broadly corrupted by noise and artifacts, and accurate assessment of its quality to avoid automated misdiagnosis and false alarms of AF is still an unsolved challenge. In this context, the present work is pioneer in exploring the usefulness of transforming the single-lead ECG signal into two common phase space (PS) representations, such as the Poincaré plot and the first order difference graph, for evaluation of its quality. Several machine and deep learning models fed with features and images derived from these PS portraits reported a better performance than well-known previous methods, even when they were trained and validated on two separate databases. Indeed, in binary classification of high- and low-quality ECG excerpts, the generated PS-based algorithms reported a discriminant power greater than 85%, misclassifying less than 20% of high-quality AF episodes and non-normal rhythms as noisy excerpts. Moreover, because both PS reconstructions do not require any mathematical transformation, these algorithms also spent much less time in classifying each ECG excerpt in validation and testing stages than previous methods. As a consequence, ECG transformation to both PS portraits enables novel, simple, effective, and computational low-cost techniques, based both on machine and deep learning classifiers, for ECG quality assessment.}
-}
 
 @Article{review-15,
 AUTHOR = {Roh, Donggeun and Shin, Hangsik},
@@ -238,4 +375,7 @@ DOI = {10.3390/s21062188}
   pages={1078-1088},
   keywords={Real-time systems;Quality assessment;Markov processes;Databases;Computational modeling;MIMICs;Classification algorithms;Knowledge distillation (KD);lightweight hybrid model (LHM);multiscale Markov transition field (MMTF);photoplethysmography (PPG);real-time assessment},
   doi={10.1109/JBHI.2023.3331975}}
+
+
+
 
