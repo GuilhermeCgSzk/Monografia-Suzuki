@@ -15,7 +15,39 @@
 		- Tempo: 2017
 		- Síntese: O artigo trata do uso de SQA para melhorar a estimativa de HR de ECG fetais, por meio de um filtro Kalman alimentado por um classificador Naive Bayes que recebe diversas SQIs desenvolvidas para o escopo de ECG fetal. Os experimentos realizados em um dataset próprio indicaram que o método produziu boas estimativas HR. Conclui-se que o metodo é funcional. 
 		- Críticas: Não comparou com outros métodos
+		
+% The Signal Types ============================================================================================================
 
+	@$ Electrocardiogram signal quality assessment using an artificially reconstructed target lead
+		- Autores: H. Naseri a,b * and M.R. Homaeinezhad
+		- Tempo: 2014
+		- Síntese: O artigo trata do SQA de sinais ECG. Especificamente, ele tenta resolver o problema de detectar e tratar ruídos de alta ou média ordem por meio da correlação entre diferentes canais do ECG. O método consiste em preprocessar o sinal com para tratar ruídos de baixa ordem, calcular Energy Concavity Indexes em cada canal para avaliar se o sinal deve ou não ser descartado e, por fim, avaliar a correlação entre um canal e um sinal reconstruído a partir de outros canais, a fim de determinar se o sinal é bom ou não. Testes no dataset CinC Challenge 2011, comparando com outras abordagens, indicam que a abordagem proposta é mais acurada que as outras informadas no artigo, alcançando uma pontuação de 93.60%. Isso mostra que a abordagem proposta supera várias outras para o dataset do teste.
+		- Críticas:
+		
+	@$ Quality Assessment of Ambulatory ECG Using Wavelet Entropy of the HRV Signal
+		- Autores: Christina Orphanidou and Ivana Drobnjak
+		- Tempo: 2017
+		- Síntese: O artigo trata do SQA de sinais ECG por meio da extração de um sinal HRV (Heart Rate Variability), seguida da decomposição desse sinal em onduletas e do calculo da entropia dessas onduletas, que formam um vetor de features que alimentam um classificador SVM, com a finalidade de classificar um sinal como confiável ou não. Experimentos em dois datasets obtidos por diferentes dispositivos e comparando a abordagem proposta com uma simples regra de descarte de sinal mostrou que a primeira foi superior, alcançando acurácias superiores a 90% em ambos datasets. Portanto, a proposição é funcional para diferentes dispositivos e o conseguiu usando apenas canais únicos, em contraste com outras abordagens que usam múltiplos canais ECG.
+		- Críticas: Não comparou com outras abordagens existentes.
+		
+	@$ Electrocardiogram Signal Quality Assessment Based on Structural Image Similarity Metric
+		- Autores: Yalda Shahriari , Richard Fidler, Michele M Pelter, Yong Bai, Andrea Villaroman, and Xiao Hu
+		- Tempo: 2018
+		- Síntese: O artigo trata do SQA de sinais ECG aplicando a métrica Structural Similarity Measure (SSIM) sobre imagens contendo os sinais (são múltiplos canais) plotados, com o intuito de medir a similaridade entre um dado sinal e sinais-template que representam sinais bons. Esses sinais template são sinais selecionados em um algoritmo de clusterização, usando o SSIM como distância. Então, para estimar o SQI, cada distância entre o sinal e um template alimenta uma entrada de um Linear Discriminant Analysis e este estima o valor. Com isso, em um dataset próprio com rótulos de qualidade, o SQI proposto alcançou resultados superiores a um agregado de SQIs existentes (baseSQI, kSQI, and sSQI). Isso demonstra que métodos baseados em representações visuais do sinal podem superar os SQIs tradicionais.
+		- Críticas: Apenas chegaram-se a essas conclusões em um único dataset próprio. Limitou-se a estimar um SQI.
+	
+	@$ Artefact detection and quality assessment of ambulatory ECG signals
+		- Autores: Jonathan Moeyersons, Elena Smets , John Morales , Amalia Villa , Walter De Raedt , Dries Testelmans , Bertien Buyse , Chris Van Hoof , Rik Willems, Sabine Van Huffel, Carolina Varon
+		- Tempo: 2019
+		- Síntese: O artigo trata do SQA de sinais ECG cardíacos por meio da extração de features de diferentes janelas usando a Auto Correlation Function (ACF), que alimentam o classificador RUSBoost, robusto para datasets não balanceados. O SQI corresponde à probabilidade da classe ser "contaminada". Experimentos entre diferentes datsets e envolvendo outros modelos existentes mostram que o método proposto preserva a acurácia mesmo tendo sido treinado em um dataset e testado em outro, ainda mantendo resultados que competem com os outros métodos existentes. Conclui-se que o método é robusto à mudança de condições no dataset e também é flexível para quantas classes de qualidade se deseja, pois atua com regressão.
+		- Críticas: Poucas abordagens foram comparadas e poucas combinações de validação entre datsets foram exploradas.
+		
+	@$ Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots
+		- Autores: Álvaro Huerta , Arturo Martinez-Rodrigo , Vicente Bertomeu-González, Óscar Ayo-Martin , José J. Rieta , Raúl Alcaraz
+		- Tempo: 2024
+		- Síntese: O artigo trata do SQA de sinais ECG no contexto de AF, por meio da transformação do sinal em Poincaré Plots (PP) e First Order Difference Graph (FODG), espaços fásicos. Desses espaços, puderam ser extraídas features para alimentar modelos de machine learning (no experimento foi usado o GentleBoost) e também foi possível transformar esses espaços em jet colormaps que alimentam modelos deep learning 2d (no experimento foi usada uma CNN própria). Experimentos treinados em um datset privado e testados no dataset PhysioNet/CinC Challenge 2017 mostram que a abordagem proposta obteve resultados levemente superiores se comparados a outras abordagens existentes testadas. Conclui-se que a abordagem proposta pôde melhorar a performance tanto de abordagens baseadas em features quanto em abordagens baseadas em deep learning.
+		- Críticas:
+		
 %Feature Extraction Method=====================================================================================================
 
 	
@@ -24,27 +56,9 @@
 		- Tempo: 2012
 		- Síntese: O artigo trata do SQA de sinais cardíacos PPG por meio do uso de DTW como uma SQI. Essa SQI alimenta, juntamente com outras SQIs complementares, uma MLP a fim de estimar um nível de qualidade do sinal. Em testes realizados em uma base PPG anotada a partir da base MIMIC II, o método alcançou uma alta acurácia de 95% no dataset de teste. Isso mostra que o método proposto é funcional, além de ser genérico, possibilitando sua aplicação para outros tipos de sinais.
 		- Críticas: Não comparou com outros métodos e não testou diferentes datasets
-
-	@$ Electrocardiogram signal quality assessment using an artificially reconstructed target lead
-		- Autores: H. Naseri a,b * and M.R. Homaeinezhad
-		- Tempo: 2014
-		- Síntese: O artigo trata do SQA de sinais ECG. Especificamente, ele tenta resolver o problema de detectar e tratar ruídos de alta ou média ordem por meio da correlação entre diferentes canais do ECG. O método consiste em preprocessar o sinal com para tratar ruídos de baixa ordem, calcular Energy Concavity Indexes em cada canal para avaliar se o sinal deve ou não ser descartado e, por fim, avaliar a correlação entre um canal e um sinal reconstruído a partir de outros canais, a fim de determinar se o sinal é bom ou não. Testes no dataset CinC Challenge 2011, comparando com outras abordagens, indicam que a abordagem proposta é mais acurada que as outras informadas no artigo, alcançando uma pontuação de 93.60%. Isso mostra que a abordagem proposta supera várias outras para o dataset do teste.
-		- Críticas: 	
-		
-	@$ Quality Assessment of Ambulatory ECG Using Wavelet Entropy of the HRV Signal
-		- Autores: Christina Orphanidou and Ivana Drobnjak
-		- Tempo: 2017
-		- Síntese: O artigo trata do SQA de sinais ECG por meio da extração de um sinal HRV (Heart Rate Variability), seguida da decomposição desse sinal em onduletas e do calculo da entropia dessas onduletas, que formam um vetor de features que alimentam um classificador SVM, com a finalidade de classificar um sinal como confiável ou não. Experimentos em dois datasets obtidos por diferentes dispositivos e comparando a abordagem proposta com uma simples regra de descarte de sinal mostrou que a primeira foi superior, alcançando acurácias superiores a 90% em ambos datasets. Portanto, a proposição é funcional para diferentes dispositivos e o conseguiu usando apenas canais únicos, em contraste com outras abordagens que usam múltiplos canais ECG.
-		- Críticas: Não comparou com outras abordagens existentes.
 	
 	% PONTE -----------------------------------------------------------------------------------------------------------------
 	
-	@$ Electrocardiogram Signal Quality Assessment Based on Structural Image Similarity Metric
-		- Autores: Yalda Shahriari , Richard Fidler, Michele M Pelter, Yong Bai, Andrea Villaroman, and Xiao Hu
-		- Tempo: 2018
-		- Síntese: O artigo trata do SQA de sinais ECG aplicando a métrica Structural Similarity Measure (SSIM) sobre imagens contendo os sinais (são múltiplos canais) plotados, com o intuito de medir a similaridade entre um dado sinal e sinais-template que representam sinais bons. Esses sinais template são sinais selecionados em um algoritmo de clusterização, usando o SSIM como distância. Então, para estimar o SQI, cada distância entre o sinal e um template alimenta uma entrada de um Linear Discriminant Analysis e este estima o valor. Com isso, em um dataset próprio com rótulos de qualidade, o SQI proposto alcançou resultados superiores a um agregado de SQIs existentes (baseSQI, kSQI, and sSQI). Isso demonstra que métodos baseados em representações visuais do sinal podem superar os SQIs tradicionais.
-		- Críticas: Apenas chegaram-se a essas conclusões em um único dataset próprio. Limitou-se a estimar um SQI.
-
 %Arrhythmia======================================================================================================================	
 			
 	@$ Robust Assessment of Photoplethysmogram Signal Quality in the Presence of Atrial Fibrillation
@@ -108,12 +122,6 @@
 		- Tempo: 2022
 		- Síntese: Este artigo trata do SQA de sinais PPG, classificando-o como "bom" ou "ruim". O autor propõe o seguinte pipline: projeta-se o sinal 1d em uma imagem usando o método Quantum Patern Recognition (QPR) e, depois, a imagem alimenta uma CNN classificadora que usa o módulo Slim. Experimentos em um dataset próprio mostram que o método proposto superou os baselines e obteve resultados competitivos em comparação com outros trabalhos. Obteve alta acurácia: 99,3%. Portanto, o método proposto foi capaz de obter uma performance de topo no estado da arte. 
 		- Críticas:		
-	
-	@$ Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots
-		- Autores: Álvaro Huerta , Arturo Martinez-Rodrigo , Vicente Bertomeu-González, Óscar Ayo-Martin , José J. Rieta , Raúl Alcaraz
-		- Tempo: 2024
-		- Síntese: O artigo trata do SQA de sinais ECG no contexto de AF, por meio da transformação do sinal em Poincaré Plots (PP) e First Order Difference Graph (FODG), espaços fásicos. Desses espaços, puderam ser extraídas features para alimentar modelos de machine learning (no experimento foi usado o GentleBoost) e também foi possível transformar esses espaços em jet colormaps que alimentam modelos deep learning 2d (no experimento foi usada uma CNN própria). Experimentos treinados em um datset privado e testados no dataset PhysioNet/CinC Challenge 2017 mostram que a abordagem proposta obteve resultados levemente superiores se comparados a outras abordagens existentes testadas. Conclui-se que a abordagem proposta pôde melhorar a performance tanto de abordagens baseadas em features quanto em abordagens baseadas em deep learning.
-		- Críticas:
 
 	% PONTE -----------------------------------------------------------------------------------------------------------------
 	
@@ -125,7 +133,6 @@
 	
 % Matrix Embedding =============================================================================================================
 	
-
 	@$ Photoplethysmogram Signal Quality Assessment via 1D-to-2D Projections and Vision Transformers
 		- Autores: Pedro Garcia Freitas, Rafael G. de Lima, Giovani D. Lucafo, and Ot´avio A. B. Penatti
 		- Tempo: 2023
@@ -151,12 +158,6 @@
 		- Tempo: 2021
 		- Síntese: O artigo trata do SQA de sinais PPG cardiológicos. Especificamente, da classificação binária de de sinais rPPG, sinais PPG extraídos de forma remota, filmando o rosto do paciente com uma câmera. Isso foi feito usando uma Long-Short Term Memory Network LSTMN, rede recorrente. Experimentos com datasets PPG e rPPG anotados pelos pesquisadores mostram que o modelo tende a associar pontuações de qualidade de modo proporcional ao decréscimo do erro da estimativa do HR. Conclui-se que o modelo converge para sinais rPPG.   
 		- Críticas: O dataset tem rótulos anotados pelos pesquisadores. Além disso, não compara com outras abordagens.
-		
-	@$ Artefact detection and quality assessment of ambulatory ECG signals
-		- Autores: Jonathan Moeyersons, Elena Smets , John Morales , Amalia Villa , Walter De Raedt , Dries Testelmans , Bertien Buyse , Chris Van Hoof , Rik Willems, Sabine Van Huffel, Carolina Varon
-		- Tempo: 2019
-		- Síntese: O artigo trata do SQA de sinais ECG cardíacos por meio da extração de features de diferentes janelas usando a Auto Correlation Function (ACF), que alimentam o classificador RUSBoost, robusto para datasets não balanceados. O SQI corresponde à probabilidade da classe ser "contaminada". Experimentos entre diferentes datsets e envolvendo outros modelos existentes mostram que o método proposto preserva a acurácia mesmo tendo sido treinado em um dataset e testado em outro, ainda mantendo resultados que competem com os outros métodos existentes. Conclui-se que o método é robusto à mudança de condições no dataset e também é flexível para quantas classes de qualidade se deseja, pois atua com regressão.
-		- Críticas: Poucas abordagens foram comparadas e poucas combinações de validação entre datsets foram exploradas.
 
 	@$ Automated Multi-Wavelength Quality Assessment of Photoplethysmography Signals Using Modulation Spectrum Shape Features
 		- Autores: Abhishek Tiwari, Gordon Gray, Parker Bondi, Amin Mahnam and Tiago H. Falk
