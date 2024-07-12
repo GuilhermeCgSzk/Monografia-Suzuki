@@ -60,6 +60,13 @@ class ProjectionsGenerator(Generator):
 		signal = np.array([math.sin(10*np.pi*i/N)/2 for i in range(N)])
 		signal = numpy_rescale(signal,dst_min_val=0,dst_max_val=1, axis=0)
 		
+		# Signal Cartesian Plot
+		
+		plt.figure(figsize=(10,2))
+		plt.plot(range(len(signal)),signal)
+		with open(os.path.join(path,'signal.png'), 'wb') as f:
+			plt.savefig(f)
+				
 		# Matrix Embedding
 		
 		projections = [
