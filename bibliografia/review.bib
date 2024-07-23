@@ -80,7 +80,9 @@ abstract = {Physiological signals such as the electrocardiogram (ECG) and arteri
   keywords={Feature extraction;Quality assessment;Arterial blood pressure;Biomedical monitoring;Hospitals;Distribution functions;Testing;Physiology;Design methodology;Signal processing},
   doi={10.1109/ICBBE.2010.5515739}}
 
-% ecg ---------------------------------------------------------------------------------------------------------------
+% The Signal Types ============================================================================================================
+
+	% ECG =================================================================================================================
 
 @article{ecg-1,
 title = {A survey on ECG analysis},
@@ -174,7 +176,7 @@ keywords = {Signal quality assessment, Paroxysmal atrial fibrillation, Phase spa
 abstract = {Current wearable electrocardiogram (ECG) recording systems have great potential to revolutionize early diagnosis of paroxysmal atrial fibrillation (AF). They are able to continuously acquire an ECG signal for long weeks and then increase the probability of detecting first brief, intermittent signs of the arrhythmia. However, the recorded signal is often broadly corrupted by noise and artifacts, and accurate assessment of its quality to avoid automated misdiagnosis and false alarms of AF is still an unsolved challenge. In this context, the present work is pioneer in exploring the usefulness of transforming the single-lead ECG signal into two common phase space (PS) representations, such as the Poincaré plot and the first order difference graph, for evaluation of its quality. Several machine and deep learning models fed with features and images derived from these PS portraits reported a better performance than well-known previous methods, even when they were trained and validated on two separate databases. Indeed, in binary classification of high- and low-quality ECG excerpts, the generated PS-based algorithms reported a discriminant power greater than 85%, misclassifying less than 20% of high-quality AF episodes and non-normal rhythms as noisy excerpts. Moreover, because both PS reconstructions do not require any mathematical transformation, these algorithms also spent much less time in classifying each ECG excerpt in validation and testing stages than previous methods. As a consequence, ECG transformation to both PS portraits enables novel, simple, effective, and computational low-cost techniques, based both on machine and deep learning classifiers, for ECG quality assessment.}
 }
 
-% ppg ------------------------------------------------------------------------------------------------------------------
+	% PPG ===================================================================================================================
 
 @article{ppg-1,
 title = {Photoplethysmograhic sensors, potential and limitations: Is it time for regulation? A comprehensive review},
@@ -190,9 +192,7 @@ keywords = {Photoplethysmography (PPG), Optical sensors, Heart Rate (HR), Source
 abstract = {Healthcare is expected to increasingly shift care out of inpatient settings thanks to wearable monitoring systems. Photoplethysmography (PPG) is an optical technique already integrated into wrist-worn commercial products which presents significant advantages in terms of cost and dimensions. PPG-based devices, despite their ability to detect multiple cardiovascular parameters, are affected by several influencing conditions that depend both on technological or environmental variables, and on intra- and inter-subject variability that influences the whole measurement chain and reliability, hindering an objective characterization of PPG devices. Plus, the lack of standardization for data collection and processing leads to the lack of generalizability and reproducibility of results, preventing the full exploitation of the potential prognostic capacity of this technology. Thus, this review aims not only to summarize the main influencing parameters of PPG technology, which should be addressed when testing the sensor, but also to suggest tentative guidelines for a possible future standardization initiative.}
 }
 
-% review ---------------------------------------------------------------------------------------------------------------
-
-@article{review-1,
+@article{ppg-2,
 doi = {10.1088/0967-3334/33/9/1491},
 url = {https://dx.doi.org/10.1088/0967-3334/33/9/1491},
 year = {2012},
@@ -207,6 +207,61 @@ journal = {Physiological Measurement},
 abstract = {In this work, we describe a beat-by-beat method for assessing the clinical utility of pulsatile waveforms, primarily recorded from cardiovascular blood volume or pressure changes, concentrating on the photoplethysmogram (PPG). Physiological blood flow is nonstationary, with pulses changing in height, width and morphology due to changes in heart rate, cardiac output, sensor type and hardware or software pre-processing requirements. Moreover, considerable inter-individual and sensor-location variability exists. Simple template matching methods are therefore inappropriate, and a patient-specific adaptive initialization is therefore required. We introduce dynamic time warping to stretch each beat to match a running template and combine it with several other features related to signal quality, including correlation and the percentage of the beat that appeared to be clipped. The features were then presented to a multi-layer perceptron neural network to learn the relationships between the parameters in the presence of good- and bad-quality pulses. An expert-labeled database of 1055 segments of PPG, each 6 s long, recorded from 104 separate critical care admissions during both normal and verified arrhythmic events, was used to train and test our algorithms. An accuracy of 97.5% on the training set and 95.2% on test set was found. The algorithm could be deployed as a stand-alone signal quality assessment algorithm for vetting the clinical utility of PPG traces or any similar quasi-periodic signal.}
 }
 
+@INPROCEEDINGS{ppg-3,
+  author={Papini, Gabriele B. and Fonseca, Pedro and Aubert, Xavier L. and Overeem, Sebastiaan and Bergmans, Jan W.M. and Vullings, Rik},
+  booktitle={2017 39th Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC)}, 
+  title={Photoplethysmography beat detection and pulse morphology quality assessment for signal reliability estimation}, 
+  year={2017},
+  volume={},
+  number={},
+  pages={117-120},
+  keywords={Morphology;Distance measurement;Heuristic algorithms;Indexes;Heart rate;Physiology;Biomedical monitoring},
+  doi={10.1109/EMBC.2017.8036776}}
+  
+%PPG SQA =========================================================================================================================
+
+	% Supervised Learning ====================================================================================================	
+	
+		@ARTICLE{ppg-sqa-1,
+			  author={Mohagheghian, Fahimeh and Han, Dong and Peitzsch, Andrew and Nishita, Nishat and Ding, Eric and Dickson, Emily L. and DiMezza, Danielle and Otabil, Edith M. and Noorishirazi, Kamran and Scott, Jessica and Lessard, Darleen and Wang, Ziyue and Whitcomb, Cody and Tran, Khanh-Van and Fitzgibbons, Timothy P. and McManus, David D. and Chon, Ki H.},
+			  journal={IEEE Transactions on Biomedical Engineering}, 
+			  title={Optimized Signal Quality Assessment for Photoplethysmogram Signals Using Feature Selection}, 
+			  year={2022},
+			  volume={69},
+			  number={9},
+			  pages={2982-2993},
+			  keywords={Electrocardiography;Feature extraction;Monitoring;Quality assessment;Noise measurement;Heart rate;Rhythm;Biomedical signal processing;feature extraction;machine learning;photoplethysmography},
+			  doi={10.1109/TBME.2022.3158582}}
+	  
+		  @Article{ppg-sqa-2,
+			AUTHOR = {Tiwari, Abhishek and Gray, Gordon and Bondi, Parker and Mahnam, Amin and Falk, Tiago H.},
+			TITLE = {Automated Multi-Wavelength Quality Assessment of Photoplethysmography Signals Using Modulation Spectrum Shape Features},
+			JOURNAL = {Sensors},
+			VOLUME = {23},
+			YEAR = {2023},
+			NUMBER = {12},
+			ARTICLE-NUMBER = {5606},
+			URL = {https://www.mdpi.com/1424-8220/23/12/5606},
+			PubMedID = {37420772},
+			ISSN = {1424-8220},
+			ABSTRACT = {Photoplethysmography (PPG) is used to measure blood volume changes in the microvascular bed of tissue. Information about these changes along time can be used for estimation of various physiological parameters, such as heart rate variability, arterial stiffness, and blood pressure, to name a few. As a result, PPG has become a popular biological modality and is widely used in wearable health devices. However, accurate measurement of various physiological parameters requires good-quality PPG signals. Therefore, various signal quality indexes (SQIs) for PPG signals have been proposed. These metrics have usually been based on statistical, frequency, and/or template analyses. The modulation spectrogram representation, however, captures the second-order periodicities of a signal and has been shown to provide useful quality cues for electrocardiograms and speech signals. In this work, we propose a new PPG quality metric based on properties of the modulation spectrum. The proposed metric is tested using data collected from subjects while they performed various activity tasks contaminating the PPG signals. Experiments on this multi-wavelength PPG dataset show the combination of proposed and benchmark measures significantly outperforming several benchmark SQIs with improvements of 21.3% BACC (balanced accuracy) for green, 21.6% BACC for red, and 19.0% BACC for infrared wavelengths, respectively, for PPG quality detection tasks. The proposed metrics also generalize for cross-wavelength PPG quality detection tasks.},
+			DOI = {10.3390/s23125606}
+			}
+
+		@INPROCEEDINGS{ppg-sqa-3,
+			  author={Miranda, Jose A. and López-Ongil, Celia and Andreu-Perez, Javier},
+			  booktitle={2023 IEEE International Conference on Fuzzy Systems (FUZZ)}, 
+			  title={Personalised and Adjustable Interval Type-2 Fuzzy-Based PPG Quality Assessment for the Edge}, 
+			  year={2023},
+			  volume={},
+			  number={},
+			  pages={1-5},
+			  keywords={Medical services;Sensor phenomena and characterization;Feature extraction;Photoplethysmography;Real-time systems;Quality assessment;Reliability;Photoplethysmography;Fuzzy;Personalisation;Signal Quality Assessment;Physiological Monitoring},
+			  doi={10.1109/FUZZ52849.2023.10309733}}
+
+	
+	%Arrhythmia ==============================================================================================================
+	
 @article{arrhythmia,
   title={Overview of basic mechanisms of cardiac arrhythmia},
   author={Antzelevitch, Charles and Burashnikov, Alexander},

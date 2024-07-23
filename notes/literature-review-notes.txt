@@ -16,72 +16,150 @@
 		- Síntese: O artigo trata do uso de SQA para melhorar a estimativa de HR de ECG fetais, por meio de um filtro Kalman alimentado por um classificador Naive Bayes que recebe diversas SQIs desenvolvidas para o escopo de ECG fetal. Os experimentos realizados em um dataset próprio indicaram que o método produziu boas estimativas HR. Conclui-se que o metodo é funcional. 
 		- Críticas: Não comparou com outros métodos
 		
+	@ End-to-End PPG Processing Pipeline for Wearables: From Quality Assessment and Motion Artifacts Removal to HR/HRV Feature Extraction
+		- Autores: Mohammad Feli, Kianoosh Kazemi, Iman Azimi, Yuning Wang, Amir M. Rahmani, and Pasi Liljeberg
+		- Tempo: 2023
+		- Tema:
+		- Objetivos:
+		- Metodologia: 
+		- Resultados:
+		- Conclusões:
+		- Críticas:	
+		
 % The Signal Types ============================================================================================================
 
-	@$ Electrocardiogram signal quality assessment using an artificially reconstructed target lead
-		- Autores: H. Naseri a,b * and M.R. Homaeinezhad
-		- Tempo: 2014
-		- Síntese: O artigo trata do SQA de sinais ECG. Especificamente, ele tenta resolver o problema de detectar e tratar ruídos de alta ou média ordem por meio da correlação entre diferentes canais do ECG. O método consiste em preprocessar o sinal com para tratar ruídos de baixa ordem, calcular Energy Concavity Indexes em cada canal para avaliar se o sinal deve ou não ser descartado e, por fim, avaliar a correlação entre um canal e um sinal reconstruído a partir de outros canais, a fim de determinar se o sinal é bom ou não. Testes no dataset CinC Challenge 2011, comparando com outras abordagens, indicam que a abordagem proposta é mais acurada que as outras informadas no artigo, alcançando uma pontuação de 93.60%. Isso mostra que a abordagem proposta supera várias outras para o dataset do teste.
-		- Críticas:
-		
-	@$ Quality Assessment of Ambulatory ECG Using Wavelet Entropy of the HRV Signal
-		- Autores: Christina Orphanidou and Ivana Drobnjak
-		- Tempo: 2017
-		- Síntese: O artigo trata do SQA de sinais ECG por meio da extração de um sinal HRV (Heart Rate Variability), seguida da decomposição desse sinal em onduletas e do calculo da entropia dessas onduletas, que formam um vetor de features que alimentam um classificador SVM, com a finalidade de classificar um sinal como confiável ou não. Experimentos em dois datasets obtidos por diferentes dispositivos e comparando a abordagem proposta com uma simples regra de descarte de sinal mostrou que a primeira foi superior, alcançando acurácias superiores a 90% em ambos datasets. Portanto, a proposição é funcional para diferentes dispositivos e o conseguiu usando apenas canais únicos, em contraste com outras abordagens que usam múltiplos canais ECG.
-		- Críticas: Não comparou com outras abordagens existentes.
-		
-	@$ Electrocardiogram Signal Quality Assessment Based on Structural Image Similarity Metric
-		- Autores: Yalda Shahriari , Richard Fidler, Michele M Pelter, Yong Bai, Andrea Villaroman, and Xiao Hu
-		- Tempo: 2018
-		- Síntese: O artigo trata do SQA de sinais ECG aplicando a métrica Structural Similarity Measure (SSIM) sobre imagens contendo os sinais (são múltiplos canais) plotados, com o intuito de medir a similaridade entre um dado sinal e sinais-template que representam sinais bons. Esses sinais template são sinais selecionados em um algoritmo de clusterização, usando o SSIM como distância. Então, para estimar o SQI, cada distância entre o sinal e um template alimenta uma entrada de um Linear Discriminant Analysis e este estima o valor. Com isso, em um dataset próprio com rótulos de qualidade, o SQI proposto alcançou resultados superiores a um agregado de SQIs existentes (baseSQI, kSQI, and sSQI). Isso demonstra que métodos baseados em representações visuais do sinal podem superar os SQIs tradicionais.
-		- Críticas: Apenas chegaram-se a essas conclusões em um único dataset próprio. Limitou-se a estimar um SQI.
+	% ECG =================================================================================================================
 	
-	@$ Artefact detection and quality assessment of ambulatory ECG signals
-		- Autores: Jonathan Moeyersons, Elena Smets , John Morales , Amalia Villa , Walter De Raedt , Dries Testelmans , Bertien Buyse , Chris Van Hoof , Rik Willems, Sabine Van Huffel, Carolina Varon
-		- Tempo: 2019
-		- Síntese: O artigo trata do SQA de sinais ECG cardíacos por meio da extração de features de diferentes janelas usando a Auto Correlation Function (ACF), que alimentam o classificador RUSBoost, robusto para datasets não balanceados. O SQI corresponde à probabilidade da classe ser "contaminada". Experimentos entre diferentes datsets e envolvendo outros modelos existentes mostram que o método proposto preserva a acurácia mesmo tendo sido treinado em um dataset e testado em outro, ainda mantendo resultados que competem com os outros métodos existentes. Conclui-se que o método é robusto à mudança de condições no dataset e também é flexível para quantas classes de qualidade se deseja, pois atua com regressão.
-		- Críticas: Poucas abordagens foram comparadas e poucas combinações de validação entre datsets foram exploradas.
-		
-	@$ Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots
-		- Autores: Álvaro Huerta , Arturo Martinez-Rodrigo , Vicente Bertomeu-González, Óscar Ayo-Martin , José J. Rieta , Raúl Alcaraz
-		- Tempo: 2024
-		- Síntese: O artigo trata do SQA de sinais ECG no contexto de AF, por meio da transformação do sinal em Poincaré Plots (PP) e First Order Difference Graph (FODG), espaços fásicos. Desses espaços, puderam ser extraídas features para alimentar modelos de machine learning (no experimento foi usado o GentleBoost) e também foi possível transformar esses espaços em jet colormaps que alimentam modelos deep learning 2d (no experimento foi usada uma CNN própria). Experimentos treinados em um datset privado e testados no dataset PhysioNet/CinC Challenge 2017 mostram que a abordagem proposta obteve resultados levemente superiores se comparados a outras abordagens existentes testadas. Conclui-se que a abordagem proposta pôde melhorar a performance tanto de abordagens baseadas em features quanto em abordagens baseadas em deep learning.
-		- Críticas:
-		
-%Feature Extraction Method=====================================================================================================
-
-	
-	@$ Dynamic time warping and machine learning for signal quality assessment of pulsatile signals
-		- Autores: Q Li and G D Clifford
-		- Tempo: 2012
-		- Síntese: O artigo trata do SQA de sinais cardíacos PPG por meio do uso de DTW como uma SQI. Essa SQI alimenta, juntamente com outras SQIs complementares, uma MLP a fim de estimar um nível de qualidade do sinal. Em testes realizados em uma base PPG anotada a partir da base MIMIC II, o método alcançou uma alta acurácia de 95% no dataset de teste. Isso mostra que o método proposto é funcional, além de ser genérico, possibilitando sua aplicação para outros tipos de sinais.
-		- Críticas: Não comparou com outros métodos e não testou diferentes datasets
-	
-	% PONTE -----------------------------------------------------------------------------------------------------------------
-	
-%Arrhythmia======================================================================================================================	
+		@$ Electrocardiogram signal quality assessment using an artificially reconstructed target lead
+			- Autores: H. Naseri a,b * and M.R. Homaeinezhad
+			- Tempo: 2014
+			- Síntese: O artigo trata do SQA de sinais ECG. Especificamente, ele tenta resolver o problema de detectar e tratar ruídos de alta ou média ordem por meio da correlação entre diferentes canais do ECG. O método consiste em preprocessar o sinal com para tratar ruídos de baixa ordem, calcular Energy Concavity Indexes em cada canal para avaliar se o sinal deve ou não ser descartado e, por fim, avaliar a correlação entre um canal e um sinal reconstruído a partir de outros canais, a fim de determinar se o sinal é bom ou não. Testes no dataset CinC Challenge 2011, comparando com outras abordagens, indicam que a abordagem proposta é mais acurada que as outras informadas no artigo, alcançando uma pontuação de 93.60%. Isso mostra que a abordagem proposta supera várias outras para o dataset do teste.
+			- Críticas:
 			
-	@$ Robust Assessment of Photoplethysmogram Signal Quality in the Presence of Atrial Fibrillation
-		- Autores: Tania Pereira, Kais Gadhoumi, Mitchell Ma, Rene Colorado, Kevin J Keenan, Karl Meisel, Xiao Hu
-		- Tempo: 2018
-		- Síntese: Esse trabalho fez SQA de sinal PPG cardíaco com AF por meio de um SVM alimentado de várias features já usadas, a fim de criar um método robusto para casos de arritmia. Treinando em um dataset com casos de AF, alcançou uma acurácia de 94%, superando outros métodos que não estavam preparados para casos de arritmia. Com isso, concluiu-se que o método foi capaz de manter acurácia para casos de arritmia.
-		- Críticas: 	
+		@$ Quality Assessment of Ambulatory ECG Using Wavelet Entropy of the HRV Signal
+			- Autores: Christina Orphanidou and Ivana Drobnjak
+			- Tempo: 2017
+			- Síntese: O artigo trata do SQA de sinais ECG por meio da extração de um sinal HRV (Heart Rate Variability), seguida da decomposição desse sinal em onduletas e do calculo da entropia dessas onduletas, que formam um vetor de features que alimentam um classificador SVM, com a finalidade de classificar um sinal como confiável ou não. Experimentos em dois datasets obtidos por diferentes dispositivos e comparando a abordagem proposta com uma simples regra de descarte de sinal mostrou que a primeira foi superior, alcançando acurácias superiores a 90% em ambos datasets. Portanto, a proposição é funcional para diferentes dispositivos e o conseguiu usando apenas canais únicos, em contraste com outras abordagens que usam múltiplos canais ECG.
+			- Críticas: Não comparou com outras abordagens existentes.
+			
+		@$ Electrocardiogram Signal Quality Assessment Based on Structural Image Similarity Metric
+			- Autores: Yalda Shahriari , Richard Fidler, Michele M Pelter, Yong Bai, Andrea Villaroman, and Xiao Hu
+			- Tempo: 2018
+			- Síntese: O artigo trata do SQA de sinais ECG aplicando a métrica Structural Similarity Measure (SSIM) sobre imagens contendo os sinais (são múltiplos canais) plotados, com o intuito de medir a similaridade entre um dado sinal e sinais-template que representam sinais bons. Esses sinais template são sinais selecionados em um algoritmo de clusterização, usando o SSIM como distância. Então, para estimar o SQI, cada distância entre o sinal e um template alimenta uma entrada de um Linear Discriminant Analysis e este estima o valor. Com isso, em um dataset próprio com rótulos de qualidade, o SQI proposto alcançou resultados superiores a um agregado de SQIs existentes (baseSQI, kSQI, and sSQI). Isso demonstra que métodos baseados em representações visuais do sinal podem superar os SQIs tradicionais.
+			- Críticas: Apenas chegaram-se a essas conclusões em um único dataset próprio. Limitou-se a estimar um SQI.
 		
-	@$ A Supervised Approach to Robust Photoplethysmography Quality Assessment
-		- Autores: Tania Pereira, Kais Gadhoumi, Mitchell Ma, Xiuyun Liu, Ran Xiao, Rene A. Colorado, Kevin J. Keenan, Karl Meisel, Xiao Hu
-		- Tempo: 2019
-		- Síntese: O artigo trata do SQA de sinais PPG cardiológicos incluindo a condição de Atrial Fibrilation (AF), uma arritmia cardíaca. Com o intuito de evitar que sinais originados de tal tipo de condição não sejam classificados como sinais ruins, foram extraídos diversas features temporais e espectrais e elas alimentaram modelos de aprendizado de máquina, tais como SVM, K-NN e DT. Experimentos comparativos em um dataset extraído de 13 pacientes envolvendo vários modelos existentes mostram que o SVM superou-os em performance para pacientes com AF. Além disso, o modelo obteve alta performance em um dataset com mais de 3000 pacientes, alcançando acurácia superior a 90%. Isso indica que a abordagem proposta generalizou bem até para pacientes com arritmia.
-		- Crítica: Dataset com pacientes com AF pequeno. 
+		@$ Artefact detection and quality assessment of ambulatory ECG signals
+			- Autores: Jonathan Moeyersons, Elena Smets , John Morales , Amalia Villa , Walter De Raedt , Dries Testelmans , Bertien Buyse , Chris Van Hoof , Rik Willems, Sabine Van Huffel, Carolina Varon
+			- Tempo: 2019
+			- Síntese: O artigo trata do SQA de sinais ECG cardíacos por meio da extração de features de diferentes janelas usando a Auto Correlation Function (ACF), que alimentam o classificador RUSBoost, robusto para datasets não balanceados. O SQI corresponde à probabilidade da classe ser "contaminada". Experimentos entre diferentes datsets e envolvendo outros modelos existentes mostram que o método proposto preserva a acurácia mesmo tendo sido treinado em um dataset e testado em outro, ainda mantendo resultados que competem com os outros métodos existentes. Conclui-se que o método é robusto à mudança de condições no dataset e também é flexível para quantas classes de qualidade se deseja, pois atua com regressão.
+			- Críticas: Poucas abordagens foram comparadas e poucas combinações de validação entre datsets foram exploradas.
+			
+		@$ Single-lead electrocardiogram quality assessment in the context of paroxysmal atrial fibrillation through phase space plots
+			- Autores: Álvaro Huerta , Arturo Martinez-Rodrigo , Vicente Bertomeu-González, Óscar Ayo-Martin , José J. Rieta , Raúl Alcaraz
+			- Tempo: 2024
+			- Síntese: O artigo trata do SQA de sinais ECG no contexto de AF, por meio da transformação do sinal em Poincaré Plots (PP) e First Order Difference Graph (FODG), espaços fásicos. Desses espaços, puderam ser extraídas features para alimentar modelos de machine learning (no experimento foi usado o GentleBoost) e também foi possível transformar esses espaços em jet colormaps que alimentam modelos deep learning 2d (no experimento foi usada uma CNN própria). Experimentos treinados em um datset privado e testados no dataset PhysioNet/CinC Challenge 2017 mostram que a abordagem proposta obteve resultados levemente superiores se comparados a outras abordagens existentes testadas. Conclui-se que a abordagem proposta pôde melhorar a performance tanto de abordagens baseadas em features quanto em abordagens baseadas em deep learning.
+			- Críticas:
 	
-	% PONTE -----------------------------------------------------------------------------------------------------------------
+	% PPG ===================================================================================================================
 	
-	@$ Deep Learning approaches for Plethysmography Signal Quality Assessment in the Presence of Atrial Fibrillation
-		- Autores: Tania Pereira, Cheng Ding, Kais Gadhoumi, Nate Tran, Rene A. Colorado, Karl Meisel, Xiao Hu
-		- Tempo: 2019
-		- Síntese: O artigo trata do SQA de sinais PPG cardiológicos por meio de algoritmos deep learning 1d e 2d, sendo estes últimos alimetados com plots 2d do sinal. O objetivo foi classificar os sinais como bons, ruins ou incerto. Em um experimento envolvendo esses modelos deep learning e um SVM alimentado com features diversas, em um dataset próprio, a ResNet18 foi o melhor modelo, obtendo alta acurácia. Com isso, conclui-se que modelos deep learning podem superar classificadores alimentado por features ao existir uma grande disponibilidade de dados.	
-		- Críticas: Poucos modelos foram comparados
+		@$ Dynamic time warping and machine learning for signal quality assessment of pulsatile signals
+			- Autores: Q Li and G D Clifford
+			- Tempo: 2012
+			- Síntese: O artigo trata do SQA de sinais cardíacos PPG por meio do uso de DTW como uma SQI. Essa SQI alimenta, juntamente com outras SQIs complementares, uma MLP a fim de estimar um nível de qualidade do sinal. Em testes realizados em uma base PPG anotada a partir da base MIMIC II, o método alcançou uma alta acurácia de 95% no dataset de teste. Isso mostra que o método proposto é funcional, além de ser genérico, possibilitando sua aplicação para outros tipos de sinais.
+			- Críticas: Não comparou com outros métodos e não testou diferentes datasets
+			
+		@1 Photoplethysmography beat detection and pulse morphology quality assessment for signal reliability estimation
+			- Autores: Gabriele B. Papini, Pedro Fonseca, Xavier L. Aubert, Sebastiaan Overeem, Jan W.M. Bergmans, Rik Vullings
+			- Tempo: 2017
+			- Síntese: 
+			- Críticas:
 		
-% Automated feature extraction =================================================================================================
+%PPG =============================================================================================================================
+	
+			
+	% Supervised Learning ====================================================================================================
+	
+		@1 Optimized Signal Quality Assessment for Photoplethysmogram Signals using Feature Selection
+			- Autores: Fahimeh Mohagheghian, Dong Han, Andrew Peitzsch, Nishat Nishita, Eric Ding, Emily L. Dickson, Danielle DiMezza, Edith M. Otabil, Kamran Noorishirazi, Jessica Scott, Darleen Lessard, Ziyue Wang, Cody Whitcomb, Khanh-Van Tran, Timothy P. Fitzgibbons, David D. McManus, Ki. H. Chon 
+			- Tempo: 2022
+			- Tema:
+			- Objetivos:
+			- Metodologia: 
+			- Resultados:
+			- Conclusões:
+			- Críticas:	
+	
+	
+		@$1 Automated Multi-Wavelength Quality Assessment of Photoplethysmography Signals Using Modulation Spectrum Shape Features
+			- Autores: Abhishek Tiwari, Gordon Gray, Parker Bondi, Amin Mahnam and Tiago H. Falk
+			- Tempo: 2023
+			- Síntese: O artigo trata do SQA de sinais PPG, transformando o sinal em uma representação de modulation spectogram e, a partir dela, extraindo métricas SQI spectrais, a fim de alimentar um classificador. Experimentos foram feitos em um dataset com três  comprimentos de onda, usando um classificador de regressão logística, envolvendo várias outras SQIs existentes. Houveram testes intra e inter comprimento de onda. Ele resultou na métrica de entropia spectral como sendo a feature mais importante, além de ter o subconjunto de SQIs spectrais como o maior em acurácia, embora a junção de todas SQIs seja superior. Conclui-se que as métricas propostas conseguiram ser mais importante que as outras testadas, além de saber que ela generalizou bem para diferentes comprimentos de onda.
+			- Críticas: Apenas considera SQIs de features.
+		
+		@1 Personalised and Adjustable Interval Type-2 Fuzzy-Based PPG Quality Assessment for the Edge
+			- Autores: Jose A. Miranda, Celia L´opez-Ongil, Javier Andreu-Perez
+			- Tempo: 2023
+			- Tema:
+			- Objetivos:
+			- Metodologia: 
+			- Resultados:
+			- Conclusões:
+			- Críticas:
+			
+	% Unsurpevised Learning ========================================================================================
+		@1 Photoplethysmogram Signal Quality Evaluation by Unsupervised Learning Approach
+			- Autores: Monalisa Singha Roy, Rajarshi Gupta, Kaushik Das Sharma
+			- Tempo: 2020
+			- Tema:
+			- Objetivos:
+			- Metodologia: 
+			- Resultados:
+			- Conclusões:
+			- Críticas:
+			
+		@1 Lightweight Photoplethysmography Quality Assessment for Real-time IoT-based Health Monitoring using Unsupervised Anomaly Detection
+			- Autores: Aysan Mahmoudzadeh , Iman Azimia, Amir M. Rahmani , Pasi Liljeberg 
+			- Tempo: 2021
+			- Tema: Signal quality assessment
+			- Objetivo: Agrupar sinais em dois grupos: confiável ou não.
+			- Metodologia: Consiste em três partes: pré-processamento (filtragem de frequências e divisão do sinal em segmentos); extração e seleção de time and frequency domain features (Tabela 1) e agrupamento usando o método de elliptic envelop method 
+			- Resultados: Comparado a um método rule-based em um dataset privado, o método proposto obteve métricas melhores, como melhoria de 5% no F1-score  
+			- Conclusõse: Conseguiu propor um método leve com capacidade preditiva melhor que método baseline 
+			- Críticas: Linha de racicínio d método confusa e mal explicada
+			
+		@1 An energy-efficient semi-supervised approach for on-device photoplethysmogram signal quality assessment
+			- Autores: Mohammad Feli, Iman Azimi, Arman Anzanpour, Amir M. Rahmani, Pasi Liljeberg
+			- Tempo: 2023
+			- Tema:
+			- Objetivos:
+			- Metodologia: 
+			- Resultados:
+			- Conclusões:
+			- Críticas:
+		
+	%Arrhythmia ==============================================================================================================
+				
+		@$ Robust Assessment of Photoplethysmogram Signal Quality in the Presence of Atrial Fibrillation
+			- Autores: Tania Pereira, Kais Gadhoumi, Mitchell Ma, Rene Colorado, Kevin J Keenan, Karl Meisel, Xiao Hu
+			- Tempo: 2018
+			- Síntese: Esse trabalho fez SQA de sinal PPG cardíaco com AF por meio de um SVM alimentado de várias features já usadas, a fim de criar um método robusto para casos de arritmia. Treinando em um dataset com casos de AF, alcançou uma acurácia de 94%, superando outros métodos que não estavam preparados para casos de arritmia. Com isso, concluiu-se que o método foi capaz de manter acurácia para casos de arritmia.
+			- Críticas: 	
+			
+		@$ A Supervised Approach to Robust Photoplethysmography Quality Assessment
+			- Autores: Tania Pereira, Kais Gadhoumi, Mitchell Ma, Xiuyun Liu, Ran Xiao, Rene A. Colorado, Kevin J. Keenan, Karl Meisel, Xiao Hu
+			- Tempo: 2019
+			- Síntese: O artigo trata do SQA de sinais PPG cardiológicos incluindo a condição de Atrial Fibrilation (AF), uma arritmia cardíaca. Com o intuito de evitar que sinais originados de tal tipo de condição não sejam classificados como sinais ruins, foram extraídos diversas features temporais e espectrais e elas alimentaram modelos de aprendizado de máquina, tais como SVM, K-NN e DT. Experimentos comparativos em um dataset extraído de 13 pacientes envolvendo vários modelos existentes mostram que o SVM superou-os em performance para pacientes com AF. Além disso, o modelo obteve alta performance em um dataset com mais de 3000 pacientes, alcançando acurácia superior a 90%. Isso indica que a abordagem proposta generalizou bem até para pacientes com arritmia.
+			- Crítica: Dataset com pacientes com AF pequeno. 
+	
+		% PONTE ----------------------------------------------------------------------------------------------------------
+		
+		@$ Deep Learning approaches for Plethysmography Signal Quality Assessment in the Presence of Atrial Fibrillation
+			- Autores: Tania Pereira, Cheng Ding, Kais Gadhoumi, Nate Tran, Rene A. Colorado, Karl Meisel, Xiao Hu
+			- Tempo: 2019
+			- Síntese: O artigo trata do SQA de sinais PPG cardiológicos por meio de algoritmos deep learning 1d e 2d, sendo estes últimos alimetados com plots 2d do sinal. O objetivo foi classificar os sinais como bons, ruins ou incerto. Em um experimento envolvendo esses modelos deep learning e um SVM alimentado com features diversas, em um dataset próprio, a ResNet18 foi o melhor modelo, obtendo alta acurácia. Com isso, conclui-se que modelos deep learning podem superar classificadores alimentado por features ao existir uma grande disponibilidade de dados.	
+			- Críticas: Poucos modelos foram comparados
+		
+% The Deep Learning Approach =====================================================================================================
 		
 	@$ A Real-time PPG Quality Assessment Approach for Healthcare Internet-of-Things
 		- Autores: Emad Kasaeyan Naeini , Iman Azimib , Amir M. Rahmani , Pasi Liljeberg , Nikil Dutt
@@ -89,11 +167,23 @@
 		- Síntese: O artigo trata do SQA de sinais PPG cardiológicos por meio de uma CNN 1D, que fornece duas classes, correspondentes a sinais confiáveis ou não. O modelo foi testado em uma prova-de-conceito, obtendo 83% em micro-average F1-score e 89% em macro-average F1-score. Conclui-se que o modelo possui acurácia razoável.
 		- Críticas: O modelo não foi comparado a outros.
 		
+	@1 On-Device Reliability Assessment and Prediction of Missing Photoplethysmographic Data Using Deep Neural Networks
+			- Autores: Monalisa Singha Roy, Biplab Roy, Rajarshi Gupta, and Kaushik Das Sharma
+			- Tempo: 2020
+			- Tema:
+			- Objetivos:
+			- Metodologia: 
+			- Resultados:
+			- Conclusões:
+			- Críticas:
+		
 	@$ Transfer learning of CNN-based signal quality assessment from clinical to non-clinical PPG signals
 		- Autores: Serena Zanelli, Mounim A. El Yacoubi, Magid Hallab, Mehdi Ammi
 		- Tempo: 2021
 		- Síntese: O artigo investiga o SQA de sinais PPG clínicos e não-clínicos aplicando transfer learning usando uma rede CNN que recebe uma janela de 1 segundo. Especifcamente, três datasets obtidos de fontes distintas foram usados, de forma que o modelo foi treinado em um dataset, depois transferido para os outros datasets. Nesse cenário, manteve uma acurácia superior a 80% em ambos. Portanto, o modelo proposto pode generalizar e aprender em diferentes bases.
 		- Críticas: Não comparou com outras abordagens existentes
+
+	
 
 	@$ Signal Quality Assessment of Photoplethysmogram Signals Using Hybrid Rule- and Learning-Based Models
 		- Autores: Giovani Lucafó, Pedro Freitas, Rafael Lima, Gustavo da Luz, Ruan Bispo, Paula Rodrigues, Frank Cabello, Otavio Penatti
@@ -109,13 +199,23 @@
 
 	% PONTE -----------------------------------------------------------------------------------------------------------------
 	
-	@$ Signal Quality Assessment of PPG Signals using STFT Time-Frequency Spectra and Deep Learning Approaches
+	@1 A Deep Learning–based PPG Quality Assessment Approach for Heart Rate and Heart Rate Variability
+		- Autores: EMAD KASAEYAN NAEINI, FATEMEH SARHADDI, IMAN AZIMI, and PASI LILJEBERG, NIKIL DUTT and AMIR M. RAHMANI
+		- Tempo: 2023 
+		- Tema:
+		- Objetivos:
+		- Metodologia: 
+		- Resultados:
+		- Conclusões:
+		- Críticas:
+		
+%Time Series Imaging ===========================================================================================================
+	
+	@$2 Signal Quality Assessment of PPG Signals using STFT Time-Frequency Spectra and Deep Learning Approaches
 		- Autores: Jianzhong Chen1,2,3, Ke Sun1, Yi Sun1and Xinxin Li
 		- Tempo: 2021
 		- Síntese: O trabalho realiza o SQA de sinais PPG por meio aplicando uma Short-Time Fourier Transform (STFT), que gera uma imagem 2d que alimenta uma CNN. Experimentos no dataset VitalDB, em comparação com outras abordagens, como SVM, MLP, 1d CNN e Random Forest, resultou na abordagem proposta tendo a maior acurácia, de 98,9%. Portanto, o método apresentou alta performance. 
 		- Críticas: 	
-		
-%Time Series Imaging ===========================================================================================================
 		
 	@$ Signal Quality Assessment of Photoplethysmogram Signals using Quantum Pattern Recognition and lightweight CNN Architecture
 		- Autores: Tamaghno Chatterjee, Aayushman Ghosh and Sayan Sarkar
@@ -131,25 +231,25 @@
 		- Síntese: O artigo trata do SQA de sinais PPG por meio da aplicação de Recurrence Plots para processar o sinal e alimentá-lo a uma CNN 2d. Experimentos usando validação cruzada restaram na média da acurácia dos folds valendo 97,5%. É um valor alto se comparar os resultados de outros estudos (embora eles tenham sido testados em datasets diferentes). Conclui-se que é possível ter alta eficácia sem usar features e pré-processamentos complexos.
 		- Críticas: Não comparou diferentes estudos no mesmo datset. Usou só um dataset.
 	
-% Matrix Embedding =============================================================================================================
-	
-	@$ Photoplethysmogram Signal Quality Assessment via 1D-to-2D Projections and Vision Transformers
-		- Autores: Pedro Garcia Freitas, Rafael G. de Lima, Giovani D. Lucafo, and Ot´avio A. B. Penatti
-		- Tempo: 2023
-		- Síntese: O artigo trata do SQA binário de sinais PPG por meio da associação de RP e de MTF com um Vision Transformer. Experimentos em um dataset privado em comparação com outras abordagens existentes resultaram no MTF+Vit sendo o melhor com acurácia 0,9031. Concluiu-se que a abordagem proposta alcançou resultados competitivos com os existentes.
-		- Críticas:
+	% Matrix Embedding ======================================================================================================
+		
+		@$ Photoplethysmogram Signal Quality Assessment via 1D-to-2D Projections and Vision Transformers
+			- Autores: Pedro Garcia Freitas, Rafael G. de Lima, Giovani D. Lucafo, and Ot´avio A. B. Penatti
+			- Tempo: 2023
+			- Síntese: O artigo trata do SQA binário de sinais PPG por meio da associação de RP e de MTF com um Vision Transformer. Experimentos em um dataset privado em comparação com outras abordagens existentes resultaram no MTF+Vit sendo o melhor com acurácia 0,9031. Concluiu-se que a abordagem proposta alcançou resultados competitivos com os existentes.
+			- Críticas:
 
-	@$ Assessing the Quality of Photoplethysmograms via Gramian Angular Fields and Vision Transformer
-		- Autores: Pedro Garcia Freitas, Rafael G. de Lima, Giovani D. Lucafo, and Ot´avio A. B. Penatti
-		- Tempo: 2023
-		- Síntese: O artigo trata de SQA de PPG cardiológicos para estimar se um sinal é bom ou não. Isso é feito transformando um sinal 1d em uma projeção 2d aplicando GAF. Esse input 2d alimenta um Vision Transformer, que realiza a predição da classe. Experimentos em dataset privado comparando com outras abordagens existentes no mesmo dataset resultou em uma acurácia superior às outras abordagens. Também, em comparação com outros estudos, a acurácia é competitiva. Com isso, é possível concluir que a abordagem é performática, tendo o conveniente de não requerer um complexo pré-processamento.  
-		- Críticas: 
+		@$ Assessing the Quality of Photoplethysmograms via Gramian Angular Fields and Vision Transformer
+			- Autores: Pedro Garcia Freitas, Rafael G. de Lima, Giovani D. Lucafo, and Ot´avio A. B. Penatti
+			- Tempo: 2023
+			- Síntese: O artigo trata de SQA de PPG cardiológicos para estimar se um sinal é bom ou não. Isso é feito transformando um sinal 1d em uma projeção 2d aplicando GAF. Esse input 2d alimenta um Vision Transformer, que realiza a predição da classe. Experimentos em dataset privado comparando com outras abordagens existentes no mesmo dataset resultou em uma acurácia superior às outras abordagens. Também, em comparação com outros estudos, a acurácia é competitiva. Com isso, é possível concluir que a abordagem é performática, tendo o conveniente de não requerer um complexo pré-processamento.  
+			- Críticas: 
 
-	@$ A Lightweight Hybrid Model Using Multiscale Markov Transition Field for Real-Time Quality Assessment of Photoplethysmography Signals
-		- Autores: Jian Liu , Shuaicong Hu , Ya’nan Wang , Qihan Hu , Daomiao Wang , and Cuiwei Yang 
-		- Tempo: 2024
-		- Síntese: This article proposes two classifiers for the SQA  of PPG signals, giving two and three classes. The proposed method is transforming the input signal into an Multiscale Markov Transition Field (MMTF), which fuses the MTF of the PPG, Velocity PG (VPG) and and Acceleration PG (APG) into a single image; feeding the image to an hybrid model (HM), that combines into two seperated paths Swin Transformer blocks and CNN blocks; and, finally, classifying the signal. The HM is pre-trained on the MIMIC-III and UCI dataset, and fine-tuned in the Queensland dataset. Additionally, the paper proposes the creation of an Lightweighted HM (LHM) as a byproduct of the HM using "Knowledge Distilation", in which the HM assists the LHM training. Experiments with testing on the Queensland dataset and comparing with baseline models shows that the proposed method achieved superior performance, with and accuracy of  0.991 and 0.973 for binary and ternary classification, respetively. The LHM got 0.977 on a self built database and designed hardware and software, with low inference time. In conclusion, the HM achieved above state-of-art accuracy and the LHM got high accuracy with low inference time. 
-		- Críticas:
+		@$ A Lightweight Hybrid Model Using Multiscale Markov Transition Field for Real-Time Quality Assessment of Photoplethysmography Signals
+			- Autores: Jian Liu , Shuaicong Hu , Ya’nan Wang , Qihan Hu , Daomiao Wang , and Cuiwei Yang 
+			- Tempo: 2024
+			- Síntese: This article proposes two classifiers for the SQA  of PPG signals, giving two and three classes. The proposed method is transforming the input signal into an Multiscale Markov Transition Field (MMTF), which fuses the MTF of the PPG, Velocity PG (VPG) and and Acceleration PG (APG) into a single image; feeding the image to an hybrid model (HM), that combines into two seperated paths Swin Transformer blocks and CNN blocks; and, finally, classifying the signal. The HM is pre-trained on the MIMIC-III and UCI dataset, and fine-tuned in the Queensland dataset. Additionally, the paper proposes the creation of an Lightweighted HM (LHM) as a byproduct of the HM using "Knowledge Distilation", in which the HM assists the LHM training. Experiments with testing on the Queensland dataset and comparing with baseline models shows that the proposed method achieved superior performance, with and accuracy of  0.991 and 0.973 for binary and ternary classification, respetively. The LHM got 0.977 on a self built database and designed hardware and software, with low inference time. In conclusion, the HM achieved above state-of-art accuracy and the LHM got high accuracy with low inference time. 
+			- Críticas:
 
 %?????????????==================================================================================================================
 
@@ -159,13 +259,81 @@
 		- Síntese: O artigo trata do SQA de sinais PPG cardiológicos. Especificamente, da classificação binária de de sinais rPPG, sinais PPG extraídos de forma remota, filmando o rosto do paciente com uma câmera. Isso foi feito usando uma Long-Short Term Memory Network LSTMN, rede recorrente. Experimentos com datasets PPG e rPPG anotados pelos pesquisadores mostram que o modelo tende a associar pontuações de qualidade de modo proporcional ao decréscimo do erro da estimativa do HR. Conclui-se que o modelo converge para sinais rPPG.   
 		- Críticas: O dataset tem rótulos anotados pelos pesquisadores. Além disso, não compara com outras abordagens.
 
-	@$ Automated Multi-Wavelength Quality Assessment of Photoplethysmography Signals Using Modulation Spectrum Shape Features
-		- Autores: Abhishek Tiwari, Gordon Gray, Parker Bondi, Amin Mahnam and Tiago H. Falk
-		- Tempo: 2023
-		- Síntese: O artigo trata do SQA de sinais PPG, transformando o sinal em uma representação de modulation spectogram e, a partir dela, extraindo métricas SQI spectrais, a fim de alimentar um classificador. Experimentos foram feitos em um dataset com três  comprimentos de onda, usando um classificador de regressão logística, envolvendo várias outras SQIs existentes. Houveram testes intra e inter comprimento de onda. Ele resultou na métrica de entropia spectral como sendo a feature mais importante, além de ter o subconjunto de SQIs spectrais como o maior em acurácia, embora a junção de todas SQIs seja superior. Conclui-se que as métricas propostas conseguiram ser mais importante que as outras testadas, além de saber que ela generalizou bem para diferentes comprimentos de onda.
-		- Críticas: Apenas considera SQIs de features.
+	
+		
+	@1 Wavelet Analysis and Self-Similarity of Photoplethysmography Signals for HRV Estimation and Quality Assessment
+		- Autores: Alexander Neshitov, Konstantin Tyapochkin , Evgeniya Smorodnikova and Pavel Pravdin
+		- Tempo: 2021
+		- Tema:
+		- Objetivos:
+		- Metodologia: 
+		- Resultados:
+		- Conclusões:
+		- Críticas:
+		
 
+@ Influence of Photoplethysmogram Signal Quality on Pulse Arrival Time during Polysomnography
+	- Autores: Mantas Rinkeviˇcius , Peter H. Charlton , Raquel Bailón and Vaidotas Marozas
+	- Tempo: 2023
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
 ================================================================================================================================
+	
+	% Rule Based ===========================================================================================================
+	
+	
+	
+	% Machine Learning =====================================================================================================
+	
+		
+			
+			
+	% Deep Learning ========================================================================================================
+	
+		
+					
+	
+================================================================================================================================
+	
+
+	
+@1 Evaluation of Objective Distortion Measures for Automatic Quality Assessment of Processed PPG Signals for Real-Time Health Monitoring Devices
+	- Autores: GANGIREDDY NARENDRA KUMAR REDDY , M. SABARIMALAI MANIKANDAN , AND N. V. L. NARASIMHA MURTY
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+@1 Wrist Photoplethysmography Signal Quality Assessment for Reliable Heart Rate Estimate and Morphological Analysis
+	- Autores: Serena Moscato , Stella Lo Giudice, Giulia Massaro and Lorenzo Chiari 
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+	
+@1 Quality Assessment and Morphological Analysis of Photoplethysmography in Daily Life
+	- Autores: Serena Moscato, Luca Palmerini, Pierpaolo Palumbo and Lorenzo Chiari
+	- Tempo: 2022
+	- Tema:
+	- Objetivos:
+	- Metodologia: 
+	- Resultados:
+	- Conclusões:
+	- Críticas:
+	
+% ------------------------------------------------------------------------------------------------------------------------------
 	
 @ A multi-step method with signal quality assessment and fine-tuning procedure to locate maternal and fetal QRS complexes from abdominal ECG recordings
 	- Autores: Chengyu Liu, Peng Li, Costanzo Di Maria, Lina Zhao, Henggui Zhang and Zhiqing Chen
@@ -188,17 +356,6 @@
 	- Conclusões:
 	- Críticas:
 	
-@ Optimized Signal Quality Assessment for Photoplethysmogram Signals using Feature Selection
-	- Autores: Fahimeh Mohagheghian, Dong Han, Andrew Peitzsch, Nishat Nishita, Eric Ding, Emily L. Dickson, Danielle DiMezza, Edith M. Otabil, Kamran Noorishirazi, Jessica Scott, Darleen Lessard, Ziyue Wang, Cody Whitcomb, Khanh-Van Tran, Timothy P. Fitzgibbons, David D. McManus, Ki. H. Chon 
-	- Tempo: 2022
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-
 
 @ Machine learning-based signal quality assessment for cardiac volume monitoring in electrical impedance tomography
 	- Autores: Chang Min Hyun, Tae Jun Jang, Jeongchan Nam, Hyeuknam Kwon, Kiwan Jeon and Kyounghun Lee
@@ -210,15 +367,7 @@
 	- Conclusões:
 	- Críticas:
 	
-@ Lightweight Photoplethysmography Quality Assessment for Real-time IoT-based Health Monitoring using Unsupervised Anomaly Detection
-	- Autores: Aysan Mahmoudzadeh , Iman Azimia, Amir M. Rahmani , Pasi Liljeberg 
-	- Tempo: 2021
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
+
 	
 	
 @ ECG quality assessment based on hand-crafted statistics and deep-learned S-transform spectrogram features
@@ -261,118 +410,6 @@
 	- Conclusões:
 	- Críticas:
 	
-@ A Deep Learning–based PPG Quality Assessment Approach for Heart Rate and Heart Rate Variability
-	- Autores: EMAD KASAEYAN NAEINI, FATEMEH SARHADDI, IMAN AZIMI, and PASI LILJEBERG, NIKIL DUTT and AMIR M. RAHMANI
-	- Tempo: 2023 
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-
-	
-@ Evaluation of Objective Distortion Measures for Automatic Quality Assessment of Processed PPG Signals for Real-Time Health Monitoring Devices
-	- Autores: GANGIREDDY NARENDRA KUMAR REDDY , M. SABARIMALAI MANIKANDAN , AND N. V. L. NARASIMHA MURTY
-	- Tempo: 2022
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-@ An energy-efficient semi-supervised approach for on-device photoplethysmogram signal quality assessment
-	- Autores: Mohammad Feli, Iman Azimi, Arman Anzanpour, Amir M. Rahmani, Pasi Liljeberg
-	- Tempo: 2023
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-
-	
-		
-@ Wavelet Analysis and Self-Similarity of Photoplethysmography Signals for HRV Estimation and Quality Assessment
-	- Autores: Alexander Neshitov, Konstantin Tyapochkin , Evgeniya Smorodnikova and Pavel Pravdin
-	- Tempo: 
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-@ Wrist Photoplethysmography Signal Quality Assessment for Reliable Heart Rate Estimate and Morphological Analysis
-	- Autores: Serena Moscato , Stella Lo Giudice, Giulia Massaro and Lorenzo Chiari 
-	- Tempo: 2022
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-@ Personalised and Adjustable Interval Type-2 Fuzzy-Based PPG Quality Assessment for the Edge
-	- Autores: Jose A. Miranda, Celia L´opez-Ongil, Javier Andreu-Perez
-	- Tempo: 2023
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-@ Photoplethysmography beat detection and pulse morphology quality assessment for signal reliability estimation
-	- Autores: Gabriele B. Papini, Pedro Fonseca, Xavier L. Aubert, Sebastiaan Overeem, Jan W.M. Bergmans, Rik Vullings
-	- Tempo: 2017
-	- Síntese: 
-	- Críticas:
-	
-@ End-to-End PPG Processing Pipeline for Wearables: From Quality Assessment and Motion Artifacts Removal to HR/HRV Feature Extraction
-	- Autores: Mohammad Feli, Kianoosh Kazemi, Iman Azimi, Yuning Wang, Amir M. Rahmani, and Pasi Liljeberg
-	- Tempo: 2023
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-
-	
-
-	
-
-	
-@ Quality Assessment and Morphological Analysis of Photoplethysmography in Daily Life
-	- Autores: Serena Moscato, Luca Palmerini, Pierpaolo Palumbo and Lorenzo Chiari
-	- Tempo: 2022
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-
-	
-@ Photoplethysmogram Signal Quality Evaluation by Unsupervised Learning Approach
-	- Autores: Monalisa Singha Roy, Rajarshi Gupta, Kaushik Das Sharma
-	- Tempo: 2020
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-
-	
-
-	
 @ Assessment of a standalone photoplethysmography (PPG) algorithm for detection of atrial fibrillation on wristband-derived data
 	- Autores: JL Selder , T Proesmans , L Breukel , O Dur , W Gielen , AC van Rossum , CP Allaart 
 	- Tempo: 2020
@@ -381,34 +418,7 @@
 	- Metodologia: 
 	- Resultados:
 	- Conclusões:
-	- Críticas:
-
-	
-
-	
-@ On-Device Reliability Assessment and Prediction of Missing Photoplethysmographic Data Using Deep Neural Networks
-	- Autores: Monalisa Singha Roy, Biplab Roy, Rajarshi Gupta, and Kaushik Das Sharma
-	- Tempo: 2020
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-@ Influence of Photoplethysmogram Signal Quality on Pulse Arrival Time during Polysomnography
-	- Autores: Mantas Rinkeviˇcius , Peter H. Charlton , Raquel Bailón and Vaidotas Marozas
-	- Tempo: 2023
-	- Tema:
-	- Objetivos:
-	- Metodologia: 
-	- Resultados:
-	- Conclusões:
-	- Críticas:
-	
-
-	
-
+	- Críticas:	
 	
 @ SQUWA: Signal Quality Aware DNN Architecture for Enhanced Accuracy in Atrial Fibrillation Detection from Noisy PPG Signals
 	- Autores: Runze Yan, Ding Cheng, Ran Xiao, Aleksandr Fedorov, Randall J Lee, Fadi B Nahab, Xiao Hu
@@ -429,6 +439,3 @@
 	- Resultados:
 	- Conclusões:
 	- Críticas:
-	
-	% Hand-Crafted ========================================================================================================
-	
