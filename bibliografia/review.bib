@@ -258,57 +258,98 @@ abstract = {In this work, we describe a beat-by-beat method for assessing the cl
 			  pages={1-5},
 			  keywords={Medical services;Sensor phenomena and characterization;Feature extraction;Photoplethysmography;Real-time systems;Quality assessment;Reliability;Photoplethysmography;Fuzzy;Personalisation;Signal Quality Assessment;Physiological Monitoring},
 			  doi={10.1109/FUZZ52849.2023.10309733}}
+			  
+	% Unsupervised Learning ==================================================================================================
+			  
+		@INPROCEEDINGS{ppg-sqa-4,
+			  author={Roy, Monalisa Singha and Gupta, Rajarshi and Sharma, Kaushik Das},
+			  booktitle={2020 IEEE Applied Signal Processing Conference (ASPCON)}, 
+			  title={Photoplethysmogram Signal Quality Evaluation by Unsupervised Learning Approach}, 
+			  year={2020},
+			  volume={},
+			  number={},
+			  pages={6-10},
+			  keywords={Entropy;Feature extraction;Time series analysis;Self-organizing feature maps;Fractals;Quality assessment;Heart rate;Quality assessment;Entropy;Detrended Fluctuation Analysis;Fractal Dimension;Self-organizing map},
+			  doi={10.1109/ASPCON49795.2020.9276733}}
 
+		@article{ppg-sqa-5,
+			title = {Lightweight Photoplethysmography Quality Assessment for Real-time IoT-based Health Monitoring using Unsupervised Anomaly Detection},
+			journal = {Procedia Computer Science},
+			volume = {184},
+			pages = {140-147},
+			year = {2021},
+			note = {The 12th International Conference on Ambient Systems, Networks and Technologies (ANT) / The 4th International Conference on Emerging Data and Industry 4.0 (EDI40) / Affiliated Workshops},
+			issn = {1877-0509},
+			doi = {https://doi.org/10.1016/j.procs.2021.03.025},
+			url = {https://www.sciencedirect.com/science/article/pii/S1877050921006499},
+			author = {Aysan Mahmoudzadeh and Iman Azimi and Amir M. Rahmani and Pasi Liljeberg},
+			keywords = {Signal quality assessment, Internet of Things, Photoplethysmography, Anomaly detection, Real-time health monitoring},
+			abstract = {Real-time remote health monitoring is dramatically growing, revolutionizing healthcare delivery and outcome in everyday settings. Such remote services enable monitoring individuals anywhere and anytime, allowing diseases early detection and prevention. Photoplethysmography (PPG) is a non-invasive and convenient technique that enables tracking vital signs such as heart rate, heart rate variability, respiration rate, and blood oxygen saturation. PPG is broadly used in various clinical and commercial wearable devices, as it is easy-to-implement and low-cost. However, the technique is highly susceptible to motion artifacts and environmental noises, which distort the collected signals. Therefore, the signal quality needs to be investigated, and unreliable signals should be discarded. In the literature, rule-based and machine learning-based PPG quality assessment methods have been investigated in several studies. However, the rule-based methods are mostly inaccurate in remote health monitoring, where users engage in different physical activities. The supervised machine learning-based methods –including deep learning–are also infeasible for real-time monitoring applications since they are slow and are dependent on a massive pool of annotated data to train the model. In this paper, we introduce a PPG quality assessment method, enabled by an elliptical envelope, which requires low computational resources. The method clusters the PPG signals into two groups as “reliable” and “unreliable.” We also investigate various features extracted from the PPG signals. Five features with the highest scoring values are selected to be fed to the elliptical envelope model. Moreover, we assess the performance of the proposed method in terms of accuracy and execution time, using data collected in free-living conditions via an Internet-of-Things-based health monitoring system enabled by smart wristbands. The method is evaluated in comparison to a state-of-the-art PPG quality assessment method. We also provide the model implemented in Python for the community to be used in their solutions.}
+			}
+	
+	@article{ppg-sqa-6,
+		title = {An energy-efficient semi-supervised approach for on-device photoplethysmogram signal quality assessment},
+		journal = {Smart Health},
+		volume = {28},
+		pages = {100390},
+		year = {2023},
+		issn = {2352-6483},
+		doi = {https://doi.org/10.1016/j.smhl.2023.100390},
+		url = {https://www.sciencedirect.com/science/article/pii/S2352648323000181},
+		author = {Mohammad Feli and Iman Azimi and Arman Anzanpour and Amir M. Rahmani and Pasi Liljeberg},
+		keywords = {Signal quality assessment, Photoplethysmography, Internet of Things, Real-time health monitoring, Semi-supervised learning},
+		abstract = {Photoplethysmography (PPG) is a non-invasive technique used in wearable devices to measure vital signs (e.g., heart rate). The method is, however, highly susceptible to motion artifacts, which are inevitable in remote health monitoring. Noise reduces signal quality, leading to inaccurate decision-making. In addition, unreliable data collection and transmission waste a massive amount of energy on battery-powered devices. Studies in the literature have proposed PPG signal quality assessment (SQA) enabled by rule-based and machine learning (ML)-based methods. However, rule-based techniques were designed according to certain specifications, resulting in lower accuracy with unseen noise and artifacts. ML methods have mainly been developed to ensure high accuracy without considering execution time and device’s energy consumption. In this paper, we propose a lightweight and energy-efficient PPG SQA method enabled by a semi-supervised learning strategy for edge devices. We first extract a wide range of features from PPG and then select the best features in terms of accuracy and latency. Second, we train a one-class support vector machine model to classify PPG signals into “Reliable” and “Unreliable” classes. We evaluate the proposed method in terms of accuracy, execution time, and energy consumption on two embedded devices, in comparison to five state-of-the-art PPG SQA methods. The methods are assessed using a PPG dataset collected via smartwatches from 46 individuals in free-living conditions. The proposed method outperforms the other methods by achieving an accuracy of 0.97 and a false positive rate of 0.01. It also provides the lowest latency and energy consumption compared to other ML-based methods.}
+		}
 	
 	%Arrhythmia ==============================================================================================================
 	
-@article{arrhythmia,
-  title={Overview of basic mechanisms of cardiac arrhythmia},
-  author={Antzelevitch, Charles and Burashnikov, Alexander},
-  journal={Cardiac electrophysiology clinics},
-  volume={3},
-  number={1},
-  pages={23--45},
-  year={2011},
-  publisher={Elsevier}
-}
+		@article{arrhythmia-1,
+		  title={Overview of basic mechanisms of cardiac arrhythmia},
+		  author={Antzelevitch, Charles and Burashnikov, Alexander},
+		  journal={Cardiac electrophysiology clinics},
+		  volume={3},
+		  number={1},
+		  pages={23--45},
+		  year={2011},
+		  publisher={Elsevier}
+		}
 
-@INPROCEEDINGS{review-5,
-  author={Pereira, Tania and Gadhoumi, Kais and Ma, Mitchell and Colorado, Rene and Keenan, Kevin J and Meisel, Karl and Hu, Xiao},
-  booktitle={2018 Computing in Cardiology Conference (CinC)}, 
-  title={Robust Assessment of Photoplethysmogram Signal Quality in the Presence of Atrial Fibrillation}, 
-  year={2018},
-  volume={45},
-  number={},
-  pages={1-4},
-  keywords={Stroke (medical condition);Feature extraction;Electrocardiography;Standards;Quality assessment;Sensitivity;Support vector machines},
-  doi={10.22489/CinC.2018.254}}
+		@INPROCEEDINGS{arrhythmia-2,
+		  author={Pereira, Tania and Gadhoumi, Kais and Ma, Mitchell and Colorado, Rene and Keenan, Kevin J and Meisel, Karl and Hu, Xiao},
+		  booktitle={2018 Computing in Cardiology Conference (CinC)}, 
+		  title={Robust Assessment of Photoplethysmogram Signal Quality in the Presence of Atrial Fibrillation}, 
+		  year={2018},
+		  volume={45},
+		  number={},
+		  pages={1-4},
+		  keywords={Stroke (medical condition);Feature extraction;Electrocardiography;Standards;Quality assessment;Sensitivity;Support vector machines},
+		  doi={10.22489/CinC.2018.254}}
 
-@ARTICLE{review-6,
-  author={Pereira, Tania and Gadhoumi, Kais and Ma, Mitchell and Liu, Xiuyun and Xiao, Ran and Colorado, Rene A. and Keenan, Kevin J. and Meisel, Karl and Hu, Xiao},
-  journal={IEEE Journal of Biomedical and Health Informatics}, 
-  title={A Supervised Approach to Robust Photoplethysmography Quality Assessment}, 
-  year={2020},
-  volume={24},
-  number={3},
-  pages={649-657},
-  keywords={Biomedical monitoring;Stroke (medical condition);Quality assessment;Electrocardiography;Monitoring;Atrial fibrillation;Rhythm;Pulse Oximetry;Signal Quality;Supervised Machine Learning;Atrial Fibrillation;Stroke;Annotated Data},
-  doi={10.1109/JBHI.2019.2909065}}
+		@ARTICLE{arrhythmia-3,
+		  author={Pereira, Tania and Gadhoumi, Kais and Ma, Mitchell and Liu, Xiuyun and Xiao, Ran and Colorado, Rene A. and Keenan, Kevin J. and Meisel, Karl and Hu, Xiao},
+		  journal={IEEE Journal of Biomedical and Health Informatics}, 
+		  title={A Supervised Approach to Robust Photoplethysmography Quality Assessment}, 
+		  year={2020},
+		  volume={24},
+		  number={3},
+		  pages={649-657},
+		  keywords={Biomedical monitoring;Stroke (medical condition);Quality assessment;Electrocardiography;Monitoring;Atrial fibrillation;Rhythm;Pulse Oximetry;Signal Quality;Supervised Machine Learning;Atrial Fibrillation;Stroke;Annotated Data},
+		  doi={10.1109/JBHI.2019.2909065}}
 
-@article{review-7,
-doi = {10.1088/1361-6579/ab5b84},
-url = {https://dx.doi.org/10.1088/1361-6579/ab5b84},
-year = {2019},
-month = {dec},
-publisher = {IOP Publishing},
-volume = {40},
-number = {12},
-pages = {125002},
-author = {Tania Pereira and Cheng Ding and Kais Gadhoumi and Nate Tran and Rene A Colorado and Karl Meisel and Xiao Hu},
-title = {Deep learning approaches for plethysmography signal quality assessment in the presence of atrial fibrillation},
-journal = {Physiological Measurement},
-abstract = {Objective: Photoplethysmography (PPG) monitoring has been implemented in many portable and wearable devices we use daily for health and fitness tracking. Its simplicity and cost-effectiveness has enabled a variety of biomedical applications, such as continuous long-term monitoring of heart arrhythmias, fitness, and sleep tracking, and hydration monitoring. One major issue that can hinder PPG-based applications is movement artifacts, which can lead to false interpretations. In many implementations, noisy PPG signals are discarded. Misinterpreted or discarded PPG signals pose a problem in applications where the goal is to increase the yield of detecting physiological events, such as in the case of paroxysmal atrial fibrillation (AF)—a common episodic heart arrhythmia and a leading risk factor for stroke. In this work, we compared a traditional machine learning and deep learning approaches for PPG quality assessment in the presence of AF, in order to find the most robust method for PPG quality assessment. Approach: The training data set was composed of 78 278 30 s long PPG recordings from 3764 patients using bedside patient monitors. Two different representations of PPG signals were employed—a time-series based (1D) one and an image-based (2D) one. Trained models were tested on an independent set of 2683 30 s PPG signals from 13 stroke patients. Main results: ResNet18 showed a higher performance (0.985 accuracy, 0.979 specificity, and 0.988 sensitivity) than SVM and other deep learning approaches. 2D-based models were generally more accurate than 1D-based models. Significance: 2D representation of PPG signal enhances the accuracy of PPG signal quality assessment.}
-}
+		@article{arrhythmia-4,
+		doi = {10.1088/1361-6579/ab5b84},
+		url = {https://dx.doi.org/10.1088/1361-6579/ab5b84},
+		year = {2019},
+		month = {dec},
+		publisher = {IOP Publishing},
+		volume = {40},
+		number = {12},
+		pages = {125002},
+		author = {Tania Pereira and Cheng Ding and Kais Gadhoumi and Nate Tran and Rene A Colorado and Karl Meisel and Xiao Hu},
+		title = {Deep learning approaches for plethysmography signal quality assessment in the presence of atrial fibrillation},
+		journal = {Physiological Measurement},
+		abstract = {Objective: Photoplethysmography (PPG) monitoring has been implemented in many portable and wearable devices we use daily for health and fitness tracking. Its simplicity and cost-effectiveness has enabled a variety of biomedical applications, such as continuous long-term monitoring of heart arrhythmias, fitness, and sleep tracking, and hydration monitoring. One major issue that can hinder PPG-based applications is movement artifacts, which can lead to false interpretations. In many implementations, noisy PPG signals are discarded. Misinterpreted or discarded PPG signals pose a problem in applications where the goal is to increase the yield of detecting physiological events, such as in the case of paroxysmal atrial fibrillation (AF)—a common episodic heart arrhythmia and a leading risk factor for stroke. In this work, we compared a traditional machine learning and deep learning approaches for PPG quality assessment in the presence of AF, in order to find the most robust method for PPG quality assessment. Approach: The training data set was composed of 78 278 30 s long PPG recordings from 3764 patients using bedside patient monitors. Two different representations of PPG signals were employed—a time-series based (1D) one and an image-based (2D) one. Trained models were tested on an independent set of 2683 30 s PPG signals from 13 stroke patients. Main results: ResNet18 showed a higher performance (0.985 accuracy, 0.979 specificity, and 0.988 sensitivity) than SVM and other deep learning approaches. 2D-based models were generally more accurate than 1D-based models. Significance: 2D representation of PPG signal enhances the accuracy of PPG signal quality assessment.}
+		}
 
 @article{review-8,
 title = {A Real-time PPG Quality Assessment Approach for Healthcare Internet-of-Things},
