@@ -167,16 +167,6 @@
 		- Síntese: O artigo trata do SQA de sinais PPG cardiológicos por meio de uma CNN 1D, que fornece duas classes, correspondentes a sinais confiáveis ou não. O modelo foi testado em uma prova-de-conceito, obtendo 83% em micro-average F1-score e 89% em macro-average F1-score. Conclui-se que o modelo possui acurácia razoável.
 		- Críticas: O modelo não foi comparado a outros.
 		
-	@1 On-Device Reliability Assessment and Prediction of Missing Photoplethysmographic Data Using Deep Neural Networks
-			- Autores: Monalisa Singha Roy, Biplab Roy, Rajarshi Gupta, and Kaushik Das Sharma
-			- Tempo: 2020
-			- Tema:
-			- Objetivos:
-			- Metodologia: 
-			- Resultados:
-			- Conclusões:
-			- Críticas:
-		
 	@$ Transfer learning of CNN-based signal quality assessment from clinical to non-clinical PPG signals
 		- Autores: Serena Zanelli, Mounim A. El Yacoubi, Magid Hallab, Mehdi Ammi
 		- Tempo: 2021
@@ -196,6 +186,16 @@
 		- Tempo: 2023
 		- Síntese: O artigo trata do SQA de sinais rPPG, isto é, sinais PPG extraídos remotamente. Para esse fim, foi desenvolvida uma Long-Short Term Memory Network (LSTMN) que recebe três janelas do sinal e, na saída, fornece uma SQI. Experimentos em datasets rPPG próprios mostram que o SQI do método proposto tem relação com as qualidades das estimativas de HR. A acurácia em datsets PPG não foi alta, mas indica que o modelo converge para a solução. Conclui-se que o método até certo ponto tende a fornecer SQI corretos, mas existe a limitação dos sinais rPPG em si terem qualidade inferior a sinais PPG convencionais.
 		- Críticas:
+		
+	@1 On-Device Reliability Assessment and Prediction of Missing Photoplethysmographic Data Using Deep Neural Networks
+			- Autores: Monalisa Singha Roy, Biplab Roy, Rajarshi Gupta, and Kaushik Das Sharma
+			- Tempo: 2020
+			- Tema:
+			- Objetivos:
+			- Metodologia: 
+			- Resultados:
+			- Conclusões:
+			- Críticas:
 
 	% PONTE -----------------------------------------------------------------------------------------------------------------
 	
