@@ -47,9 +47,29 @@ This section provides an analysis of the projections methods that this thesis us
 
 \subsection{Recurrence Plot}
 
-Researchers proposed the \gls{RP} 
+% Introduzir aplicações e uso pretendido
+
+The \gls{RP}, in essence, represents recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=x_1,x_2,...,x_n$ with $n$ samples into a phase space, creating a phase space series $S=s_1,s_2,...,s_m$ with $m$ elements. We can employ the time delays method to represent each element $s_i$ of this phase space $S$ as follows:
+
+\begin{equation}
+	s_i=\vec{s_i} = (x_i, x_{i + \tau}, x_{i + 2\cdot \tau} ..., x_{i + (d-1) \cdot \tau})
+\end{equation}   
+
+\noindent where $d$ is the dimension and $\tau$ is the time delay of the phase space. Notice that the lenght $m$ of the sequence $S$ depends on both $d$ and $\tau$ by the equation $m = n - (d-1) \cdot \tau$. 
+
+Then, the second step is to build a $m \times m$ matrix $M$ of recurrences where each cell $M_{i,j}$ represents the presence or the ausence of a recurrence in a pair of points $\vec{s_i},\vec{s_j}$ of the phase space $S$. We can represent this concept by measuring the distance $||\vec{s_i} - \vec{s_j}||$ between the points of the pair and verifying if it is smaller than a threshold $\varepsilon$ as the following equation:
+
+\begin{equation}
+	M_{i,j} = \mathcal{H}(\varepsilon - ||\vec{s_i} - \vec{s_j}||)
+\end{equation}
+
+\noindent where $\mathcal{H}$ is the Heaviside function.  
+
+% E se não tiver limiar?
 
 \subsection{Gramian Angular Field}
+
+
 
 \subsection{Markov Transition Field}
 
