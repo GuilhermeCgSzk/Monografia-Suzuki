@@ -67,9 +67,66 @@ Then, the second step is to build a $m \times m$ matrix $M$ of recurrences where
 
 % E se não tiver limiar?
 
+
+\begin{figure}
+	\centering
+	\adjustbox{height=0.3\textheight}{
+		\begin{tabular}{c}
+			\includegraphics{img/middle_steps/signal.png} \\
+			\includegraphics{img/middle_steps/delay_phase_space.pdf} \\
+		\end{tabular}
+	}
+	\caption{}
+\end{figure}
+
 \subsection{Gramian Angular Field}
 
+% falar sobre GAF
 
+The \gls{GAF}, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=x_1,x_2,...,x_n$, with $n$ samples, into a polar coordinate series $P=p_1,p_2,...,p_n$. One manner to do that is to associate the time $t_i$ to the radius $r_i$ and the value $x_i$ to the angle by the inverse of the cosine as follows:
+
+\begin{equation}
+	p_i = (r_i, \phi_i),	
+	\begin{cases} 
+		\phi_i = cos^{-1}(x_i), & -1 \leq x_i \leq 1\\
+		r_i = \frac{t_i}{N}, 	& t_i \in \mathbb{N}, N \in \mathbb{R}
+	\end{cases}
+\end{equation}    
+
+The second step is to 
+
+\begin{align}
+	M_{i,j} & = cos(\phi_i + \phi_j) \\
+		& = cos(\phi_i) \cdot cos(\phi_j) - sin(\phi_i) \cdot sin(\phi_j) \\
+		& = x_i \cdot x_j - \sqrt{1 - x_i^2} \cdot \sqrt{1 - x_j^2}
+\end{align}
+
+\begin{equation}
+	M = X^T \cdot X - \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}^T \cdot \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}
+\end{equation}
+
+
+\begin{align}
+	M_{i,j} & = sin(\phi_i - \phi_j) \\
+		& = sin(\phi_i) \cdot cos{\phi_j} - cos(\phi_i) \cdot sin(\phi_j) \\
+		& = \sqrt{1 - x_i^2} \cdot x_j - x_i \cdot \sqrt{1 - x_j^2} 
+\end{align}
+
+\begin{equation}
+	M = \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}^T \cdot X - X^T \cdot \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}
+\end{equation}
 
 \subsection{Markov Transition Field}
+
+\begin{equation}
+	W_{i,j} = \frac{\sum\limits_{x_k \in Q_i} \begin{cases} 
+			0, & x_{k+1} \not\in Q_j \\
+			1, & x_{k+1} \in Q_j
+		\end{cases}}{|Q_i|}
+\end{equation}
+
+
+\begin{equation}
+	M_{i,j} = W_{u,v} | x_i \in Q_u, x_j \in Q_j 
+\end{equation}
 

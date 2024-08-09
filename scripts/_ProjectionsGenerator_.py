@@ -102,3 +102,5 @@ class ProjectionsGenerator(Generator):
 		reshaped_multiscale_signal = multiscale_signal.reshape(tuple(reversed(multiscale_signal.shape)))
 		matrix = proj.MarkovTransitionField(n_bins=4).transform([reshaped_multiscale_signal])[0]
 		save(matrix, 'MultiscaleMarkovTransitionField', 'magma', path)
+		
+		
