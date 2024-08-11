@@ -5,7 +5,7 @@ from ._AveragesTableGenerator_ import AveragesTableGenerator
 from ._TimeBoxplotsGenerator_ import TimeBoxplotsGenerator
 from ._MemoryTableGenerator_ import MemoryTableGenerator
 from ._ProjectionsGenerator_ import ProjectionsGenerator
-from ._ProjectionsMiddleStepGenerator_ import ProjectionsMiddleStepGenerator
+from ._MethodologyGenerator_ import MethodologyGenerator
 
 __all__ = [
 	'Preprocessor', 
@@ -15,5 +15,5 @@ __all__ = [
 	'TimeBoxplotsGenerator', 
 	'MemoryTableGenerator',
 	'ProjectionsGenerator',
-	'ProjectionsMiddleStepGenerator'
+	'MethodologyGenerator'
 ]
