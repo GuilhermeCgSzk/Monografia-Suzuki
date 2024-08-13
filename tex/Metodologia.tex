@@ -84,60 +84,69 @@ The \gls{RP}, in essence, represents the ocurrence of recurrences between the ph
 
 \input{tex/figuras/method/phase_space}
 
-Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences where each cell $RP_{i,j} \in \{0,1\}$ represents the presence or the ausence of a recurrence in a pair of points $\vec{s_i},\vec{s_j}$ of the phase space $S$. We can represent this concept by measuring the distance $||\vec{s_i} - \vec{s_j}||$ between the points of the pair and verifying if it is smaller than a threshold $\varepsilon \in \mathbb{R}$ as the following equation:
+Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences where each cell $RP_{i,j} \in \{0,1\}$ represents the presence or the ausence of a recurrence in a pair of points $\vec{s_i},\vec{s_j}$ of the phase space $S$. We can represent this concept by measuring the distance $||\vec{s_i} - \vec{s_j}||$ between the points of the pair and verifying if it is smaller than a threshold $\varepsilon \in \mathbb{R}$, as the following equation:
 
 \begin{equation}
 	RP_{i,j} = \mathcal{H}(\varepsilon - ||\vec{s_i} - \vec{s_j}||)
 \end{equation}
 
-\noindent where $\mathcal{H}: \mathbb{R} \mapsto \{0,1\}$ is the Heaviside function. Alternativelly, we can produce an unthresholded version $RP'$ by attributing to each cell the points distance:
+\noindent where $\mathcal{H}: \mathbb{R} \mapsto \{0,1\}$ is the Heaviside function. Alternativelly, we can produce an unthresholded version $RP'_{m \times m}$ by attributing to each cell $RP'_{i,j} \in \mathbb{R}$ the points distance:
 
 \begin{equation}
 	RP'_{i,j} = ||\vec{s_i} - \vec{s_j}||
 \end{equation}  
 
-\noindent The figure \ref{fig:method:rp} exibits both $RP$ and $RP'$ of the example signal.
+\noindent the figure \ref{fig:method:rp} exibits both $RP$ and $RP'$ of the example signal.
 
 \input{tex/figuras/method/rp}
 
 \subsection{Gramian Angular Field}
 
-% falar sobre GAF
-
-The \gls{GAF}, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=x_1,x_2,...,x_n$, with $n$ samples, into a polar coordinate series $P=p_1,p_2,...,p_n$. One manner to do that is to associate the time $t_i$ to the radius $r_i$ and the value $x_i$ to the angle by the inverse of the cosine as follows:
+The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This method, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=x_1,x_2,...,x_n \in \mathbb{R}^n$, with $n \in \mathbb{N}$ samples and time instants $t_1,t_2,...,t_n$, into a polar coordinate series $P=p_1,p_2,...,p_n \in \mathbb{R}^n$. One manner to do that is to associate the time $i \in \mathbb{N}$ to the radius $r_i \in \mathbb{R}$ and the value $x_i \in \mathbb{R}$ to the angle by the inverse of the cosine as follows:
 
 \begin{equation}
-	p_i = (r_i, \phi_i),	
+	p_i = f_{polar}(t_i, x_i) = (r_i, \phi_i),	
 	\begin{cases} 
-		\phi_i = cos^{-1}(x_i), & -1 \leq x_i \leq 1\\
-		r_i = \frac{t_i}{N}, 	& t_i \in \mathbb{N}, N \in \mathbb{R}
+		\phi_i = arccos(x_i), & -1 \leq x_i \leq 1 \wedge 0 \leq \phi_i \leq \pi\\
+		r_i = \frac{t_i}{N}, 	& N \in \mathbb{R}
 	\end{cases}
 \end{equation}    
 
-The second step is to 
+\noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. The figure \ref{fig:?} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
+
+The second step is to construct the temporal relationship matrix. We can achieve that by two methods that exploit trigonometric properties. One of them is calculating the cosine of the summation of the pairs of angles, constructing the following matrix $GASF_{n \times n}$:
 
 \begin{align}
-	GASF_{i,j} & = cos(\phi_i + \phi_j) \\
-		& = cos(\phi_i) \cdot cos(\phi_j) - sin(\phi_i) \cdot sin(\phi_j) \\
-		& = x_i \cdot x_j - \sqrt{1 - x_i^2} \cdot \sqrt{1 - x_j^2}
+	GASF_{i,j} 	& = cos(\phi_i + \phi_j) \\
+			& = cos(\phi_i) \cdot cos(\phi_j) - sin(\phi_i) \cdot sin(\phi_j) \\
+			& = x_i \cdot x_j - \sqrt{1 - x_i^2} \cdot \sqrt{1 - x_j^2} \label{eq:gasf:algebraic}
 \end{align}
+
+\noindent where \gls{GASF} is the final matrix. Due to the inversibility of the $arccos$ function, it is possible to express that calculation without trigonometric operations, as expressed by the equality \ref{eq:gasf:algebraic}. Thus, we can calculate \gls{GASF} using matrix operations, as follows:  
 
 \begin{equation}
 	GASF = X^T \cdot X - \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}^T \cdot \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}
 \end{equation}
 
+\noindent where $\square^{\circ 2}$ and $\sqrt[\circ 2]{\square}$ represents the element-wise square power and square root of the matrix $\square$, respectivelly, and $\mathds{1}$ is a matrix in which all elements are $1$. The other method is analogous, but uses the sine of the difference of the pairs of angles, constructing the following matrix $GADF_{n \times n}$:
 
 \begin{align}
 	GADF_{i,j} & = sin(\phi_i - \phi_j) \\
 		& = sin(\phi_i) \cdot cos{\phi_j} - cos(\phi_i) \cdot sin(\phi_j) \\
-		& = \sqrt{1 - x_i^2} \cdot x_j - x_i \cdot \sqrt{1 - x_j^2} 
+		& = \sqrt{1 - x_i^2} \cdot x_j - x_i \cdot \sqrt{1 - x_j^2}  \label{eq:gadf:algebraic}
 \end{align}
+
+\noindent Also similarly, by the equality \ref{eq:gadf:algebraic}, we can express \gls{GADF} by matrix operations:
 
 \begin{equation}
 	GADF = \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}^T \cdot X - X^T \cdot \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}
 \end{equation}
 
+\noindent the figure \ref{?} shows the \gls{GASF} and the \gls{GADF} of the example signal.
+
 \subsection{Markov Transition Field}
+
+Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal to graph mapping of Campanharo et al. \cite{mtf-2}. In fact, that mapping is the first step of this method. We map the signal $X=x_1,x_2,...,x_n \in \mathbb{R}^n$ to a graph $G=(N,W)$, with nodes set $N$ and edges weights adjacency matrix $W$. Its nodes $N$ corresponds to $m \in \mathbb{N}$ quantile bins $Q_i \subseteq \{x_i, i = 1,2,...,n\}$, that is, $|Q_1|=|Q_2|=...=|Q_n|$ and, $\forall q_1 \in Q_1, \forall q_2 \in Q_2, ..., \forall q_n \in Q_n$, we have that $q_1 \leq q_2 \leq ... \leq q_n$. In other words, those quantiles bins separate the signal $X$ into bands $Q_i$ with equal ammount of samples $x_i$. The figure \ref{fig:?} pictures this concept for the example signal. The graph edges are directed and corresponds to the probability of a sample $x_{k+1}$, consecutive to a uniformly randomly chosen sample of a certain quantile $x_k \in Q_i$, belonging to a certain quantile $Q_j$. Those edges are akin to transitions of first-order Markov chains, since the probabilities summation of the transitions that sources from a state is always equal to $100\%$. We can express the adjacency matrix $W_{m \times m}$ as follows:  
 
 \begin{equation}
 	W_{i,j} = \frac{\sum\limits_{x_k \in Q_i} \begin{cases} 
@@ -146,10 +155,30 @@ The second step is to
 		\end{cases}}{|Q_i|}
 \end{equation}
 
+\noindent That graph $G$ allows a probabilistic reconstruction $X'=x'_1,x'_2,...,x'_n$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:} details that reconstruction and the figure \ref{fig:} exemplifies the reconstruction applied to the example signal.
+
+\begin{algorithm}
+	\begin{algorithmic}
+		\Require Graph $G=(N=\{Q_1, Q_2, ..., Q_m\},W)$
+		\Ensure Reconstructed Signal $X'=x'_1,x'_2,...,x'_n$
+		\State $Q_{current} \gets Q \in_R N$ \Comment{Select random $Q$ from $N$}
+		\For {$k \in 1,2,...,n$}
+			\State $x'_k \gets x \in_R Q_{current}$ \Comment{Select random $x$ from $Q_{current}$}
+			\State $Q_{next} \gets P(Q_{next} \gets )=W_{current,next}$ 
+			\State $Q_{current} \gets Q_{next}$
+		\EndFor
+	\end{algorithmic}
+	\caption{The probabilistic signal reconstruction algorithm. }
+	\label{alg:cap}
+\end{algorithm}
+
+Since that graph does not retain temporal relationships, the second step of the \gls{MTF} method is to build the following matrix $MTF_{n \times n}$: 
 
 \begin{equation}
-	MTF_{i,j} = W_{u,v} | x_i \in Q_u, x_j \in Q_j 
+	MTF_{i,j} = W_{u,v} | x_i \in Q_u, x_j \in Q_v
 \end{equation}
+
+\noindent That is, each cell $MTF_{i,j}$ contains the transition probability between the quantiles $Q_u,Q_v$ to which the samples $x_i,x_j$ belong.
 
 \section{Proposed Method}
 
