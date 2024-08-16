@@ -155,21 +155,20 @@ Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal 
 		\end{cases}}{|Q_i|}
 \end{equation}
 
-\noindent That graph $G$ allows a probabilistic reconstruction $X'=x'_1,x'_2,...,x'_n$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:} details that reconstruction and the figure \ref{fig:} exemplifies the reconstruction applied to the example signal.
+\noindent That graph $G$ allows a probabilistic reconstruction $X'=x'_1,x'_2,...,x'_n$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} details that reconstruction and the figure \ref{fig:} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal.
 
 \begin{algorithm}
 	\begin{algorithmic}
 		\Require Graph $G=(N=\{Q_1, Q_2, ..., Q_m\},W)$
 		\Ensure Reconstructed Signal $X'=x'_1,x'_2,...,x'_n$
-		\State $Q_{current} \gets Q \in_R N$ \Comment{Select random $Q$ from $N$}
+		\State $Q_{current} \gets Q \in_R N$ 
 		\For {$k \in 1,2,...,n$}
-			\State $x'_k \gets x \in_R Q_{current}$ \Comment{Select random $x$ from $Q_{current}$}
-			\State $Q_{next} \gets P(Q_{next} \gets )=W_{current,next}$ 
-			\State $Q_{current} \gets Q_{next}$
+			\State $x'_k \gets x \in_R Q_{current}$
+			\State $Q_{current} \gets Q_{next}$, with probability $W_{current,next}$
 		\EndFor
 	\end{algorithmic}
 	\caption{The probabilistic signal reconstruction algorithm. }
-	\label{alg:cap}
+	\label{alg:mtf_reconstruction}
 \end{algorithm}
 
 Since that graph does not retain temporal relationships, the second step of the \gls{MTF} method is to build the following matrix $MTF_{n \times n}$: 
