@@ -102,7 +102,7 @@ Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences wher
 
 \subsection{Gramian Angular Field}
 
-The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This method, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=x_1,x_2,...,x_n \in \mathbb{R}^n$, with $n \in \mathbb{N}$ samples and time instants $t_1,t_2,...,t_n$, into a polar coordinate series $P=p_1,p_2,...,p_n \in \mathbb{R}^n$. One manner to do that is to associate the time $i \in \mathbb{N}$ to the radius $r_i \in \mathbb{R}$ and the value $x_i \in \mathbb{R}$ to the angle by the inverse of the cosine as follows:
+The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This method, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=x_1,x_2,...,x_n$, with $x_i \in \mathbb{R}$, $n \in \mathbb{N}$ samples, and time instants $t_1,t_2,...,t_n$, into a polar coordinate series $P=p_1,p_2,...,p_n$ with $p_i \in \mathbb{R}$. One manner to do that is to associate the time $i \in \mathbb{N}$ to the radius $r_i \in \mathbb{R}$ and the value $x_i \in \mathbb{R}$ to the angle by the inverse of the cosine as follows:
 
 \begin{equation}
 	p_i = f_{polar}(t_i, x_i) = (r_i, \phi_i),	
@@ -155,7 +155,7 @@ Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal 
 		\end{cases}}{|Q_i|}
 \end{equation}
 
-\noindent That graph $G$ allows a probabilistic reconstruction $X'=x'_1,x'_2,...,x'_n$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} details that reconstruction and the figure \ref{fig:} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal.
+\noindent That graph $G$ allows a probabilistic reconstruction $X'=x'_1,x'_2,...,x'_n$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} details that reconstruction and the figure \ref{fig:} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the sucessfull recovery is not certain.
 
 \begin{algorithm}
 	\begin{algorithmic}
@@ -181,7 +181,53 @@ Since that graph does not retain temporal relationships, the second step of the 
 
 \section{Proposed Method}
 
-This thesis proposed a novel method. The figure \ref{fig:method} depicts the proposition. First, we transformed the signal into four projections using the three beforementioned algorithms: \gls{GAF} (which generated two variants: \gls{GASF} and \gls{GADF}), \gls{MTF}, and \gls{RP}. Then, we aggregated those projections using composition, that is, we assigned each of them to a different channel of a new input layer. Then, that layer feeded the computer vision model, which contained weights pre-trained on the ImageNet dataset. The figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consisted in performing a point-wise convolution operation. Finally, that model classified the signal into a binary \gls{SQI}, which indicated if the signal was ``Good'' or ``Bad''. 
+This section presents a novel projection, \gls{Mix}, and finishes describing the application of that projection in an application context. 
+
+\subsection{Projection Mix}
+
+% Fazer ligação com as seções anteriores, observando a particularidade de cada projeção. Então, indicar o método proposto como uma forma de "misturar" essas projeções.
+
+For this end, we propose aggregating all projections and ``mixing'' them. The aggregation consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation. Formally, given $p$ projections $M_1, M_2, ..., M_p$ with same dimensions $n \times m$, we construct an input tensor $T_{in_{p \times n \times m}}$ defined as follows:
+
+\begin{equation}
+	T_{in_{k,i,j}} = M_{k_{i,j}}
+\end{equation}
+
+\noindent Then, we ``mix'' that tensor $T_{in_{p \times n \times m}}$ into a new tensor $T_{mix_{q \times n \times m}}$ defined bellow:
+
+\begin{equation}
+	T_{mix_{k,i,j}} = f_{actv}\left(\sum\limits_{l=1}^{p}T_{in_{l,i,j}} \cdot w_{(k,i,j);l}\right)
+\end{equation} 
+
+\noindent where $w_{(k,i,j);l} \in \mathbb{R}$ is the weight applied to the link between the final tensor cell $T_{mix_{k,i,j}}$ and the input tensor cell $T_{in_{l,i,j}}$, while $f_{actv}: \mathbb{R} \mapsto \mathbb{R}$ is an activation function, such as ReLU, logistic sigmoid and Softmax. We can define the same tensor by directly assigning to the input projections:
+
+\begin{equation}
+	\label{eq:mix}
+	T_{mix_{k,i,j}} = f_{actv}\left(\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}\right)
+\end{equation}
+
+\noindent We can observe that, for each cell with indexes $i,j$, the summatory $\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}$ ``mixes'' the $p$ projections by adding its values $M_{l_{i,j}}$, while attributing different degrees of contribution for each $l$-th projection depending on the weight $w_{(k,i,j);l}$. Then, we can use the $f_{actv}$ function to mainly achieve binary distinguishability, achieving the final tensor value $T_{mix_{k,i,j}}$. 
+
+That projection combination has the property of not only expanding the amount of input options that a machine learning model can use to decide the \gls{SQI}, but also allows, theoretically, a collaboration among the diverse projection methods. Per example, suppose that we want to assess the signal quality on two different datasets, $D_A$ and $D_B$. To achieve such a goal, we use a machine learning model $\mathcal{M}: \mathcal{T}_{c \times n \times m} \times \mathcal{W} \mapsto \{0,1\}$ which receives an input tensor $T_{c \times n \times m}$ in the set of all tensors with such dimensions $\mathcal{T}_{c \times n \times m}$ and processes it using a weight configuration $W$ in $\mathcal{W}$, giving an \gls{SQI} in $\{0,1\}$. For simplicity, we define $h_{W}(T_{c \times n \times m})=\mathcal{M}(T_{c \times n \times m},W)$ as hypothesis function that results from the usage of the model $\mathcal{M}$ with weights $W$. Then, we select a set of projection method function $p: D_A \cup D_B \mapsto \mathcal{T}_{c \times n \times m}$ in the set $\mathcal{P}=\{p_1,p_2,...,p_c\}$ to convert the signal $X \in D_A \cup D_B$ to a format compatible with $\mathcal{M}$. The combination of both the model $\mathcal{M}$, with hypothesis function $h$, and the projection $p$ results in the function composition $h \circ p: D_A \cup D_B \mapsto \{0,1\}$ that directly maps the input to the \glspl{SQI}.
+
+%000000000000000000000000000
+
+That projection combination has the property of not only expading the ammount of input options that a machine learning model can use to decide the \gls{SQI}, but also allows, theoretically, a colaboration among the diverse projection methods. Per example, supose that we want to assess the quality of the signal on two different datasets, $D_1$ and $D_2$. To achieve such a goal, we feed the signal $X$ to two projection methods, with functions $p_1: \mathbb{R} \mapsto \mathbb{R}$ and $p_2: \mathbb{R} \mapsto \mathbb{R}$, to generate, respectivelly, the tensors $T(X)_1$ and $T(X)_2$ by replicating the projection to each input channel. Then, we feed one of those projection tensors $T(X)_1$ or $T(X)_2$ to a machine learning model $\mathcal{M}$ with possible weights in the set $\mathcal{W}$ and hypothesis functions in the set $\mathcal{H}$. We assume that $(h_0 \in \mathcal{H},W_0 \in \mathcal{W})$ are the hypothesis function and the weights of the initial state of $\mathcal{M}$ and that we can reach all the other functions in $\mathcal{H}\textbackslash\{h_0\}$ and its states in $\mathcal{M}\textbackslash\{W_0\}$ after we train the model $\mathcal{M}$ in that state. Supose as well that $(h_1 \in \mathcal{H}, W_1 \in \mathcal{W})$ and $(h_2 \in \mathcal{H}, W_2 \in \mathcal{W})$ are the unique optimum functions and states of $\mathcal{M}$ for the datasets $D_1$ and $D_2$, respectivelly. In other words, $h_1 \circ p_1$ and $h_2 \circ p_2$ are the optimum functions to predict the \gls{SQI} in the datsets $D_1$ and $D_2$, respectivelly. In that scenario, we can show that the \gls{Mix} method allows the model to achive both optimum functions $h_1 \circ p_1$ and $h_2 \circ p_2$ without changing the projetion method.
+
+That comes from the implication that the \gls{Mix} method function $p_{mix}(X,W_{mix},f_{act})=T_{mix}(X)$ can produce tensors equivalent to the other projections tensors $T(X)_1$ and $T(X)_2$. Firstly, we use the identity function $f_{id}(x)=x$ as the activation function $f_{actv}$. That and the fact that we use only two projections simplify the equation \ref{eq:mix} to: 
+
+\begin{align}
+	T(X)_{mix_{k,i,j}} = & f_{actv}\left(\sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l}\right) \\
+	T(X)_{mix_{k,i,j}} = & f_{id}\left(\sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l}\right) \\
+	T(X)_{mix_{k,i,j}} = & \sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l} \\
+	T(X)_{mix_{k,i,j}} = & M(X)_{1_{i,j}} \cdot w_{(k,i,j);1} + M(X)_{2_{i,j}} \cdot w_{(k,i,j);2}
+\end{align}
+
+We can observe that, when a set of weights $W_{{mix}_1}$ such that $w_{(k,i,j);1}=1$ and $w_{(k,i,j);2}=0$, we have that $T(X)_{mix_{k,i,j}} = M(X)_{1_{i,j}}$, that is, $T(X)_{mix}=T(X)_1$. Similarly, with weights $W_{{mix}_2}$ such that $w_{(k,i,j);1}=0$ and $w_{(k,i,j);2}=1$, it can also assume the values of $T(X)_2$. Therefore, $T(X)_{mix}$ can assume the value of both projection methods with the same projection method. Consequently, when we assume that the training over the weights $W_{mix}$ in a initial state $W_{{mix}_0}$, represented by a function $f(D,W_{{mix}_0})=W_{mix}$, produces the  assume both $W_{{mix}_1}$ and $W_{{mix}_2}$ 
+
+\subsection{Method overview}
+
+We can apply this novel projection in usual machine learning applications. The figure \ref{fig:method} depicts the application framework of this thesis. First, we transform the signal into four projections using the three beforementioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}), \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is ``Good'' or ``Bad''. 
 
 \input{tex/figuras/input_layer}
 
