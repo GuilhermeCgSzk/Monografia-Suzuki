@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+from matplotlib.patches import Rectangle
 import os
 import sklearn
 import pyts
@@ -7,6 +9,7 @@ import pyts.image as proj
 import numpy
 import itertools
 import numpy as np
+import networkx as nx
 from scipy.signal import ShortTimeFFT
 from scipy.signal.windows import gaussian
 
@@ -40,6 +43,7 @@ class GramianAngularFieldFigures:
 		signal = numpy_rescale(signal,dst_min_val=-1,dst_max_val=1, axis=0)
 		
 		fig, ax = plt.subplots(figsize=(10,7), subplot_kw={'projection':'polar'})
+		fig.tight_layout()
 		
 		ax.plot([math.acos(x) for x in signal],list(range(len(signal))), color='red')
 		
@@ -59,6 +63,10 @@ class MarkovTransitionFieldFigures:
 	def __init__(self, n_bins):
 		self.n_bins = n_bins
 		
+		reds = [x/(self.n_bins-1) for x in range(self.n_bins)]
+		greens_reverse = [1-x/(self.n_bins-1) for x in range(self.n_bins)]
+		self.colors = [(r,g,0,0.5) for r,g in zip(reds,greens_reverse)]
+		
 	def quantile_bins_figure(self, signal, path):
 		sklearn_signal = sklearn.preprocessing.RobustScaler().fit_transform([[sample] for sample in signal])
 		sklearn_signal = sklearn_signal - (sklearn_signal.max()+sklearn_signal.min())/2
@@ -66,24 +74,30 @@ class MarkovTransitionFieldFigures:
 		
 		fig, ax = plt.subplots(figsize=(10, 5))
 		
-		def subsample2(arr, percentage):
-			return [arr[int(i)] for i in np.arange(0,len(arr),len(arr)/percentage)]
-		colors = subsample2(['darkred','red','darkorange','gold','darkkhaki','olive','limegreen','darkgreen'],self.n_bins)
+		
 		[bins] = pyts.preprocessing.KBinsDiscretizer(n_bins=self.n_bins).transform([signal])
 		
-		qbin = -1
-		for x in range(len(signal)):
-			if bins[x] != qbin:
-				qbin = bins[x]
-				ax.plot(np.arange(x,len(signal)),signal[x:], color=colors[bins[x]], linewidth=3)
+		#qbin = -1
+		#for x in range(len(signal)):
+		#	if bins[x] != qbin:
+		#		qbin = bins[x]
+		#		ax.plot(np.arange(x,len(signal)),signal[x:], color=colors[bins[x]], linewidth=3)
 				
-		for bin_i in range(1,self.n_bins):
-			minimum = 1
+		ax.plot(list(range(len(signal))),signal,color='black',linewidth=2,zorder=3)
+		ax.plot([0,len(signal)],[min(signal),min(signal)],color='grey',zorder=2)
+		ax.plot([0,len(signal)],[max(signal),max(signal)],color='grey',zorder=2)
+				
+		for bin_i in range(0,self.n_bins):
+			minimum,maximum = None,None
 			for x,b in enumerate(bins):
-				if b == bin_i and signal[x]<minimum:
-					minimum = signal[x]
-			ax.plot([0,len(signal)],[minimum,minimum],color='black',linestyle='dotted')
-					
+				if b == bin_i:
+					if minimum is None or signal[x]<minimum:
+						minimum = signal[x]
+					if maximum is None or signal[x]>maximum:
+						maximum = signal[x]
+			if bin_i>=1:
+				ax.plot([0,len(signal)],[minimum,minimum],color='grey',zorder=2)
+			ax.add_patch(Rectangle((0, minimum), len(signal), maximum-minimum, fill=True, facecolor=self.colors[bin_i],edgecolor='none'))					
 				
 				
 		ax.set_xlim(0,len(signal))
@@ -93,6 +107,48 @@ class MarkovTransitionFieldFigures:
 		fig.savefig(os.path.join(path,'QuantileBins'), dpi=300)
 		plt.close()
 		
+	def markov_chain(self, signal, path):
+		[bins] = pyts.preprocessing.KBinsDiscretizer(n_bins=self.n_bins).transform([signal])
+		
+		G = nx.Graph()
+		
+		G.add_nodes_from([(f'Q_{qbin}', {"color": self.colors[qbin]}) for qbin in range(self.n_bins)])
+		
+		for qbin in range(self.n_bins):
+			transitions = [0 for _ in range(self.n_bins)]
+			bin_size = 0
+			for i in range(len(signal)):
+				if bins[i]==qbin:
+					bin_size += 1
+					if i+1 < len(signal):
+						transitions[bins[i]] += 1
+		
+			for qbin_2 in range(self.n_bins):
+				if transitions[qbin_2] > 0:
+					G.add_edge(f'Q_{qbin}', f'Q_{qbin_2}', weight=transitions[qbin_2]/bin_size)
+				
+		pos = nx.spring_layout(G, seed=7)
+		
+		# nodes
+		nx.draw_networkx_nodes(G, pos, node_size=700)
+
+
+		edgelist = [(i,j) for (i,j,w) in G.edges(data=True)]
+		# edges
+		nx.draw_networkx_edges(G, pos, edgelist=edgelist, width=6)
+		nx.draw_networkx_edges(
+		    G, pos, edgelist=edgelist, width=6, alpha=0.5, edge_color="b", style="dashed"
+		)
+			
+		# node labels
+		nx.draw_networkx_labels(G, pos, font_size=20, font_family="sans-serif")
+		# edge weight labels
+		edge_labels = nx.get_edge_attributes(G, "weight")
+		nx.draw_networkx_edge_labels(G, pos, edge_labels)
+					
+		plt.tight_layout()
+		plt.show()
+			
 	def reconstruction(self, signal, path):
 		[bins] = pyts.preprocessing.KBinsDiscretizer(n_bins=self.n_bins).transform([signal])
 		
@@ -127,11 +183,9 @@ class RecurrencePlotFigures:
 				dy = y1-y2
 				distance = dx*dx+dy*dy
 				if 0 < distance and distance <= self.threshold*self.threshold:
-					plt.plot([x1,x2],[y1,y2],color=recurrence_color)
-					plt.scatter([x1,x2],[y1,y2],color=recurrence_color,s=0.75)
+					plt.plot([x1,x2],[y1,y2],color=recurrence_color,zorder=1, linewidth=0.5)
 				
-		plt.plot(x,y,color=self.color)
-		plt.scatter(x,y,color=self.color,s=0.75)
+		plt.scatter(x,y,color=self.color,s=0.75,zorder=2)
 		plt.xlabel('$x_{t}$', fontsize=16)
 		plt.ylabel('$x_{t+'+str(self.delay)+'}$', fontsize=16)
 		
@@ -169,7 +223,9 @@ class RecurrencePlotFigures:
 
 class MethodologyGenerator(Generator):
 	def generate(self, path):
-		N=200
+		plt.tight_layout()
+	
+		N=500
 		signal = np.array([math.sin(15*np.pi*i/N) + i/N for i in range(N)])
 		signal = numpy_rescale(signal,dst_min_val=0,dst_max_val=1, axis=0)
 		
@@ -196,3 +252,4 @@ class MethodologyGenerator(Generator):
 		mtf_figures = MarkovTransitionFieldFigures(8)
 		mtf_figures.quantile_bins_figure(signal, path)
 		mtf_figures.projection_figure(signal, path)
+		mtf_figures.markov_chain(signal, path)

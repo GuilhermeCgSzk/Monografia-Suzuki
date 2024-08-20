@@ -112,7 +112,9 @@ The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This 
 	\end{cases}
 \end{equation}    
 
-\noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. The figure \ref{fig:?} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
+\noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. The figure \ref{fig:methodology:polar} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
+
+\input{tex/figuras/method/polar}
 
 The second step is to construct the temporal relationship matrix. We can achieve that by two methods that exploit trigonometric properties. One of them is calculating the cosine of the summation of the pairs of angles, constructing the following matrix $GASF_{n \times n}$:
 
@@ -142,7 +144,9 @@ The second step is to construct the temporal relationship matrix. We can achieve
 	GADF = \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}^T \cdot X - X^T \cdot \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}
 \end{equation}
 
-\noindent the figure \ref{?} shows the \gls{GASF} and the \gls{GADF} of the example signal.
+\noindent the figure \ref{fig:method:gaf} shows the \gls{GASF} and the \gls{GADF} of the example signal.
+
+\input{tex/figuras/method/gaf}
 
 \subsection{Markov Transition Field}
 
@@ -177,7 +181,9 @@ Since that graph does not retain temporal relationships, the second step of the 
 	MTF_{i,j} = W_{u,v} | x_i \in Q_u, x_j \in Q_v
 \end{equation}
 
-\noindent That is, each cell $MTF_{i,j}$ contains the transition probability between the quantiles $Q_u,Q_v$ to which the samples $x_i,x_j$ belong.
+\noindent That is, each cell $MTF_{i,j}$ contains the transition probability between the quantiles $Q_u,Q_v$ to which the samples $x_i,x_j$ belong. The figure \ref{fig:method:mtf} pictures the application of the method over the example signal. 
+
+\input{tex/figuras/method/mtf}
 
 \section{Proposed Method}
 
@@ -208,22 +214,32 @@ For this end, we propose aggregating all projections and ``mixing'' them. The ag
 
 \noindent We can observe that, for each cell with indexes $i,j$, the summatory $\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}$ ``mixes'' the $p$ projections by adding its values $M_{l_{i,j}}$, while attributing different degrees of contribution for each $l$-th projection depending on the weight $w_{(k,i,j);l}$. Then, we can use the $f_{actv}$ function to mainly achieve binary distinguishability, achieving the final tensor value $T_{mix_{k,i,j}}$. 
 
-That projection combination has the property of not only expanding the amount of input options that a machine learning model can use to decide the \gls{SQI}, but also allows, theoretically, a collaboration among the diverse projection methods. Per example, suppose that we want to assess the signal quality on two different datasets, $D_A$ and $D_B$. To achieve such a goal, we use a machine learning model $\mathcal{M}: \mathcal{T}_{c \times n \times m} \times \mathcal{W} \mapsto \{0,1\}$ which receives an input tensor $T_{c \times n \times m}$ in the set of all tensors with such dimensions $\mathcal{T}_{c \times n \times m}$ and processes it using a weight configuration $W$ in $\mathcal{W}$, giving an \gls{SQI} in $\{0,1\}$. For simplicity, we define $h_{W}(T_{c \times n \times m})=\mathcal{M}(T_{c \times n \times m},W)$ as hypothesis function that results from the usage of the model $\mathcal{M}$ with weights $W$. Then, we select a set of projection method function $p: D_A \cup D_B \mapsto \mathcal{T}_{c \times n \times m}$ in the set $\mathcal{P}=\{p_1,p_2,...,p_c\}$ to convert the signal $X \in D_A \cup D_B$ to a format compatible with $\mathcal{M}$. The combination of both the model $\mathcal{M}$, with hypothesis function $h$, and the projection $p$ results in the function composition $h \circ p: D_A \cup D_B \mapsto \{0,1\}$ that directly maps the input to the \glspl{SQI}.
+%\begin{itemize}
+%	\item Datasets $\mathcal{D}=\{D_1,D_2,...,D_d\}$
+%	\item Signal $X \in \bigcup\limits_{i=1}^d D_i$
+%	\item Tensor $\mathcal{T}_{c \times n \times m}$
+%	\item Weights set $\mathcal{W}$
+%	\item Machine learning model $\mathcal{M}: \mathcal{T}_{c \times n \times m} \times \mathcal{W} \mapsto \{0,1\}$
+%	\item $h_{W}(T_{c \times n \times m})=\mathcal{M}(T_{c \times n \times m},W)$
+%	\item $\mathcal{P}=\{p_1,p_2,...,p_c\}$
+%	\item $p: \bigcup\limits_{i=1}^d D_i \mapsto \mathcal{T}_{c \times n \times m}$
+%	\item $h_{W} \circ p: \bigcup\limits_{i=1}^d D_i\mapsto \{0,1\}$
+%\end{itemize}
+
+%That projection combination has the property of not only expanding the amount of input options that a machine learning model can use to decide the \gls{SQI}, but also allows, theoretically, a collaboration among the diverse projection methods. Per example, suppose that we want to assess the signal quality on $d$ different datasets, $\mathcal{D}=\{D_1,D_2,...,D_d\}$. To achieve such a goal, we use a machine learning model $\mathcal{M}: \mathcal{T}_{c \times n \times m} \times \mathcal{W} \mapsto \{0,1\}$ which receives an input tensor $T_{c \times n \times m}$ in the set of all tensors with such dimensions $\mathcal{T}_{c \times n \times m}$ and processes it using a weight configuration $W \in \mathcal{W}$, giving an \gls{SQI} in $\{0,1\}$. For simplicity, we define $h_{W}(T_{c \times n \times m})=\mathcal{M}(T_{c \times n \times m},W)$ as the hypothesis function that results from the usage of the model $\mathcal{M}$ with weights $W$. Then, we select a set of projection method function $p: \bigcup\limits_{i=1}^d D_i \mapsto \mathcal{T}_{c \times n \times m}$ in the set $\mathcal{P}=\{p_1,p_2,...,p_c\}$ to convert the signal $X \in \bigcup\limits_{i=1}^d D_i$ to a format compatible with $\mathcal{M}$. The combination of both the model $\mathcal{M}$, with hypothesis function $h_{W}$, and the projection $p$ results in the function composition $h_{W} \circ p: \bigcup\limits_{i=1}^d D_i\mapsto \{0,1\}$ that directly maps the input to the \glspl{SQI}. With that context that this paragraph exposes, one expects that, for each dataset $D \in \mathcal{D}$, a projection method $p_{D} \in \mathcal{P}$ performs equal or better than the others methods. , trained with a function $t_{best}: \mathcal{W} \times \mathcal{D} \mapsto \mathcal{W}$ that retrieves the best set of weights $W_{train} \in \mathcal{W}$
 
 %000000000000000000000000000
 
-That projection combination has the property of not only expading the ammount of input options that a machine learning model can use to decide the \gls{SQI}, but also allows, theoretically, a colaboration among the diverse projection methods. Per example, supose that we want to assess the quality of the signal on two different datasets, $D_1$ and $D_2$. To achieve such a goal, we feed the signal $X$ to two projection methods, with functions $p_1: \mathbb{R} \mapsto \mathbb{R}$ and $p_2: \mathbb{R} \mapsto \mathbb{R}$, to generate, respectivelly, the tensors $T(X)_1$ and $T(X)_2$ by replicating the projection to each input channel. Then, we feed one of those projection tensors $T(X)_1$ or $T(X)_2$ to a machine learning model $\mathcal{M}$ with possible weights in the set $\mathcal{W}$ and hypothesis functions in the set $\mathcal{H}$. We assume that $(h_0 \in \mathcal{H},W_0 \in \mathcal{W})$ are the hypothesis function and the weights of the initial state of $\mathcal{M}$ and that we can reach all the other functions in $\mathcal{H}\textbackslash\{h_0\}$ and its states in $\mathcal{M}\textbackslash\{W_0\}$ after we train the model $\mathcal{M}$ in that state. Supose as well that $(h_1 \in \mathcal{H}, W_1 \in \mathcal{W})$ and $(h_2 \in \mathcal{H}, W_2 \in \mathcal{W})$ are the unique optimum functions and states of $\mathcal{M}$ for the datasets $D_1$ and $D_2$, respectivelly. In other words, $h_1 \circ p_1$ and $h_2 \circ p_2$ are the optimum functions to predict the \gls{SQI} in the datsets $D_1$ and $D_2$, respectivelly. In that scenario, we can show that the \gls{Mix} method allows the model to achive both optimum functions $h_1 \circ p_1$ and $h_2 \circ p_2$ without changing the projetion method.
+%That comes from the implication that the \gls{Mix} method function $p_{mix}(X,W_{mix},f_{act})=T_{mix}(X)$ can produce tensors equivalent to the other projections tensors $T(X)_1$ and $T(X)_2$. Firstly, we use the identity function $f_{id}(x)=x$ as the activation function $f_{actv}$. That and the fact that we use only two projections simplify the equation \ref{eq:mix} to: 
 
-That comes from the implication that the \gls{Mix} method function $p_{mix}(X,W_{mix},f_{act})=T_{mix}(X)$ can produce tensors equivalent to the other projections tensors $T(X)_1$ and $T(X)_2$. Firstly, we use the identity function $f_{id}(x)=x$ as the activation function $f_{actv}$. That and the fact that we use only two projections simplify the equation \ref{eq:mix} to: 
+%\begin{align}
+%	T(X)_{mix_{k,i,j}} = & f_{actv}\left(\sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l}\right) \\
+%	T(X)_{mix_{k,i,j}} = & f_{id}\left(\sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l}\right) \\
+%	T(X)_{mix_{k,i,j}} = & \sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l} \\
+%	T(X)_{mix_{k,i,j}} = & M(X)_{1_{i,j}} \cdot w_{(k,i,j);1} + M(X)_{2_{i,j}} \cdot w_{(k,i,j);2}
+%\end{align}
 
-\begin{align}
-	T(X)_{mix_{k,i,j}} = & f_{actv}\left(\sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l}\right) \\
-	T(X)_{mix_{k,i,j}} = & f_{id}\left(\sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l}\right) \\
-	T(X)_{mix_{k,i,j}} = & \sum\limits_{l=1}^{2}M(X)_{l_{i,j}} \cdot w_{(k,i,j);l} \\
-	T(X)_{mix_{k,i,j}} = & M(X)_{1_{i,j}} \cdot w_{(k,i,j);1} + M(X)_{2_{i,j}} \cdot w_{(k,i,j);2}
-\end{align}
-
-We can observe that, when a set of weights $W_{{mix}_1}$ such that $w_{(k,i,j);1}=1$ and $w_{(k,i,j);2}=0$, we have that $T(X)_{mix_{k,i,j}} = M(X)_{1_{i,j}}$, that is, $T(X)_{mix}=T(X)_1$. Similarly, with weights $W_{{mix}_2}$ such that $w_{(k,i,j);1}=0$ and $w_{(k,i,j);2}=1$, it can also assume the values of $T(X)_2$. Therefore, $T(X)_{mix}$ can assume the value of both projection methods with the same projection method. Consequently, when we assume that the training over the weights $W_{mix}$ in a initial state $W_{{mix}_0}$, represented by a function $f(D,W_{{mix}_0})=W_{mix}$, produces the  assume both $W_{{mix}_1}$ and $W_{{mix}_2}$ 
+%We can observe that, when a set of weights $W_{{mix}_1}$ such that $w_{(k,i,j);1}=1$ and $w_{(k,i,j);2}=0$, we have that $T(X)_{mix_{k,i,j}} = M(X)_{1_{i,j}}$, that is, $T(X)_{mix}=T(X)_1$. Similarly, with weights $W_{{mix}_2}$ such that $w_{(k,i,j);1}=0$ and $w_{(k,i,j);2}=1$, it can also assume the values of $T(X)_2$. Therefore, $T(X)_{mix}$ can assume the value of both projection methods with the same projection method. Consequently, when we assume that the training over the weights $W_{mix}$ in a initial state $W_{{mix}_0}$, represented by a function $f(D,W_{{mix}_0})=W_{mix}$, produces the  assume both $W_{{mix}_1}$ and $W_{{mix}_2}$ 
 
 \subsection{Method overview}
 
