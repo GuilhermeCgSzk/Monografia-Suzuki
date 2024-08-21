@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+import random
 from matplotlib.patches import Rectangle
 import os
 import sklearn
@@ -54,10 +55,22 @@ class GramianAngularFieldFigures:
 		fig.savefig(os.path.join(path,'polar'), dpi=300)
 		plt.close()
 
-	def projection_figure(self, signal, path, *, method):
+	def projection_figure(self, signal, path, *, method, name=None):
 		reshaped_signal = signal.reshape(tuple(reversed(signal.shape)))
 		matrix = proj.GramianAngularField(method=method).transform([reshaped_signal])[0]
-		save(matrix, f'GramianAngularField({method})', 'Reds', path)
+		
+		
+		method_name = {
+			'summation' : 'Summation',
+			'difference': 'Difference'
+		}
+			
+		final_name = f'GramianAngular{method_name[method]}Field'
+		
+		if name is not None:
+			final_name += f'({name})'
+		
+		save(matrix, final_name, 'Reds', path)
 
 class MarkovTransitionFieldFigures:
 	def __init__(self, n_bins):
@@ -108,11 +121,14 @@ class MarkovTransitionFieldFigures:
 		plt.close()
 		
 	def markov_chain(self, signal, path):
+		def qbin_str(qbin_index):
+			return '$Q_{'+str(qbin_index+1)+'}$'
+	
 		[bins] = pyts.preprocessing.KBinsDiscretizer(n_bins=self.n_bins).transform([signal])
 		
-		G = nx.Graph()
+		G = nx.MultiDiGraph()
 		
-		G.add_nodes_from([(f'Q_{qbin}', {"color": self.colors[qbin]}) for qbin in range(self.n_bins)])
+		G.add_nodes_from([(qbin_str(qbin), {"color": self.colors[qbin]}) for qbin in range(self.n_bins)])
 		
 		for qbin in range(self.n_bins):
 			transitions = [0 for _ in range(self.n_bins)]
@@ -121,42 +137,103 @@ class MarkovTransitionFieldFigures:
 				if bins[i]==qbin:
 					bin_size += 1
 					if i+1 < len(signal):
-						transitions[bins[i]] += 1
+						transitions[bins[i+1]] += 1
 		
 			for qbin_2 in range(self.n_bins):
 				if transitions[qbin_2] > 0:
-					G.add_edge(f'Q_{qbin}', f'Q_{qbin_2}', weight=transitions[qbin_2]/bin_size)
+					G.add_edge(qbin_str(qbin), qbin_str(qbin_2), weight=round(transitions[qbin_2]/bin_size,ndigits=1))
 				
-		pos = nx.spring_layout(G, seed=7)
+		pos = nx.circular_layout(G)
 		
+		
+		color_map=[]
 		# nodes
-		nx.draw_networkx_nodes(G, pos, node_size=700)
-
-
-		edgelist = [(i,j) for (i,j,w) in G.edges(data=True)]
-		# edges
-		nx.draw_networkx_edges(G, pos, edgelist=edgelist, width=6)
-		nx.draw_networkx_edges(
-		    G, pos, edgelist=edgelist, width=6, alpha=0.5, edge_color="b", style="dashed"
-		)
+		for i,node in enumerate(G.nodes()):
+			color = (self.colors[i][0], self.colors[i][1], self.colors[i][2], 1)
+			color_map.append(color)		
+		
+		nx.draw_networkx_nodes(G, pos, node_color=color_map,node_size=700)
 			
 		# node labels
-		nx.draw_networkx_labels(G, pos, font_size=20, font_family="sans-serif")
+		nx.draw_networkx_labels(G, pos, font_size=14, font_family="sans-serif")
+
+		connectionstyle = [f"arc3,rad={r}" for r in itertools.accumulate([0.15] * 4)]
+
+		# edges
+		nx.draw_networkx_edges(
+		    G, pos, edgelist=[(i,j) for (i,j,w) in G.edges(data=True)], 
+		    width=3, alpha=0.6, edge_color='blue', 
+		    connectionstyle=connectionstyle,
+		    arrows=True, arrowstyle="->", arrowsize=15
+		)
+		
 		# edge weight labels
-		edge_labels = nx.get_edge_attributes(G, "weight")
-		nx.draw_networkx_edge_labels(G, pos, edge_labels)
+		#edge_labels = nx.get_edge_attributes(G, "weight")
+		labels = {
+			tuple(edge): f"{attrs['weight']}" for *edge, attrs in G.edges(keys=True, data=True)
+		}
+		
+		nx.draw_networkx_edge_labels(
+			G,
+			pos,
+			labels,
+			connectionstyle=connectionstyle,
+			label_pos=0.5,
+			verticalalignment='bottom',
+			font_color="blue",
+			bbox={"alpha": 0},
+		)
 					
 		plt.tight_layout()
-		plt.show()
+		plt.savefig(os.path.join(path,'MarkovChain.pdf'), dpi=300)
+		plt.close()
 			
 	def reconstruction(self, signal, path):
 		[bins] = pyts.preprocessing.KBinsDiscretizer(n_bins=self.n_bins).transform([signal])
 		
+		transition_matrix = np.ndarray((self.n_bins,self.n_bins))
+		
+		bins_samples = []
+		
+		for qbin in range(self.n_bins):
+			bins_samples.append([])
+		
+			transitions = [0 for _ in range(self.n_bins)]
+			for i,x in enumerate(signal):
+				if bins[i]==qbin:
+					bins_samples[qbin].append(x)
+					if i+1 < len(signal):
+						transitions[bins[i+1]] += 1
+		
+			
+		
+			for qbin_2 in range(self.n_bins):
+				transition_matrix[qbin][qbin_2] = transitions[qbin_2]/sum(transitions)
+			
+		reconstructed_signal = []
+				
+		qbin = random.randrange(self.n_bins)
+		for _ in range(len(signal)):
+			sample = np.random.choice(bins_samples[qbin])
+			reconstructed_signal.append(sample)
+			qbin = np.random.choice(list(range(self.n_bins)),p=transition_matrix[qbin])
+			
+		plt.figure(figsize=(6,3))
+		plt.plot(range(len(reconstructed_signal)),reconstructed_signal,color='black')
+		plt.savefig(os.path.join(path,'Reconstruction.pdf'), dpi=300)
+		plt.close()
 
-	def projection_figure(self, signal, path):
+	def projection_figure(self, signal, path, *, name=None):
 		reshaped_signal = signal.reshape(tuple(reversed(signal.shape)))
 		matrix = proj.MarkovTransitionField(n_bins=self.n_bins).transform([reshaped_signal])[0]
-		save(matrix, f'MarkovTransitionField', 'Greens', path)
+		
+		
+		final_name = 'MarkovTransitionField'
+		
+		if name is not None:
+			final_name += f'({name})'
+		
+		save(matrix, final_name, 'Greens', path)
 	
 
 class RecurrencePlotFigures:
@@ -197,7 +274,7 @@ class RecurrencePlotFigures:
 		plt.savefig(os.path.join(path,name), dpi=300)
 		plt.close()
 		
-	def projection_figure(self, signal, path, *, thresholded=True):
+	def projection_figure(self, signal, path, *, thresholded=True, name=None):
 		if thresholded:
 			threshold=self.threshold
 		else:
@@ -212,12 +289,14 @@ class RecurrencePlotFigures:
 		).transform([reshaped_signal])[0]
 		
 		if thresholded:
-			name = "RecurrencePlot"
+			final_name = "RecurrencePlot"
 		else:
-			name = "RecurrencePlotUnthresholded"
+			final_name = "RecurrencePlotUnthresholded"
 		
+		if name is not None:
+			final_name += f'({name})'
 		
-		save(matrix, name, 'Blues', path)
+		save(matrix, final_name, 'Blues', path)
 			
 	
 
@@ -237,7 +316,6 @@ class MethodologyGenerator(Generator):
 			plt.savefig(f, dpi=300)
 		plt.close()
 			
-		# Recurrence
 		rp_figures = RecurrencePlotFigures(delay=10, threshold=0.05)		
 		rp_figures.time_delay_phase_space_figure(signal, path)
 		rp_figures.time_delay_phase_space_figure(signal, path, show_recurrences=True)
@@ -249,7 +327,37 @@ class MethodologyGenerator(Generator):
 		gaf_figures.projection_figure(signal, path, method='summation')
 		gaf_figures.projection_figure(signal, path, method='difference')
 		
-		mtf_figures = MarkovTransitionFieldFigures(8)
+		mtf_figures = MarkovTransitionFieldFigures(10)
+		mtf_figures.reconstruction(signal, path)
 		mtf_figures.quantile_bins_figure(signal, path)
-		mtf_figures.projection_figure(signal, path)
 		mtf_figures.markov_chain(signal, path)
+		mtf_figures.projection_figure(signal, path)
+		
+		# simplest_signal -------------------------------------------
+		
+		examples_path = os.path.join(path,'examples')
+		
+		base_signal = np.array([math.sin((i/N)*10*np.pi) for i in range(N)])
+		gaussian_noisy_signal = np.array([x1+x2 for x1,x2 in zip(base_signal, np.random.normal(0,0.5,N))])
+		salt_and_pepper_signal = np.array([np.random.choice([min(base_signal),max(base_signal),x],p=[0.2,0.2,0.6]) for x in base_signal])
+		baseline_wander_signal = np.array([x1+x2 for x1,x2 in zip(base_signal,[2*math.sin((i/N)*2*np.pi) for i in range(N)])])	
+		
+		for signal,name in [
+			(base_signal,'base'),
+			(gaussian_noisy_signal,'gaussian_noisy'),
+			(salt_and_pepper_signal,'salt_and_pepper'),
+			(baseline_wander_signal,'baseline_wander'),
+		]:			
+			plt.figure(figsize=(6,3))
+			plt.plot(range(len(signal)),signal,color='black')
+			with open(os.path.join(examples_path,f'signal({name}).png'), 'wb') as f:
+				plt.savefig(f, dpi=300)
+			plt.close()
+			
+			rp_figures.projection_figure(signal, examples_path, thresholded=False, name=name)
+			gaf_figures.projection_figure(signal, examples_path, method='summation', name=name)
+			gaf_figures.projection_figure(signal, examples_path, method='difference', name=name)
+			mtf_figures.projection_figure(signal, examples_path, name=name)
+		
+		
+		
