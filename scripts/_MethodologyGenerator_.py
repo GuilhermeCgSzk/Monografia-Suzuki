@@ -141,7 +141,7 @@ class MarkovTransitionFieldFigures:
 		
 			for qbin_2 in range(self.n_bins):
 				if transitions[qbin_2] > 0:
-					G.add_edge(qbin_str(qbin), qbin_str(qbin_2), weight=round(transitions[qbin_2]/bin_size,ndigits=1))
+					G.add_edge(qbin_str(qbin), qbin_str(qbin_2), weight=round(transitions[qbin_2]/bin_size,ndigits=2))
 				
 		pos = nx.circular_layout(G)
 		
@@ -339,14 +339,22 @@ class MethodologyGenerator(Generator):
 		
 		base_signal = np.array([math.sin((i/N)*10*np.pi) for i in range(N)])
 		gaussian_noisy_signal = np.array([x1+x2 for x1,x2 in zip(base_signal, np.random.normal(0,0.5,N))])
-		salt_and_pepper_signal = np.array([np.random.choice([min(base_signal),max(base_signal),x],p=[0.2,0.2,0.6]) for x in base_signal])
+		salt_and_pepper_signal = np.array([np.random.choice([min(base_signal),max(base_signal),x],p=[0.1,0.1,0.8]) for x in base_signal])
+		low_frequency_noise_signal = np.array([x+0.4*math.sin((i/N)*100*np.pi) for i,x in enumerate(base_signal)])
 		baseline_wander_signal = np.array([x1+x2 for x1,x2 in zip(base_signal,[2*math.sin((i/N)*2*np.pi) for i in range(N)])])	
+		local_noise_signal = base_signal.copy()
+		size = N//5
+		pos = random.randrange(N-size)
+		for k,i in enumerate(range(pos,min(pos+size,N))):
+			local_noise_signal[i] += math.sin(np.pi*10*(k/size)) #np.random.normal(0,1)
 		
 		for signal,name in [
 			(base_signal,'base'),
-			(gaussian_noisy_signal,'gaussian_noisy'),
+			(gaussian_noisy_signal,'gaussian'),
 			(salt_and_pepper_signal,'salt_and_pepper'),
 			(baseline_wander_signal,'baseline_wander'),
+			(low_frequency_noise_signal,'low_frequency_noise'),
+			(local_noise_signal,'local_noise')
 		]:			
 			plt.figure(figsize=(6,3))
 			plt.plot(range(len(signal)),signal,color='black')

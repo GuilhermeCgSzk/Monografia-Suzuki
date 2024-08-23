@@ -4,43 +4,50 @@
 \begin{figure}
 	\centering
 	\adjustbox{width=\textwidth}{
-		\begin{tabular}{ccccc}
-			& Base signal
+		\begin{tabular}{cccccc}
+			Base signal
 			& Gaussian Noise
-			& Salt and Peper Noise
-			& Baseline Wander \\
+			& \makecell{Salt and Peper \\Noise}
+			& Baseline Wander 
+			& \makecell{High-Frequency \\Noise}
+			& Local Noise \\
 			
-			Signal
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(base).png}
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(gaussian_noisy).png}
+			\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(base).png}
+			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(gaussian).png}
 			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(salt_and_pepper).png} 
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(baseline_wander).png} \\
+			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(baseline_wander).png} 
+			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(low_frequency_noise).png} 
+			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(local_noise).png} \\
 			
-			GADF
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(base).png}}
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(gaussian_noisy).png}} 
+			\frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(base).png}}
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(gaussian).png}} 
 			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(salt_and_pepper).png}} 
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(baseline_wander).png}} \\
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(baseline_wander).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(low_frequency_noise).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(local_noise).png}} \\
 			
-			GASF
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(base).png}}
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(gaussian_noisy).png}} 
+			\frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(base).png}}
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(gaussian).png}} 
 			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(salt_and_pepper).png}} 
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(baseline_wander).png}} \\
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(baseline_wander).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(low_frequency_noise).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularSummationField(local_noise).png}} \\
 			
-			RP
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(base).png}}
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(gaussian_noisy).png}} 
+			\frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(base).png}}
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(gaussian).png}} 
 			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(salt_and_pepper).png}} 
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(baseline_wander).png}} \\
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(baseline_wander).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(low_frequency_noise).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/RecurrencePlotUnthresholded(local_noise).png}} \\
 			
-			MTF
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(base).png}}
-			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(gaussian_noisy).png}} 
+			\frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(base).png}}
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(gaussian).png}} 
 			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(salt_and_pepper).png}} 
 			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(baseline_wander).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(low_frequency_noise).png}} 
+			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(local_noise).png}} 
 		\end{tabular}
 	}
-	\caption{}
+	\caption{The signal and its projections over the influence of different type of noises.}
 	\label{fig:method:noises}
 \end{figure}

@@ -62,19 +62,25 @@
 
 \section{Photopletysmograph signal}
 
+\gls{PPG} signals are, in essence, 
 
+% Transmission mode vs reflectance mode
+
+%
+
+\input{tex/figuras/method/ppg}
 
 \section{Projection Methods}
 
-This section provides an analysis of the projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in figure \ref{fig:methodology:signal}.
+This section provides an analysis of the projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in figure \ref{fig:methodology:signal}. Additionally, this section explores the influence of noise in the projections result. 
 
 \input{tex/figuras/method/signal}
 
 \subsection{Recurrence Plot}
 
-The work of Eckmann et al. \cite{rp-1}, of 1987, introduced the \gls{RP} method as a tool for representing visually usefull properties and behaviours of a time series. Since then, its application expanded to various domains, ranging areas such as earth sciences, finances, engineering, chemistry and physics \cite{rp-2}. It also is applicable in life sciences, with attemps on identifying the presence of Parkinson's disease \cite{rp-3}, epileptic seizure \cite{rp-4}, fetal hypoxia \cite{rp-5}, and Alzheimer's disease \cite{rp-6}. Particularly, considering this thesis scope, we can employ \gls{RP} in tasks involving cardiological signal processing, such as cardiac arrythmia classification \cite{rp-7}. Thus, it is likely that this method is usefull in the \gls{SQA} of cardiological signals.  
+The work of Eckmann et al. \cite{rp-1}, of 1987, introduced the \gls{RP} method as a tool for representing visually useful properties and behaviors of a time series. Since then, its application expanded to various domains, ranging areas such as earth sciences, finances, engineering, chemistry and physics \cite{rp-2}. It also is applicable in life sciences, with attemps on identifying the presence of Parkinson's disease \cite{rp-3}, epileptic seizure \cite{rp-4}, fetal hypoxia \cite{rp-5}, and Alzheimer's disease \cite{rp-6}. Particularly, considering this thesis scope, we can employ \gls{RP} in tasks involving cardiological signal processing, such as cardiac arrhythmia classification \cite{rp-7}. Thus, it is likely that this method is useful in the \gls{SQA} of cardiological signals.  
 
-The \gls{RP}, in essence, represents the ocurrence of recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=x_1,x_2,...,x_n \in \mathbb{R}^n$ with $n \in \mathbb{N}$ samples into a phase space, creating a new time series $S=\vec{s_1},\vec{s_2},...,\vec{s_m} \in \mathbb{R}^m \times \mathbb{R}^d$ with $m \in \mathbb{N}$ elements. We can employ the time delays method to represent each element $\vec{s_i} \in \mathbb{R}^d$ of this new sequence $S$ as follows:
+The \gls{RP}, in essence, represents the occurrence of recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=x_1,x_2,...,x_n \in \mathbb{R}^n$ with $n \in \mathbb{N}$ samples into a phase space, creating a new time series $S=\vec{s_1},\vec{s_2},...,\vec{s_m} \in \mathbb{R}^m \times \mathbb{R}^d$ with $m \in \mathbb{N}$ elements. We can employ the time delays method to represent each element $\vec{s_i} \in \mathbb{R}^d$ of this new sequence $S$ as follows:
 
 \begin{equation}
 	\vec{s_i} = (x_i, x_{i + \tau}, x_{i + 2\cdot \tau} ..., x_{i + (d-1) \cdot \tau})
@@ -198,7 +204,7 @@ Since that graph does not retain temporal relationships, the second step of the 
 
 \subsection{Projections Behavior}
 
-Those projections methods have the property of reflecting into a image general characteristics of the signal shape and entropy. Per example, consider 
+The main idea of the projection methods is to reflect the signals properties and shape into visual patterns. That concept applies too to the inspection of the signal quality. The figure \ref{fig:method:noises} presents examples of the influence of different type of noises over the projections aspect. On observation is that the presence of low-frequency or high-frequency noises tend to produce, respectively, big or small scale structures. We can see in the effects of that observation in the figure, where the baseline wander figures manifest two to four big structures and the high-frequency noise figures contain small dot-like structures. Another observation is that noises concentrated in a certain region tends to disturb the projection onto a cross-like structure, as we can see in the figure local noise column. We can see that property of ``reflection'' for usual noises, such as Gaussian, and salt and pepper noises. In the figure, the Gaussian noise still preserves the high-level structures and destroys low-level structures, while the salt and pepper noise produces vertical and horizontal lines with void or full colors in places corresponding to, respectively ``salts'' and ``peppers'' of the source signal. Therefore, those projections are likely to be useful in \gls{SQI} tasks for \gls{CV} approaches, since they present the noises visually maintaining its characteristics.  
 
 \input{tex/figuras/method/noises}
 
