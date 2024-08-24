@@ -60,15 +60,15 @@
 % \end{equation}
 % Where $D(\vec{X}_i, \vec{X}_j) = || \vec{X}_i - \vec{X}_j ||$. Optionally, it's possible to apply a threshold function $\Theta$ to classify the obtained distances, resulting in the matrix $RP = \{ \Theta(D(\vec{X}_i, \vec{X}_j))  \}_{i,j}$.
 
-This chapter describes fundamental concepts about the \gls{PPG} signal and the matrix embedding projection methods. Moreover, it explains the method that this thesis proposes.
+This chapter first presents the overview of the method. Then, it describes the fundamental concepts about the matrix projection methods. Finally, it defines the new projection combination technique.
 
-\section{Photopletysmograph signal}
+\subsection{Method overview}
 
-\gls{PPG} signals are, in essence, optical signals that results from the light interaction with the human tissues. To extract the signal, we need two basic components. The first is a light source, to emit light towards the tissues. An example of light source is the \gls{LED}. The second is a light receptor, to measure the light intensity. For that, we can use a photodiode, but there are attemps of using cameras. To prepare the signal extraction, we need to place those two type of devices exploiting one of two light interaction principles. The figure \ref{fig:method:ppg} shows both of them. One of them is the human tissue reflectance, that is, the property of the human tissues reflecting the incoming light rays. In that case, we need to place the devices in such manner that the human tissues are not between them. An example of application are the smartwatches, since all devices are bellow the main structure.  The other principle is the human tissue permeability, that is, the property of the light being able to traverse the human tissues. In that second case, the device placement is the negative of the first, that is, the human tissues need to be between the devices. An example of that case are fingertip pulse oximeters. At this point, the set up is ready to extract the \gls{PPG} signal.
+The figure \ref{fig:method} depicts the application framework of this thesis. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}), \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is ``Good'' or ``Bad''. 
 
+\input{tex/figuras/input_layer}
 
-
-\input{tex/figuras/method/ppg}
+\input{tex/figuras/method.tex}
 
 \section{Projection Methods}
 
@@ -210,13 +210,7 @@ The main idea of the projection methods is to reflect the signals properties and
 
 \section{Proposed Method}
 
-This section presents a novel projection, \gls{Mix}, and finishes describing the application of that projection in an application context. 
-
-\subsection{Projection Mix}
-
-% Fazer ligação com as seções anteriores, observando a particularidade de cada projeção. Então, indicar o método proposto como uma forma de "misturar" essas projeções.
-
-For this end, we propose aggregating all projections and ``mixing'' them. The aggregation consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation. Formally, given $p$ projections $M_1, M_2, ..., M_p$ with same dimensions $n \times m$, we construct an input tensor $T_{in_{p \times n \times m}}$ defined as follows:
+Since each projection has its unique characteristics, it can be advantageous to somehow combine those methods into an ensemble. For this end, we propose aggregating all projections and ``mixing'' them. The aggregation consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation. Formally, given $p$ projections $M_1, M_2, ..., M_p$ with same dimensions $n \times m$, we construct an input tensor $T_{in_{p \times n \times m}}$ defined as follows:
 
 \begin{equation}
 	T_{in_{k,i,j}} = M_{k_{i,j}}
@@ -263,12 +257,4 @@ For this end, we propose aggregating all projections and ``mixing'' them. The ag
 %\end{align}
 
 %We can observe that, when a set of weights $W_{{mix}_1}$ such that $w_{(k,i,j);1}=1$ and $w_{(k,i,j);2}=0$, we have that $T(X)_{mix_{k,i,j}} = M(X)_{1_{i,j}}$, that is, $T(X)_{mix}=T(X)_1$. Similarly, with weights $W_{{mix}_2}$ such that $w_{(k,i,j);1}=0$ and $w_{(k,i,j);2}=1$, it can also assume the values of $T(X)_2$. Therefore, $T(X)_{mix}$ can assume the value of both projection methods with the same projection method. Consequently, when we assume that the training over the weights $W_{mix}$ in a initial state $W_{{mix}_0}$, represented by a function $f(D,W_{{mix}_0})=W_{mix}$, produces the  assume both $W_{{mix}_1}$ and $W_{{mix}_2}$ 
-
-\subsection{Method overview}
-
-We can apply this novel projection in usual machine learning applications. The figure \ref{fig:method} depicts the application framework of this thesis. First, we transform the signal into four projections using the three beforementioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}), \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is ``Good'' or ``Bad''. 
-
-\input{tex/figuras/input_layer}
-
-\input{tex/figuras/method.tex}
 
