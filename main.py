@@ -9,7 +9,6 @@ if __name__=='__main__':
 	from scripts import *
 	
 	MethodologyGenerator().generate('img/methodology')
-	quit()
 	
 	df = pd.read_csv('data/results67+70.csv')
 	df = Preprocessor(df).get()
