@@ -41,6 +41,7 @@ if __name__=='__main__':
 	averages_table_generator.generate_per_pair_group(averages_table_dir, pair_group)
 	
 	time_box_plot_dir = 'img/resultados/boxplots'
+	os.makedirs(time_box_plot_dir, exist_ok=True)
 	
 	time_box_plot_generator = TimeBoxplotsGenerator(benchmark_df)
 	time_box_plot_generator.generate(time_box_plot_dir, lim=100)
@@ -49,10 +50,13 @@ if __name__=='__main__':
 	
 	
 	memory_table_dir = 'tex/tabelas/resultados/memory'
+	os.makedirs(memory_table_dir, exist_ok=True)
+	
 	memory_table_generator = MemoryTableGenerator(benchmark_df)
 	memory_table_generator.generate(memory_table_dir)
 	memory_table_generator.generate_per_name_obj(Aeon_Group, memory_table_dir)
 	memory_table_generator.generate_per_pair_group(memory_table_dir, pair_group)
 	
 	methodology_dir = 'img/methodology'
+	os.makedirs(methodology_dir, exist_ok=True)
 	MethodologyGenerator().generate(methodology_dir)
