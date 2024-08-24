@@ -62,13 +62,13 @@
 
 This chapter first presents the overview of the method. Then, it describes the fundamental concepts about the matrix projection methods. Finally, it defines the new projection combination technique.
 
-\subsection{Method overview}
+\section{Proposed Method Overview}
 
-The figure \ref{fig:method} depicts the application framework of this thesis. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}), \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is ``Good'' or ``Bad''. 
-
-\input{tex/figuras/input_layer}
+The Figure \ref{fig:method} depicts the application framework of this thesis. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}), \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The Figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is ``Good'' or ``Bad''. 
 
 \input{tex/figuras/method.tex}
+
+\input{tex/figuras/input_layer}
 
 \section{Projection Methods}
 
