@@ -336,6 +336,7 @@ class MethodologyGenerator(Generator):
 		# simplest_signal -------------------------------------------
 		
 		examples_path = os.path.join(path,'examples')
+		os.makedirs(examples_path, exist_ok=True)
 		
 		base_signal = np.array([math.sin((i/N)*10*np.pi) for i in range(N)])
 		gaussian_noisy_signal = np.array([x1+x2 for x1,x2 in zip(base_signal, np.random.normal(0,0.5,N))])
