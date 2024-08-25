@@ -18,7 +18,7 @@ In more detail, \gls{PPG} signals are optical signals that result from the inter
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{img/ecg_ppg_signals.pdf}
+    \includegraphics[width=0.75\textwidth]{img/ecg_ppg_signals.pdf}
     \caption{Inter-Beat Interval (IBI) estimation using RR Interval from Electrocardiogram (ECG) and the corresponding Peak-to-Peak Interval from Photoplethysmography (PPG).}
     \label{fig:ecg_and_ppg}
 \end{figure}
@@ -28,19 +28,23 @@ Since both \gls{ECG} and \gls{PPG} gauge cardiovascular and circulatory paramete
 
 
 \begin{figure}[h!]
+    {
+    \def\arraystretch{1}
+    \setlength{\tabcolsep}{2pt}
     \begin{tabular}{cc}
-        \includegraphics[width=0.48\textwidth]{img/samples/butppg_111001.png} 
-        & \includegraphics[width=0.48\textwidth]{img/samples/butppg_111003.png} \\
-        \includegraphics[width=0.49\textwidth]{img/samples/butppg_111002.png} 
-        & \includegraphics[width=0.49\textwidth]{img/samples/butppg_111004.png} \\
+        \includegraphics[width=0.48\textwidth, trim={1.5em 0 0em 0}, clip]{img/samples/butppg_111001.png} 
+        & \includegraphics[width=0.48\textwidth, trim={1.5em 0 0em 0}, clip]{img/samples/butppg_111003.png} \\
+        \includegraphics[width=0.49\textwidth, trim={1.5em 0 0em 0}, clip]{img/samples/butppg_111002.png} 
+        & \includegraphics[width=0.49\textwidth, trim={1em 0 0em 0}, clip]{img/samples/butppg_111004.png} \\
     \end{tabular}
+    }
     \caption{Example of 'good' (reliable) and 'bad' (unreliable) PPG signals. A `good' signal (blue) exhibits symmetrical, well-defined, and more consistent patterns. In contrast, `bad' signals (red) present irregular, asymmetrical patterns with reduced consistency and greater variability between periods. In these graphs, the vertical dimension is the average of all pixels intensity in a frame, while the horizontal dimension is the time instant in frames. These records are 10 seconds long and sampled with a frequency of 30 Hz. These signals were plotted using signals from BUTPPG~\protect\cite{butppg} database.}
     \label{fig:butppg_samples}
 \end{figure}
 
 Typically, \gls{PPG} signals are highly prone to degradation due to various factors, especially motion artifacts. Excessive movement of the \gls{PPG} sensor can cause significant distortion in the waveform, which affects the accuracy of subsequent signal analysis. These artifacts obscure or distort vital information within the signal. Figure~\ref{fig:butppg_samples} illustrates examples of both reliable and distorted \gls{PPG} signals. Distorted signals can lead to incorrect decisions and misclassification, which is unacceptable in health and wellness applications. As a result, methods for assessing \gls{PPG} signal quality are essential to prevent misinterpretation by differentiating between reliable and noisy data.
 
-\section{Contributions of his Work}
+\section{Contributions of This Work}
 \label{sec:my_work}
 
 The main contributions of this thesis are the development of a quality assessment framework for \gls{PPG} signals. This framework is developed through several key contributions. Firstly, it proposes a new and effective approach for encoding time series into a set of 2D images. More specifically, the proposed method aggregates different projections into a composite hyperspectral image. This approach is based on the assumption that this aggregation provides better descriptiveness than using only a single projection. Additionally, this work evaluates the proposed approach in combination with a wide range of \gls{CV} models, which previous works have not done. This evaluation provides insights into which types of models are ideal for the time series matrix embedding technique. Thirdly, the thesis explores a novel idea of transfer learning using a dataset outside the \gls{SQA} domain, specifically the ImageNet dataset~\cite{ImageNet}. Finally, the thesis reports experiments conducted on a publicly available labeled dataset, named \gls{BUTPPG}~\cite{butppg}, which enhances the reproducibility and comparability of the experiments. The lack of reproducibility is a noticeable problem in the field currently, and the systematic empirical study conducted in this work can be useful for the community.
