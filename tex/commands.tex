@@ -6,10 +6,10 @@
 
 \newcommand{\AveragesTable}[1]{
 	\begin{table}[h!]
+		\caption{\AveragesTableDescription{#1}}
 		\adjustbox{width=\averagesTableWidth,center}{
 			\input{tex/tabelas/resultados/averages/models/Averages_of_#1}
 		}
-		\caption{\AveragesTableDescription{#1}}
 		\label{tab:Averages_of_#1}
 	\end{table}
 }
@@ -20,10 +20,10 @@
 \newcommand{\IncludeMemoryTable}[2]{
 	\begin{table}[h!]
 	\centering
+	\caption{\MemoryTableDescription{#2}}
 	\scalebox{\MemoryTableReduction}{
 		\MemoryTabularsInclusion{\NumberOfMemoryTableColumns}{#1}
 	}
-	\caption{\MemoryTableDescription{#2}}
 	\label{tab:Memory_of_#1}
 \end{table}
 }

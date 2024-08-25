@@ -22,3 +22,5 @@
 *.fdb_latexmk
 *.fls
 *.synctex.gz
+tex/tabelas/resultados/averages/models/*
+

@@ -43,45 +43,60 @@ class AveragesTableGenerator(Generator):
 			
 		df = df[df['model'].isin(name_obj.mappings())]
 		df['model'] = df['model'].apply(lambda x: name_obj.mappings()[x])
+				
+		old_df = df.copy()	
 	
-		for metric in metrics:
-			minimum_mean,maximum_mean = df[self.get_mean_key(metric)].min(),df[self.get_mean_key(metric)].max()
-			minimum_std,maximum_std = df[self.get_std_key(metric)].min(),df[self.get_std_key(metric)].max()
+		for metric in metrics:			
+			def get_color(value ,*, get_key_function, inverted=False):
+				colors = {
+					'green': {'r':0.0,'g':0.9,'b':0.0},
+					'red': {'r':0.9,'g':0.2,'b':0.2},
+					'yellow': {'r':0.6,'g':0.5,'b':0.0},
+				}
+				
+				if value <= old_df[get_key_function(metric)].quantile(0.25):
+					if inverted:
+						return colors['green']
+					else: 
+						return colors['red']
+				elif value >= old_df[get_key_function(metric)].quantile(0.75):
+					if inverted:
+						return colors['red']
+					else:
+						return colors['green']
+				else:
+					return colors['yellow']
 			
-			loc = df.columns.get_loc(metric)
-			loc_mean = df.columns.get_loc(self.get_mean_key(metric))
-			loc_std = df.columns.get_loc(self.get_std_key(metric))
+			loc = old_df.columns.get_loc(metric)
+			loc_mean = old_df.columns.get_loc(self.get_mean_key(metric))
+			loc_std = old_df.columns.get_loc(self.get_std_key(metric))
 			
 			for i in range(len(df)):    						
-				mean,std = df.iloc[i,loc_mean],df.iloc[i,loc_std]
-		
-				blue_factor = 0 
+				mean,std = old_df.iloc[i,loc_mean],old_df.iloc[i,loc_std]
 				
-				mean_scale = (mean-minimum_mean)/(1 if math.isclose(maximum_mean,minimum_mean) else maximum_mean-minimum_mean  )
+				mean_color = get_color(mean, get_key_function=self.get_mean_key)
+					
 				string_mean = (
-					'\\textcolor[rgb]{'+f'{max(1-mean_scale,0):.10f},{min(mean_scale,0.5):.10f},{blue_factor}'+'}{' +
+					'\\textcolor[rgb]{'+f'{mean_color["r"]:.10f},{mean_color["g"]:.10f},{mean_color["b"]}'+'}{' +
 						f'{mean:.3f}' + 
 					'}' 
 				)
 				
-				std_scale = (std-minimum_std)/(1 if math.isclose(maximum_std,minimum_std) else maximum_std-minimum_std  )
+				std_color = get_color(std, get_key_function=self.get_std_key,inverted=True)
+				
 				string_std = (
-					'\\textcolor[rgb]{'+f'{max(std_scale,0):.10f},{min(1-std_scale,0.5):.10f},{blue_factor}'+'}{' +
+					'\\textcolor[rgb]{'+f'{std_color["r"]:.10f},{std_color["g"]:.10f},{std_color["b"]}'+'}{' +
 						 f'{std:.3f}' +
 					'}' 					
 		    		)
 		    		
 		    		
-				if mean == maximum_mean:
+				if mean == old_df[self.get_mean_key(metric)].max():
 					df.iloc[i,loc_mean] = '\\textbf'+'{'+string_mean+'}'	
 				else:
-					df.iloc[i,loc_mean] = string_mean
-				
-				if mean >= 0.9:
-					df.iloc[i,loc_mean] = '\\underline{'+df.iloc[i,loc_mean]+'}'
-				
+					df.iloc[i,loc_mean] = string_mean				
 					
-				if df.iloc[i,loc_std] == minimum_std:
+				if std	 == old_df[self.get_std_key(metric)].min():
 					df.iloc[i,loc_std] = '\\textbf'+'{'+string_std+'}'	
 				else:
 					df.iloc[i,loc_std] = string_std
