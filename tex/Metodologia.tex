@@ -62,9 +62,9 @@
 
 This chapter first presents the overview of the method. Then, it describes the fundamental concepts about the matrix projection methods. Finally, it defines the new projection combination technique.
 
-\section{Proposed Method Overview}
+\section{Overview of the Proposed Method}
 
-The Figure \ref{fig:method} depicts the application framework of this thesis. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}), \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The Figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is `Good' or `Bad'. 
+The Figure \ref{fig:method} depicts the application framework of this thesis. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}, \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The Figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is `Good' or `Bad'. 
 
 \input{tex/figuras/method.tex}
 
@@ -80,7 +80,7 @@ This section provides an analysis of the projections methods that this thesis us
 
 The work of Eckmann et al. \cite{rp-1}, of 1987, introduced the \gls{RP} method as a tool for representing visually useful properties and behaviors of a time series. Since then, its application expanded to various domains, ranging areas such as earth sciences, finances, engineering, chemistry and physics \cite{rp-2}. It also is applicable in life sciences, with attemps on identifying the presence of Parkinson's disease \cite{rp-3}, epileptic seizure \cite{rp-4}, fetal hypoxia \cite{rp-5}, and Alzheimer's disease \cite{rp-6}. Particularly, considering this thesis scope, we can employ \gls{RP} in tasks involving cardiological signal processing, such as cardiac arrhythmia classification \cite{rp-7}. Thus, it is likely that this method is useful in the \gls{SQA} of cardiological signals.  
 
-The \gls{RP}, in essence, represents the occurrence of recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=x_1,x_2,...,x_n$, with $ x_i \in \mathbb{R}$ and $n \in \mathbb{N}$ samples, into a phase space, creating a new time series $S=\vec{s_1},\vec{s_2},...,\vec{s_m}$, with $ \vec{s_i} \in \mathbb{R}^d$ and $m \in \mathbb{N}$ elements. We can employ the time delays method to represent each element $\vec{s_i}$ of this new sequence $S$ as follows:
+The \gls{RP}, in essence, represents the occurrence of recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=\{x_1,x_2,...,x_n\}$, with $ x_i \in \mathbb{R}$ and $n \in \mathbb{N}$ samples, into a phase space, creating a new time series $S=\vec{s_1},\vec{s_2},...,\vec{s_m}$, with $ \vec{s_i} \in \mathbb{R}^d$ and $m \in \mathbb{N}$ elements. We can employ the time delays method to represent each element $\vec{s_i}$ of this new sequence $S$ as follows:
 
 \begin{equation}
     \vec{s_i} = (x_i, x_{i + \tau}, x_{i + 2\cdot \tau} ..., x_{i + (d-1) \cdot \tau})
@@ -108,7 +108,7 @@ Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences wher
 
 \subsection{Gramian Angular Field}
 
-The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This method, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=x_1,x_2,...,x_n$, with $x_i \in \mathbb{R}$, $n \in \mathbb{N}$ samples, and time instants $t_1,t_2,...,t_n$, into a polar coordinate series $P=p_1,p_2,...,p_n$ with $p_i \in \mathbb{R}$. One manner to do that is to associate the time $i \in \mathbb{N}$ to the radius $r_i \in \mathbb{R}$ and the value $x_i \in \mathbb{R}$ to the angle by the inverse of the cosine as follows:
+The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This method, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, $n \in \mathbb{N}$ samples, and time instants $\{t_1,t_2,...,t_n\}$, into a polar coordinate series $P=\{p_1,p_2,...,p_n\}$ with $p_i \in \mathbb{R}$. One manner to do that is to associate the time $i \in \mathbb{N}$ to the radius $r_i \in \mathbb{R}$ and the value $x_i \in \mathbb{R}$ to the angle by the inverse of the cosine as follows:
 
 \begin{equation}
     p_i = f_{polar}(t_i, x_i) = (r_i, \phi_i),    
@@ -201,37 +201,32 @@ Since that graph does not retain temporal relationships, the second step of the 
 
 \input{tex/figuras/method/mtf}
 
-\subsection{Projections Behavior}
+\subsection{Projections Comparison}
 
 The main idea of the projection methods is to reflect the signals properties and shape into visual patterns. That concept applies too to the inspection of the signal quality. The figure \ref{fig:method:noises} presents examples of the influence of different type of noises over the projections aspect. On observation is that the presence of low-frequency or high-frequency noises tend to produce, respectively, big or small scale structures. We can see in the effects of that observation in the figure, where the baseline wander figures manifest two to four big structures and the high-frequency noise figures contain small dot-like structures. Another observation is that noises concentrated in a certain region tends to disturb the projection onto a cross-like structure, as we can see in the figure local noise column. We can see that property of ``reflection'' for usual noises, such as Gaussian, and salt and pepper noises. In the figure, the Gaussian noise still preserves the high-level structures and destroys low-level structures, while the salt and pepper noise produces vertical and horizontal lines with void or full colors in places corresponding to, respectively ``salts'' and ``peppers'' of the source signal. Therefore, those projections are likely to be useful in \gls{SQI} tasks for \gls{CV} approaches, since they present the noises visually while maintaining its characteristics.  
 
 \input{tex/figuras/method/noises}
 
-\section{Proposed Method}
+\section{Computer Vision Using Projection Mix}
 
-Since each projection has its unique characteristics, it can be advantageous to somehow combine those methods into an ensemble. For this end, we propose aggregating all projections and ``mixing'' them. The aggregation consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation. Formally, given $p$ projections $M_1, M_2, ..., M_p$ with same dimensions $n \times m$, we construct an input tensor $T_{in_{p \times n \times m}}$ defined as follows:
-
+Since each projection has its unique characteristics, they are combined into an ensemble. For this end, all projections are fused toi create an aggregated tensor. This tensor is analogous to a hyperspectral image, i.e., unlike a typical color image, which consists of only three bands (red, green, and blue), the produced tensor provides additional spectral information for each pixel. The aggregation consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation as illustrated in Figure~\ref{fig:input_layer}. Formally, given $p$ projections $\{M_1, M_2, ..., M_p\}$ with same dimensions $n \times m$, we construct an input tensor $T_{in_{p \times n \times m}}$ defined as follows:
 \begin{equation}
     T_{in_{k,i,j}} = M_{k_{i,j}}
 \end{equation}
-
 \noindent Then, we ``mix'' that tensor $T_{in}$ into a new tensor $T_{mix_{q \times n \times m}}$ defined bellow:
-
-
-\input{tex/figuras/input_layer}
-
 \begin{equation}
     T_{mix_{k,i,j}} = f_{actv}\left(\sum\limits_{l=1}^{p}T_{in_{l,i,j}} \cdot w_{(k,i,j);l}\right)
 \end{equation} 
-
 \noindent where $w_{(k,i,j);l} \in \mathbb{R}$ is the weight applied to the link between the final tensor cell $T_{mix_{k,i,j}}$ and the input tensor cell $T_{in_{l,i,j}}$, while $f_{actv}: \mathbb{R} \mapsto \mathbb{R}$ is an activation function, such as ReLU, logistic sigmoid and Softmax. We can define the same tensor by directly assigning to the input projections:
-
 \begin{equation}
     \label{eq:mix}
     T_{mix_{k,i,j}} = f_{actv}\left(\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}\right)
 \end{equation}
-
 \noindent We can observe that, for each cell with indexes $i,j$, the summatory $\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}$ ``mixes'' the $p$ projections by adding its values $M_{l_{i,j}}$, while attributing different degrees of contribution for each $l$-th projection depending on the weight $w_{(k,i,j);l}$. Then, we can use the $f_{actv}$ function to mainly achieve binary distinguishability, leading to the final tensor value $T_{mix_{k,i,j}}$. 
+
+
+\input{tex/figuras/input_layer}
+
 
 %\begin{itemize}
 %    \item Datasets $\mathcal{D}=\{D_1,D_2,...,D_d\}$

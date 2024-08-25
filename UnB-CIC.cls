@@ -292,7 +292,7 @@
 \renewcommand{\bibliography}[1]{%
 	%renomeia a seção após influência maligna do Babel
 	\renewcommand*{\bibname}
-		{\@ifundefined{XeTeXversion}{Refer\^encias}{Referências}}
+		{\@ifundefined{XeTeXversion}{References}{References}}
 	\addtocchapter{\bibname}
 	\singlespacing\@bibliography{#1}\defaultspacing}
 
@@ -546,8 +546,8 @@
 
 \newenvironment{agradecimentos}
 	{\begin{paginatitulo}%
-	\pdfbookmark{Agradecimentos}{acknowledgements}%
-		\chapter*{Agradecimentos}}%
+	\pdfbookmark{Acknowledgments}{acknowledgements}%
+		\chapter*{Acknowledgments}}%
 	{\end{paginatitulo}}
 
 \renewenvironment{abstract}
@@ -568,8 +568,8 @@
 
 \newenvironment{dedicatoria}
 	{\begin{paginatitulo}%
-	\pdfbookmark{Dedicat\'oria}{dedication}%
-		\chapter*{Dedicat\'oria}}%
+	\pdfbookmark{Dedication}{dedication}%
+		\chapter*{Dedication}}%
 	{\end{paginatitulo}}
 
 \def\@printfulltitle{%
@@ -894,8 +894,8 @@
 	\@IncluirSecao{resumo}%
 	\selectlanguage{american}%
 	\@IncluirSecao{abstract}%
-	\selectlanguage{brazil}%
-    \selectbiblanguage{brazil}%
+	%\selectlanguage{brazil}%
+    %\selectbiblanguage{brazil}%
 	%\@erroSeNaoExiste{bibliografia.bib}%
 
 	\tableofcontents%
