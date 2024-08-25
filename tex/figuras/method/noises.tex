@@ -1,23 +1,27 @@
 
-\newcommand{\NoisesImageWidth}{0.2\textwidth}
+\newcommand{\NoisesImageWidth}{0.25\textwidth}
+
 
 \begin{figure}
 	\centering
+	{
+	\def\arraystretch{1}
+	\setlength{\tabcolsep}{2pt}
 	\adjustbox{width=\textwidth}{
 		\begin{tabular}{cccccc}
 			Base signal
 			& Gaussian Noise
-			& \makecell{Salt and Peper \\Noise}
+			& Salt-and-Pepper
 			& Baseline Wander 
-			& \makecell{High-Frequency \\Noise}
+			& HFN
 			& Local Noise \\
 			
-			\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(base).png}
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(gaussian).png}
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(salt_and_pepper).png} 
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(baseline_wander).png} 
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(low_frequency_noise).png} 
-			& \includegraphics[width=\NoisesImageWidth]{img/methodology/examples/signal(local_noise).png} \\
+			\includegraphics[width=\NoisesImageWidth, trim={5em 2.5em 4em 2.5em}, clip]{img/methodology/examples/signal(base).png}
+			& \includegraphics[width=\NoisesImageWidth, trim={5em 2.5em 4em 2.5em}, clip]{img/methodology/examples/signal(gaussian).png}
+			& \includegraphics[width=\NoisesImageWidth, trim={5em 2.5em 4em 2.5em}, clip]{img/methodology/examples/signal(salt_and_pepper).png} 
+			& \includegraphics[width=\NoisesImageWidth, trim={5em 2.5em 4em 2.5em}, clip]{img/methodology/examples/signal(baseline_wander).png} 
+			& \includegraphics[width=\NoisesImageWidth, trim={5em 2.5em 4em 2.5em}, clip]{img/methodology/examples/signal(low_frequency_noise).png} 
+			& \includegraphics[width=\NoisesImageWidth, trim={5em 2.5em 4em 2.5em}, clip]{img/methodology/examples/signal(local_noise).png} \\
 			
 			\frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(base).png}}
 			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/GramianAngularDifferenceField(gaussian).png}} 
@@ -48,6 +52,7 @@
 			& \frame{\includegraphics[width=\NoisesImageWidth]{img/methodology/examples/MarkovTransitionField(local_noise).png}} 
 		\end{tabular}
 	}
-	\caption{The signal and its projections over the influence of different type of noises.}
+	}
+	\caption{The signal, its impaired versions, and their corresponding 2D projections. From top to bottom: GADF, GASF, RP, and MTF.}
 	\label{fig:method:noises}
 \end{figure}
