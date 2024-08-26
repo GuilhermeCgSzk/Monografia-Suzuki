@@ -27,6 +27,10 @@
 \usepackage[section]{placeins}
 \usepackage{tabularray}
 \usepackage{tabularx}
+\usepackage{pdfpages}
+\usepackage[toc,page]{appendix}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Informações do Trabalho
@@ -64,8 +68,16 @@
     \capitulo{Conclusao}{Conclusion}%
 
     %\apendice{Apendice_Fichamento}{Fichamento de Artigo Científico}%
-    %\anexo{Anexo1}{Documentação Original \unbcic\ (parcial)}%
-    
     \bibliography{bibliografia/bibliografia,bibliografia/CV_models,bibliografia/Aeon_models, bibliografia/review, bibliografia/methodology}
-    % Usar comando bibtex. Exemplo: $bibtex monografia
+    
+    %\anexo{Anexo1}{Papers Resulting From This Thesis}%
+
+    \begin{appendices}
+        \chapter{Papers Resulting From This Thesis}
+        \begin{itemize}
+            \item Guilherme Suzuki and Pedro Freitas. 2024. \textit{On the Performance of Composite 1D-to-2D Projections for Signal Quality Assessment}. In Anais do XXIV Simpósio Brasileiro de Computação Aplicada à Saúde, junho 25, 2024, Goiânia/GO, Brasil. SBC, Porto Alegre, Brasil, 319-330. DOI: \url{https://doi.org/10.5753/sbcas.2024.2207}. (Qualis \textbf{A4})
+        \end{itemize}
+        \includepdf[pages=-]{sbcas2024.pdf}
+    \end{appendices}
+
 \end{document}%
