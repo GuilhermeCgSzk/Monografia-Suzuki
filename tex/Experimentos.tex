@@ -181,9 +181,19 @@ We see in the Table \ref{tab:Memory_of_Transformers} that the \gls{SwinT} V2 S v
 
 \subsubsection{Residual Nets}
 
-This section analyzes the ResNet itself and its variations. The ResNet is a model that introduced the residual conections, links between non-adjacent layers that bypasses intermediate layers. As its variations, I analyzed two: the Wide ResNet and the ResNeXt. The first one widens the original net by increasing the number of channels per block, with the intention of providing an alternative to increasing the layer depth. The second one employs a multipath philosophy, agreggating the paths by an additive operation. As oposed to the antecedent, it avoids increasing the width and the depth of the network by providing an additional dimension to increase. 
+This section analyzes the ResNet and its variations. The ResNet is a model that introduced the residual connections, links between non-adjacent layers that bypasses intermediate layers. As its variations, our analysis considered two: the Wide ResNet and the ResNeXt. The first one widens the original net by increasing the number of channels per block, with the intention of providing an alternative to increasing the layer depth. The second one employs a multipath philosophy, aggregating the paths by an additive operation. As opposed to the antecedent, it avoids increasing the width and the depth of the network by providing an additional dimension to increase. 
 
-Of those models, only the original ResNet and the Wide ResNet achieved a suficient Cohen Kappa score, as we can see in the tables \ref{tab:Averages_of_ResNet}, \ref{tab:Averages_of_ResNeXt} and \ref{tab:Averages_of_Wide ResNet}. From the ResNet variants, the ones with 50 and 101 layers reached that score. Solely the Wide ResNet with 101 layers and 2 convolutions per block sucessfully score above the limit. Those models variants got those scores by employing the \gls{Mix} projection method. Comparing these last variants, we conclude that the Wide ResNet 101-2 variant with the \gls{Mix} method obtained the best score, both for Cohen Kappa and F1 scores. However, that Wide ResNet posesses the largest memory occupation, according to the table \ref{tab:Memory_of_ResNet based}. It also spends the fourth higher inference time, as seen in the figure \ref{fig:Time_of_ResNet based}. Despite those disavantages, the Wide ResNet 101-2 variant with the \gls{Mix} was the choice of this section, because I prioritize the classification metrics over the benchmarking ones.
+\textcolor{red}{
+Our experiments generated three score tables. 
+% ResNet
+The Table \ref{tab:Averages_of_ResNet} presents the ResNet scores, where the variants could have 18, 34, 50, 101 and 152 layers. For those neural networks, the \gls{Mix} and \gls{RP} methods provided better scores than the others projections. Specially, the \gls{Mix} allowed the best scores when combined with the 50 and 101 variants.
+% ResNeXt
+The Table \ref{tab:Averages_of_ResNeXt} displays the ResNeXt scores, where the variants could have 50 or 101 layers, cardinality 32 or 64, and bottleneck width 4 or 8. In those cases, the \gls{Mix} and \gls{RP} methods obtained the best scores. Notably, the \gls{RP} with ResNeXt 101 $32\times 8d$ got the best scores. 
+% Wide ResNet
+The Table \ref{tab:Averages_of_Wide ResNet} lists the Wide ResNet scores, where the variants could have 50 or 101 layers, with a widening factor 2. Again, the \gls{Mix} and \gls{RP} methods performed better when considering all scores. A special case was when the variant Wide ResNet 101-2 used the \gls{Mix} method, case in which the Cohen Kappa and F1-score were the best, and the Precision the second best.    
+% Inter-Family Comparison
+When we observe the tables \ref{tab:Averages_of_ResNet}, \ref{tab:Averages_of_ResNeXt} and \ref{tab:Averages_of_Wide ResNet} together, we can see that the Wide ResNet 101-2 with \gls{Mix} was the best combination in terms of scoring. However, that combination was the largest in memory and the fourth slower in inference. An alternative with the second best scores but considerably less memory occupation and inference time would be the ResNet 50 with \gls{Mix}. 
+}
 
 \input{tex/tabelas/resultados/averages/Averages_of_ResNet based}
 
