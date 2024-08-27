@@ -19,12 +19,20 @@ if __name__=='__main__':
 	
 	pair_group = Pair_Group(
 		'Best Models', [
+			# Transformers
 			Pair(SpecificModel('SwinTransformerV2_S',SwinTransformerV2()),Mix()),
+			Pair(SpecificModel('VisionTransformer_B_32',VisionTransformer()),Mix()),
+			#
 			Pair(SpecificModel('WideResNet101_2',WideResNet()),Mix()),
+			#
 			Pair(SpecificModel('MNASNet_1_0',MNASNet()),Mix()),
+			#
 			Pair(SpecificModel('SqueezeNet_1_1',SqueezeNet()),Mix()),
+			#
 			Pair(SpecificModel('ShuffleNetV2_x0_5',ShuffleNetV2()),Mix()),
+			#
 			Pair(SpecificModel('RegNetY_400MF',RegNet()),RP()),
+			#
 			Pair(SimpleModel('TemporalDictionaryEnsemble'),NoProjection()),
 		]
 		

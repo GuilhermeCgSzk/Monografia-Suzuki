@@ -23,4 +23,5 @@
 *.fls
 *.synctex.gz
 tex/tabelas/resultados/averages/models/*
+tex/tabelas/resultados/memory/*
 
