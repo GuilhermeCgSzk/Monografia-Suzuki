@@ -158,18 +158,20 @@ The second step is to construct the temporal relationship matrix. We can achieve
 
 \input{tex/figuras/method/mtf_signals}
 
-Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal to graph mapping of Campanharo et al. \cite{mtf-1}. In fact, that mapping is the first step of this method. We map the signal $X=x_1,x_2,...,x_n$, with $x_i \in \mathbb{R}$, to a graph $G=(N,W)$, with nodes set $N$ and edges weights adjacency matrix $W$. Its nodes $N$ corresponds to $m \in \mathbb{N}$ quantile bins $Q_i \subseteq \{x_i | i \in \{1,2,...,n\}\}$, that is, $|Q_1|=|Q_2|=...=|Q_n|$ and, $\forall q_1 \in Q_1, \forall q_2 \in Q_2, ..., \forall q_n \in Q_n$, we have that $q_1 \leq q_2 \leq ... \leq q_n$. In other words, those quantiles bins separate the signal $X$ into bands $Q_i$ with equal ammount of samples $x_i$. The figure \ref{fig:method:mtf_signals} pictures this concept for the example signal. The other graph component, its edges, are directed and corresponds to the probability of a sample $x_{k+1}$, consecutive to a uniformly randomly chosen sample of a certain quantile $x_k \in Q_i$ (must have a consecutive), belonging to a certain quantile $Q_j$. Those edges are akin to transitions of first-order Markov chains, since the probabilities summation of the transitions that sources from a state is always equal to $100\%$. We can express the adjacency matrix $W_{m \times m}$ as follows:  
+Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal to graph mapping of Campanharo et al. \cite{mtf-1}. In fact, that mapping is the first step of this method. We map the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, to a graph $G=(N,W)$, with nodes set $N$ and edges weights adjacency matrix $W$. Its nodes $N$ corresponds to $m \in \mathbb{N}$ quantile bins $Q_i \subseteq \{x_i | i \in \{1,2,...,n\}\}$, that is, $|Q_1|=|Q_2|=...=|Q_n|$ and, $\forall q_1 \in Q_1, \forall q_2 \in Q_2, ..., \forall q_n \in Q_n$, we have that $q_1 \leq q_2 \leq ... \leq q_n$. In other words, those quantiles bins separate the signal $X$ into bands $Q_i$ with equal ammount of samples $x_i$. The figure \ref{fig:method:mtf_signals} pictures this concept for the example signal. The other graph component, its edges, are directed and corresponds to the probability of a sample $x_{k+1}$, consecutive to a uniformly randomly chosen sample of a certain quantile $x_k \in Q_i$ (must have a consecutive), belonging to a certain quantile $Q_j$. Those edges are akin to transitions of first-order Markov chains, since the probabilities summation of the transitions that sources from a state is always equal to $100\%$. We can express the adjacency matrix $W_{m \times m}$ as follows:  
+
+\begin{equation}
+	f_{in}(x,Q) = \begin{cases}
+		0, & x \not\in Q \\
+		1, & x \in Q
+	\end{cases}
+\end{equation}
+
 \begin{equation}
     W_{i,j} = \frac{
-            \sum\limits_{x_k \in Q_i} \begin{cases} 
-                0, & x_{k+1} \not\in Q_j \\
-                1, & x_{k+1} \in Q_j
-            \end{cases}
+            \sum\limits_{x_k \in Q_i, x_{k+1} \in X} f_{in}(x_{k+1}, Q_j)
         }{
-            \sum\limits_{Q_l \in Q}\sum\limits_{x_k \in Q_i} \begin{cases} 
-                0, & x_{k+1} \not\in Q_l \\
-                1, & x_{k+1} \in Q_l
-            \end{cases}
+            \sum\limits_{Q_l \in Q}\sum\limits_{x_k \in Q_i, x_{k+1} \in X} f_{in}(x_{k+1}, Q_l) 
         }
 \end{equation}
 
