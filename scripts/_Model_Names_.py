@@ -109,7 +109,7 @@ class MaxVit(Model_Name):
 		return 'MaxVit'
 	def mappings(self):
 		return {
-			'MaxVit_T' : 'MaxVit'
+			'MaxVit_T' : 'MaxViT'
 		}
 		
 class MNASNet(Model_Name):
@@ -312,14 +312,14 @@ class Model_Names:
 				]
 			),
 			Group(
-				'ResNet based', [
+				'Residual Nets', [
 					ResNet(),
 					ResNeXt(),
 					WideResNet(),
 				]
 			),
 			Group(
-				'Mobile nets', [ 
+				'Mobile-Oriented', [ 
 					MNASNet(),
 					MobileNetV2(),
 					MobileNetV3(),
@@ -327,14 +327,14 @@ class Model_Names:
 			),
 			
 			Group(
-				'Extreme models', [
+				'Extreme Models', [
 					DenseNet(),
 					SqueezeNet(), 
 					VGG(),
 				]
 			),
 			Group(
-				'Efficiency Oriented', [ 
+				'Efficiency-Oriented', [ 
 					ShuffleNetV2(),  
 					EfficientNet(),
 					EfficientNetV2(),
@@ -352,7 +352,7 @@ class Model_Names:
 
         
 Aeon_Group = Group(
-	'Non CV', [
+	'Non-CV', [
 		SimpleModel('Arsenal'),
 		SimpleModel('RocketClassifier','Rocket Classifier'),
 		SimpleModel('CNNClassifier','CNN Classifier'),

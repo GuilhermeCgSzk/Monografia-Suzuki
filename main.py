@@ -18,7 +18,7 @@ if __name__=='__main__':
 	benchmark_df = benchmark_df.fillna(NoProjection().name())
 	
 	pair_group = Pair_Group(
-		'Best Models', [
+		'best models', [
 			# Transformers
 			Pair(SpecificModel('SwinTransformerV2_S',SwinTransformerV2()),Mix()),
 			Pair(SpecificModel('VisionTransformer_B_32',VisionTransformer()),Mix()),

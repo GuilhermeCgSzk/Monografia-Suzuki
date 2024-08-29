@@ -43,7 +43,7 @@ class Mix(Projection_Name):
 	def name(self):
 		return 'ProjectionMix_V2'
 	def final_name(self):
-		return 'Mix'
+		return 'PMix'
 		
 class NoProjection(Projection_Name):
 	def name(self):
