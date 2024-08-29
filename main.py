@@ -22,18 +22,22 @@ if __name__=='__main__':
 			# Transformers
 			Pair(SpecificModel('SwinTransformerV2_S',SwinTransformerV2()),Mix()),
 			Pair(SpecificModel('VisionTransformer_B_32',VisionTransformer()),Mix()),
-			#
+			# Residual Nets
 			Pair(SpecificModel('WideResNet101_2',WideResNet()),Mix()),
-			#
+			Pair(SpecificModel('ResNet50',ResNet()),Mix()),
+			# Mobile-Oriented nets
 			Pair(SpecificModel('MNASNet_1_0',MNASNet()),Mix()),
-			#
+			# Extreme Models
 			Pair(SpecificModel('SqueezeNet_1_1',SqueezeNet()),Mix()),
-			#
+			Pair(SpecificModel('VGG16_BN',VGG()),Mix()),
+			# Efficiency-Oriented
 			Pair(SpecificModel('ShuffleNetV2_x0_5',ShuffleNetV2()),Mix()),
-			#
+			# Diverse
 			Pair(SpecificModel('RegNetY_400MF',RegNet()),RP()),
-			#
+			Pair(SpecificModel('AlexNet',AlexNet()),Mix()),
+			# Non-CV
 			Pair(SimpleModel('TemporalDictionaryEnsemble'),NoProjection()),
+			Pair(SimpleModel('RandomIntervalSpectralEnsembleClassifier'),NoProjection()),
 		]
 		
 	)
