@@ -5,7 +5,7 @@
 
 
 
-%The signal projection approach can produce competitive results with state of art approaches, as using \acrshort{gaf} in combination with Vision Transformer \acrshort{ml} model \cite{1d-to-2d-freitas}. Thereby, they must be described in the following sections, starting with the latest mentioned.
+%The signal projection approach can produce competitive results with state of art approaches, as using \acrshort{gaf} in combination with Vision Transformer \acrshort{ml} model~\cite{1d-to-2d-freitas}. Thereby, they must be described in the following sections, starting with the latest mentioned.
 
 
 %\begin{figure*}[t!]
@@ -72,16 +72,15 @@ The Figure \ref{fig:method} depicts the proposed framework of this thesis. First
 
 \section{Projection Methods}
 
-This section provides an analysis of the projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in Figure~\ref{fig:methodology:signal}. Additionally, this section explores the influence of noise in the projections result. 
+This section provides an analysis of the projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in Figure~\ref{fig:methodology:signal}. Additionally, this section also explores the influence of noise in the projections result. 
 
 \input{tex/figuras/method/signal}
 
 \subsection{Recurrence Plot}
 
-The work of Eckmann et al. \cite{rp-1}, of 1987, introduced the \gls{RP} method as a tool for representing visually useful properties and behaviors of a time series. Since then, its application expanded to various domains, ranging areas such as earth sciences, finances, engineering, chemistry and physics \cite{rp-2}. It also is applicable in life sciences, with attemps on identifying the presence of Parkinson's disease \cite{rp-3}, epileptic seizure \cite{rp-4}, fetal hypoxia \cite{rp-5}, and Alzheimer's disease \cite{rp-6}. Particularly, considering this thesis scope, we can employ \gls{RP} in tasks involving cardiological signal processing, such as cardiac arrhythmia classification \cite{rp-7}. Thus, it is likely that this method is useful in the \gls{SQA} of cardiological signals.  
+The work of Eckmann et al.~\cite{rp-1}, of 1987, introduced the \gls{RP} method as a tool for representing visually useful properties and behaviors of a time series. Since then, its application expanded to various domains, ranging areas such as earth sciences, finances, engineering, chemistry and physics~\cite{rp-2}. It also is applicable in life sciences, with attemps on identifying the presence of Parkinson's disease~\cite{rp-3}, epileptic seizure~\cite{rp-4}, fetal hypoxia~\cite{rp-5}, and Alzheimer's disease~\cite{rp-6}. Particularly, considering this thesis' scope, we employ \gls{RP} in tasks involving cardiological signal processing. Thus, it is likely to be useful for \gls{SQA} of cardiological signals.  
 
-The \gls{RP}, in essence, represents the occurrence of recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=\{x_1,x_2,...,x_n\}$, with $ x_i \in \mathbb{R}$ and $n \in \mathbb{N}$ samples, into a phase space, creating a new time series $S=\vec{s_1},\vec{s_2},...,\vec{s_m}$, with $ \vec{s_i} \in \mathbb{R}^d$ and $m \in \mathbb{N}$ elements. We can employ the time delays method to represent each element $\vec{s_i}$ of this new sequence $S$ as follows:
-
+The \gls{RP} represents the occurrence of recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=\{x_1,x_2,...,x_n\}$, with $ x_i \in \mathbb{R}$ and $n \in \mathbb{N}$ samples, into a phase space, creating a new time series $S=\vec{s_1},\vec{s_2},...,\vec{s_m}$, with $ \vec{s_i} \in \mathbb{R}^d$ and $m \in \mathbb{N}$ elements. We can employ the time delays method to represent each element $\vec{s_i}$ of this new sequence $S$ as follows:
 \begin{equation}
     \vec{s_i} = (x_i, x_{i + \tau}, x_{i + 2\cdot \tau} ..., x_{i + (d-1) \cdot \tau})
 \end{equation}   
@@ -91,13 +90,11 @@ The \gls{RP}, in essence, represents the occurrence of recurrences between the p
 \input{tex/figuras/method/phase_space}
 
 Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences where each cell $RP_{i,j} \in \{0,1\}$ represents the presence or the ausence of a recurrence in a pair of points $\vec{s_i},\vec{s_j}$ of the phase space $S$. We can represent this concept by measuring the distance $||\vec{s_i} - \vec{s_j}||$ between the points of the pair and verifying if it is smaller than a threshold $\varepsilon \in \mathbb{R}$, as the following equation:
-
 \begin{equation}
     RP_{i,j} = \mathcal{H}(\varepsilon - ||\vec{s_i} - \vec{s_j}||)
 \end{equation}
 
 \noindent where $\mathcal{H}: \mathbb{R} \mapsto \{0,1\}$ is the Heaviside function. Alternativelly, we can produce an unthresholded version $RP'_{m \times m}$ by attributing to each cell $RP'_{i,j} \in \mathbb{R}$ the points distance:
-
 \begin{equation}
     RP'_{i,j} = ||\vec{s_i} - \vec{s_j}||
 \end{equation}  
@@ -106,50 +103,41 @@ Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences wher
 
 \input{tex/figuras/method/rp}
 
+
 \subsection{Gramian Angular Field}
 
-The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This method, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, $n \in \mathbb{N}$ samples, and time instants $\{t_1,t_2,...,t_n\}$, into a polar coordinate series $P=\{p_1,p_2,...,p_n\}$ with $p_i \in \mathbb{R}$. One manner to do that is to associate the time $i \in \mathbb{N}$ to the radius $r_i \in \mathbb{R}$ and the value $x_i \in \mathbb{R}$ to the angle by the inverse of the cosine as follows:
-
+The work of Oates et al.~\cite{gaf-mtf-1} introduced the \gls{GAF} method. This method, in summary, encodes the signal into angular relationships between pair of points. The first step to do this is to convert the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, $n \in \mathbb{N}$ samples, and time instants $\{t_1,t_2,...,t_n\}$, into a polar coordinate series $P=\{p_1,p_2,...,p_n\}$ with $p_i \in \mathbb{R}$. One manner to do that is to associate the time $i \in \mathbb{N}$ to the radius $r_i \in \mathbb{R}$ and the value $x_i \in \mathbb{R}$ to the angle by the inverse of the cosine as follows:
 \begin{equation}
-    p_i = f_{polar}(t_i, x_i) = (r_i, \phi_i),    
+    p_i(r_i, \phi_i) = f_{polar}(t_i, x_i) = 
     \begin{cases} 
-        \phi_i = arccos(x_i), & -1 \leq x_i \leq 1 \wedge 0 \leq \phi_i \leq \pi\\
+        \phi_i = arccos(x_i), & -1 \leq x_i \leq 1\\
         r_i = \frac{t_i}{N},     & N \in \mathbb{R}
     \end{cases}
-\end{equation}    
-
+\end{equation}
 \noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. The Figure~\ref{fig:methodology:polar} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
 
 \input{tex/figuras/method/polar}
 
-The second step is to construct the temporal relationship matrix. We can achieve that by two methods that exploit trigonometric properties. One of them is calculating the cosine of the summation of the pairs of angles, constructing the following matrix $GASF_{n \times n}$:
-
+The second step is to construct the temporal relationship matrix. We can achieve that by two methods that exploit trigonometric properties. One of them is calculating the cosine of the summation of the pairs of angles, constructing the matrix $GASF_{n \times n}$:
 \begin{align}
     GASF_{i,j}     & = cos(\phi_i + \phi_j) \\
             & = cos(\phi_i) \cdot cos(\phi_j) - sin(\phi_i) \cdot sin(\phi_j) \\
             & = x_i \cdot x_j - \sqrt{1 - x_i^2} \cdot \sqrt{1 - x_j^2} \label{eq:gasf:algebraic}
 \end{align}
-
 \noindent where \gls{GASF} is the final matrix. Due to the inversibility of the $arccos$ function, it is possible to express that calculation without trigonometric operations, as expressed by the equality \ref{eq:gasf:algebraic}. Thus, we can calculate \gls{GASF} using matrix operations, as follows:  
-
 \begin{equation}
     GASF = X^T \cdot X - \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}^T \cdot \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}
 \end{equation}
-
 \noindent where $\square^{\circ 2}$ and $\sqrt[\circ 2]{\square}$ represents the element-wise square power and square root of the matrix $\square$, respectivelly, and $\mathds{1}$ is a matrix in which all elements are $1$. The other method is analogous, but uses the sine of the difference of the pairs of angles, constructing the following matrix $GADF_{n \times n}$:
-
 \begin{align}
     GADF_{i,j} & = sin(\phi_i - \phi_j) \\
         & = sin(\phi_i) \cdot cos{\phi_j} - cos(\phi_i) \cdot sin(\phi_j) \\
         & = \sqrt{1 - x_i^2} \cdot x_j - x_i \cdot \sqrt{1 - x_j^2}  \label{eq:gadf:algebraic}
 \end{align}
-
 \noindent Also similarly, by the equality \ref{eq:gadf:algebraic}, we can express \gls{GADF} by matrix operations:
-
 \begin{equation}
     GADF = \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}^T \cdot X - X^T \cdot \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}
 \end{equation}
-
 \noindent the Figure~\ref{fig:method:gaf} shows the \gls{GASF} and the \gls{GADF} of the example signal.
 
 \input{tex/figuras/method/gaf}
@@ -158,26 +146,25 @@ The second step is to construct the temporal relationship matrix. We can achieve
 
 \input{tex/figuras/method/mtf_signals}
 
-Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal to graph mapping of Campanharo et al. \cite{mtf-1}. In fact, that mapping is the first step of this method. We map the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, to a graph $G=(N,W)$, with nodes set $N$ and edges weights adjacency matrix $W$. Its nodes $N$ corresponds to $m \in \mathbb{N}$ quantile bins $Q_i \subseteq \{x_i | i \in \{1,2,...,n\}\}$, that is, $|Q_1|=|Q_2|=...=|Q_n|$ and, $\forall q_1 \in Q_1, \forall q_2 \in Q_2, ..., \forall q_n \in Q_n$, we have that $q_1 \leq q_2 \leq ... \leq q_n$. In other words, those quantiles bins separate the signal $X$ into bands $Q_i$ with equal ammount of samples $x_i$. The Figure~\ref{fig:method:mtf_signals} pictures this concept for the example signal. The other graph component, its edges, are directed and corresponds to the probability of a sample $x_{k+1}$, consecutive to a uniformly randomly chosen sample of a certain quantile $x_k \in Q_i$ (must have a consecutive), belonging to a certain quantile $Q_j$. Those edges are akin to transitions of first-order Markov chains, since the probabilities summation of the transitions that sources from a state is always equal to $100\%$. We can express the adjacency matrix $W_{m \times m}$ as follows:  
-
-\begin{equation}
-	f_{in}(x,Q) = \begin{cases}
-		0, & x \not\in Q \\
-		1, & x \in Q
-	\end{cases}
-\end{equation}
-
+Oates et al.~\cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal to graph mapping of Campanharo et al.~\cite{mtf-1}. In fact, that mapping is the first step of this method. We map the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, to a graph $G=(N,W)$, with nodes set $N$ and edges weights adjacency matrix $W$. Its nodes $N$ corresponds to $m \in \mathbb{N}$ quantile bins $Q_i \subseteq \{x_i | i \in \{1,2,...,n\}\}$, that is, $|Q_1|=|Q_2|=...=|Q_n|$ and, $\forall q_1 \in Q_1, \forall q_2 \in Q_2, ..., \forall q_n \in Q_n$, we have that $q_1 \leq q_2 \leq ... \leq q_n$. In other words, those quantiles bins separate the signal $X$ into bands $Q_i$ with equal ammount of samples $x_i$. The Figure~\ref{fig:method:mtf_signals} pictures this concept for the example signal. The other graph component, its edges, are directed and corresponds to the probability of a sample $x_{k+1}$, consecutive to a uniformly randomly chosen sample of a certain quantile $x_k \in Q_i$ (must have a consecutive), belonging to a certain quantile $Q_j$. Those edges are akin to transitions of first-order Markov chains, since the probabilities summation of the transitions that sources from a state is always equal to $100\%$. We can express the adjacency matrix $W_{m \times m}$ as follows:  
 \begin{equation}
     W_{i,j} = \frac{
             \sum\limits_{x_k \in Q_i, x_{k+1} \in X} f_{in}(x_{k+1}, Q_j)
         }{
             \sum\limits_{Q_l \in Q}\sum\limits_{x_k \in Q_i, x_{k+1} \in X} f_{in}(x_{k+1}, Q_l) 
-        }
+        },
+\end{equation}
+where
+\begin{equation}
+    f_{in}(x,Q) = \begin{cases}
+        0, & x \not\in Q \\
+        1, & x \in Q
+    \end{cases}
 \end{equation}
 
 \input{tex/figuras/method/markov_chain}
 
-\noindent The Figure~\ref{fig:method:markov_chain} depicts the graph of the example signal. That graph $G$ allows a probabilistic reconstruction $X' = \{ x'_1,x'_2,...,x'_n \}$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} explicits that reconstruction and the Figure~\ref{fig:method:mtf_signals} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the sucessful recovery is not certain.
+\noindent The Figure~\ref{fig:method:markov_chain} depicts the graph of the example signal. That graph $G$ allows a probabilistic representation $X' = \{ x'_1,x'_2,...,x'_n \}$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} explicits that representation and the Figure~\ref{fig:method:mtf_signals} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the sucessful recovery is not certain.
 
 \begin{algorithm}
     \begin{algorithmic}
@@ -189,16 +176,14 @@ Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal 
             \State $Q_{current} \gets Q_{next}$, with probability $W_{current,next}$
         \EndFor
     \end{algorithmic}
-    \caption{The probabilistic signal reconstruction algorithm. }
+    \caption{The probabilistic signal representation algorithm. }
     \label{alg:mtf_reconstruction}
 \end{algorithm}
 
-Since that graph does not retain temporal relationships, the second step of the \gls{MTF} method is to build the following matrix $MTF_{n \times n}$: 
-
+Since that graph does not retain temporal relationships, the second step of the \gls{MTF} method is to build the matrix $MTF_{n \times n}$:
 \begin{equation}
     MTF_{i,j} = W_{u,v} | x_i \in Q_u, x_j \in Q_v
 \end{equation}
-
 \noindent That is, each cell $MTF_{i,j}$ contains the transition probability between the quantiles $Q_u,Q_v$ to which the samples $x_i,x_j$ belong. The Figure~\ref{fig:method:mtf} pictures the final result of the method applied to the example signal. 
 
 \input{tex/figuras/method/mtf}
@@ -209,13 +194,14 @@ The main idea of the projection methods is to reflect the signals properties and
 
 \input{tex/figuras/method/noises}
 
+
 \section{Computer Vision Using Projection Mix}
 
-Since each projection has its unique characteristics, they are combined into an ensemble. For this end, all projections are fused to create an aggregated tensor. This tensor is analogous to a hyperspectral image, i.e., unlike a typical color image, which consists of only three bands (red, green, and blue), the produced tensor provides additional spectral information for each pixel. The aggregation, which we call \gls{PMix}, consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation as illustrated in Figure~\ref{fig:input_layer}. Formally, given $p$ projections $\{M_1, M_2, ..., M_p\}$ with same dimensions $n \times m$, we construct an input tensor $T_{in_{p \times n \times m}}$ defined as follows:
+Since each projection has its unique characteristics, they are combined into an ensemble. For this end, all projections are fused to create an aggregated tensor. This tensor is analogous to a hyperspectral image, i.e., unlike a typical color image, which consists of only three bands (red, green, and blue), the produced tensor provides additional spectral information for each pixel. The aggregation, which we call \gls{PMix}, consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation as illustrated in Figure~\ref{fig:input_layer}. Formally, the tensor $T_{in_{p \times n \times m}}$ used as input in the \gls{CV} models is constructed by stacking the $p$ projections $\{M_1, M_2, ..., M_p\}$, all with same dimensions $n \times m$, as defined as follows:
 \begin{equation}
     T_{in_{k,i,j}} = M_{k_{i,j}}
 \end{equation}
-\noindent Then, we ``mix'' that tensor $T_{in}$ into a new tensor $T_{mix_{q \times n \times m}}$ defined bellow:
+\noindent Then, the tensor $T_{in}$ is `mixed' into a new tensor $T_{mix_{q \times n \times m}}$ defined as:
 \begin{equation}
     T_{mix_{k,i,j}} = f_{actv}\left(\sum\limits_{l=1}^{p}T_{in_{l,i,j}} \cdot w_{(k,i,j);l}\right)
 \end{equation} 
