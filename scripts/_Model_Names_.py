@@ -355,9 +355,9 @@ Aeon_Group = Group(
 	'Non-CV', [
 		SimpleModel('Arsenal'),
 		SimpleModel('RocketClassifier','Rocket Classifier'),
-		SimpleModel('CNNClassifier','CNN Classifier'),
-		SimpleModel('FCNClassifier','FCN Classifier'),
-		SimpleModel('MLPClassifier','MLP Classifier'),
+		SimpleModel('CNNClassifier',"Zhao's CNN Classifier"),
+		SimpleModel('FCNClassifier',"Wang's FCN Classifier"),
+		SimpleModel('MLPClassifier',"Wang's MLP Classifier"),
 		SimpleModel('InceptionTimeClassifier','Inception Time Classifier'),
 		SimpleModel('IndividualInceptionClassifier','Individual Inception Classifier'),
 		SimpleModel('TapNetClassifier','TapNet Classifier'),

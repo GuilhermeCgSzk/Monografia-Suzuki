@@ -35,8 +35,7 @@ class TimeBoxplotsGenerator(Generator):
 		
 		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
 		
-		df['model'] = df['model'].apply(lambda x: f'{name_obj.mappings()[x]:>30}')
-		
+		df['model'] = df['model'].apply(lambda x: f'{name_obj.mappings()[x]:>30}')		
 		
 		projections = df['projection'].unique()
 	
