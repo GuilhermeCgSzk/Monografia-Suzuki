@@ -72,7 +72,7 @@ The Figure \ref{fig:method} depicts the proposed framework of this thesis. First
 
 \section{Projection Methods}
 
-This section provides an analysis of the projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in figure \ref{fig:methodology:signal}. Additionally, this section explores the influence of noise in the projections result. 
+This section provides an analysis of the projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in Figure~\ref{fig:methodology:signal}. Additionally, this section explores the influence of noise in the projections result. 
 
 \input{tex/figuras/method/signal}
 
@@ -86,7 +86,7 @@ The \gls{RP}, in essence, represents the occurrence of recurrences between the p
     \vec{s_i} = (x_i, x_{i + \tau}, x_{i + 2\cdot \tau} ..., x_{i + (d-1) \cdot \tau})
 \end{equation}   
 
-\noindent where $d \in \mathbb{N}$ is the dimension and $\tau \in \mathbb{N}$ is the time delay of the phase space. Notice that the lenght $m$ of the sequence $S$ depends on both $d$ and $\tau$ by the equation $m = n - (d-1) \cdot \tau$. Also notice that this embedding is optional, since the choice of the dimension $d=1$ results in $S=X$, the original time series. The figure \ref{fig:phase_space} depicts the phase space of the example signal of the figure \ref{fig:methodology:signal}.
+\noindent where $d \in \mathbb{N}$ is the dimension and $\tau \in \mathbb{N}$ is the time delay of the phase space. Notice that the lenght $m$ of the sequence $S$ depends on both $d$ and $\tau$ by the equation $m = n - (d-1) \cdot \tau$. Also notice that this embedding is optional, since the choice of the dimension $d=1$ results in $S=X$, the original time series. The Figure~\ref{fig:phase_space} depicts the phase space of the example signal of the Figure~\ref{fig:methodology:signal}.
 
 \input{tex/figuras/method/phase_space}
 
@@ -102,7 +102,7 @@ Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences wher
     RP'_{i,j} = ||\vec{s_i} - \vec{s_j}||
 \end{equation}  
 
-\noindent the figure \ref{fig:method:rp} exhibits both $RP$ and $RP'$ of the example signal.
+\noindent the Figure~\ref{fig:method:rp} exhibits both $RP$ and $RP'$ of the example signal.
 
 \input{tex/figuras/method/rp}
 
@@ -118,7 +118,7 @@ The work of Oates et al. \cite{gaf-mtf-1} introduced the \gls{GAF} method. This 
     \end{cases}
 \end{equation}    
 
-\noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. The figure \ref{fig:methodology:polar} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
+\noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. The Figure~\ref{fig:methodology:polar} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
 
 \input{tex/figuras/method/polar}
 
@@ -150,7 +150,7 @@ The second step is to construct the temporal relationship matrix. We can achieve
     GADF = \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}^T \cdot X - X^T \cdot \sqrt[\circ 2]{\mathds{1} - X^{\circ 2}}
 \end{equation}
 
-\noindent the figure \ref{fig:method:gaf} shows the \gls{GASF} and the \gls{GADF} of the example signal.
+\noindent the Figure~\ref{fig:method:gaf} shows the \gls{GASF} and the \gls{GADF} of the example signal.
 
 \input{tex/figuras/method/gaf}
 
@@ -158,7 +158,7 @@ The second step is to construct the temporal relationship matrix. We can achieve
 
 \input{tex/figuras/method/mtf_signals}
 
-Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal to graph mapping of Campanharo et al. \cite{mtf-1}. In fact, that mapping is the first step of this method. We map the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, to a graph $G=(N,W)$, with nodes set $N$ and edges weights adjacency matrix $W$. Its nodes $N$ corresponds to $m \in \mathbb{N}$ quantile bins $Q_i \subseteq \{x_i | i \in \{1,2,...,n\}\}$, that is, $|Q_1|=|Q_2|=...=|Q_n|$ and, $\forall q_1 \in Q_1, \forall q_2 \in Q_2, ..., \forall q_n \in Q_n$, we have that $q_1 \leq q_2 \leq ... \leq q_n$. In other words, those quantiles bins separate the signal $X$ into bands $Q_i$ with equal ammount of samples $x_i$. The figure \ref{fig:method:mtf_signals} pictures this concept for the example signal. The other graph component, its edges, are directed and corresponds to the probability of a sample $x_{k+1}$, consecutive to a uniformly randomly chosen sample of a certain quantile $x_k \in Q_i$ (must have a consecutive), belonging to a certain quantile $Q_j$. Those edges are akin to transitions of first-order Markov chains, since the probabilities summation of the transitions that sources from a state is always equal to $100\%$. We can express the adjacency matrix $W_{m \times m}$ as follows:  
+Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal to graph mapping of Campanharo et al. \cite{mtf-1}. In fact, that mapping is the first step of this method. We map the signal $X=\{x_1,x_2,...,x_n\}$, with $x_i \in \mathbb{R}$, to a graph $G=(N,W)$, with nodes set $N$ and edges weights adjacency matrix $W$. Its nodes $N$ corresponds to $m \in \mathbb{N}$ quantile bins $Q_i \subseteq \{x_i | i \in \{1,2,...,n\}\}$, that is, $|Q_1|=|Q_2|=...=|Q_n|$ and, $\forall q_1 \in Q_1, \forall q_2 \in Q_2, ..., \forall q_n \in Q_n$, we have that $q_1 \leq q_2 \leq ... \leq q_n$. In other words, those quantiles bins separate the signal $X$ into bands $Q_i$ with equal ammount of samples $x_i$. The Figure~\ref{fig:method:mtf_signals} pictures this concept for the example signal. The other graph component, its edges, are directed and corresponds to the probability of a sample $x_{k+1}$, consecutive to a uniformly randomly chosen sample of a certain quantile $x_k \in Q_i$ (must have a consecutive), belonging to a certain quantile $Q_j$. Those edges are akin to transitions of first-order Markov chains, since the probabilities summation of the transitions that sources from a state is always equal to $100\%$. We can express the adjacency matrix $W_{m \times m}$ as follows:  
 
 \begin{equation}
 	f_{in}(x,Q) = \begin{cases}
@@ -177,7 +177,7 @@ Oates et al. \cite{gaf-mtf-1} proposed the \gls{MTF} as well, based on a signal 
 
 \input{tex/figuras/method/markov_chain}
 
-\noindent The figure \ref{fig:method:markov_chain} depicts the graph of the example signal. That graph $G$ allows a probabilistic reconstruction $X' = \{ x'_1,x'_2,...,x'_n \}$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} explicits that reconstruction and the figure \ref{fig:method:mtf_signals} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the sucessful recovery is not certain.
+\noindent The Figure~\ref{fig:method:markov_chain} depicts the graph of the example signal. That graph $G$ allows a probabilistic reconstruction $X' = \{ x'_1,x'_2,...,x'_n \}$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} explicits that reconstruction and the Figure~\ref{fig:method:mtf_signals} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the sucessful recovery is not certain.
 
 \begin{algorithm}
     \begin{algorithmic}
@@ -199,13 +199,13 @@ Since that graph does not retain temporal relationships, the second step of the 
     MTF_{i,j} = W_{u,v} | x_i \in Q_u, x_j \in Q_v
 \end{equation}
 
-\noindent That is, each cell $MTF_{i,j}$ contains the transition probability between the quantiles $Q_u,Q_v$ to which the samples $x_i,x_j$ belong. The figure \ref{fig:method:mtf} pictures the final result of the method applied to the example signal. 
+\noindent That is, each cell $MTF_{i,j}$ contains the transition probability between the quantiles $Q_u,Q_v$ to which the samples $x_i,x_j$ belong. The Figure~\ref{fig:method:mtf} pictures the final result of the method applied to the example signal. 
 
 \input{tex/figuras/method/mtf}
 
 \subsection{Projections Comparison}
 
-The main idea of the projection methods is to reflect the signals properties and shape into visual patterns. That concept applies too to the inspection of the signal quality. The figure \ref{fig:method:noises} presents examples of the influence of different type of noises over the projections aspect. On observation is that the presence of low-frequency or high-frequency noises tend to produce, respectively, big or small scale structures. We can see in the effects of that observation in the figure, where the baseline wander figures manifest two to four big structures and the high-frequency noise figures contain small dot-like structures. Another observation is that noises concentrated in a certain region tends to disturb the projection onto a cross-like structure, as we can see in the figure local noise column. We can see that property of ``reflection'' for usual noises, such as Gaussian, and salt and pepper noises. In the figure, the Gaussian noise still preserves the high-level structures and destroys low-level structures, while the salt and pepper noise produces vertical and horizontal lines with void or full colors in places corresponding to, respectively ``salts'' and ``peppers'' of the source signal. Therefore, those projections are likely to be useful in \gls{SQI} tasks for \gls{CV} approaches, since they present the noises visually while maintaining its characteristics.  
+The main idea of the projection methods is to reflect the signals properties and shape into visual patterns. That concept applies too to the inspection of the signal quality. The Figure~\ref{fig:method:noises} presents examples of the influence of different type of noises over the projections aspect. On observation is that the presence of low-frequency or high-frequency noises tend to produce, respectively, big or small scale structures. We can see in the effects of that observation in the figure, where the baseline wander figures manifest two to four big structures and the high-frequency noise figures contain small dot-like structures. Another observation is that noises concentrated in a certain region tends to disturb the projection onto a cross-like structure, as we can see in the figure local noise column. We can see that property of ``reflection'' for usual noises, such as Gaussian, and salt and pepper noises. In the figure, the Gaussian noise still preserves the high-level structures and destroys low-level structures, while the salt and pepper noise produces vertical and horizontal lines with void or full colors in places corresponding to, respectively ``salts'' and ``peppers'' of the source signal. Therefore, those projections are likely to be useful in \gls{SQI} tasks for \gls{CV} approaches, since they present the noises visually while maintaining its characteristics.  
 
 \input{tex/figuras/method/noises}
 
