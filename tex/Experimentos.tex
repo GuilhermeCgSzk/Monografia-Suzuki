@@ -334,6 +334,7 @@ Table~\ref{tab:Averages_of_Non-CV} presents the scores for non-computationally-v
 
 \subsection{Comparison of the Top-Performing Models}
 
+
 The best combinations between models and projections from previous analyses are aggregated in Table~\ref{tab:Averages_of_best models}. The top-performing models include the \gls{TDE}, the \gls{RISEC}, and the \mbox{Wide ResNet 100-2} with \gls{PMix}. While the \mbox{Wide ResNet} achieved the highest Cohen kappa score, it is notable that this model was the second largest in terms of memory usage, as indicated in Table~\ref{tab:Memory_of_Best Models}. Additionally, it did not achieve the highest F1-Score or Precision and was the second slowest in terms of inference speed, as shown in Figure~\ref{fig:Time_of_Best Models}. In contrast, the \gls{TDE} and \gls{RISEC} models excelled in usability and security metrics, including F1-Score and Precision. They also demonstrated superior performance in terms of inference speed and memory efficiency. Consequently, while the \gls{CV} approach, represented by the \mbox{Wide ResNet 100-2} with \gls{PMix}, achieved higher accuracy, the non-\gls{CV} approach, embodied by the \gls{TDE} and \gls{RISEC}, offers better resource efficiency and speed, making it a more practical choice for applications requiring lower resource consumption and faster performance.
 
 
@@ -344,6 +345,7 @@ The best combinations between models and projections from previous analyses are 
 \input{tex/figuras/resultados/boxplots/Best Models}
 
 \section{Limitations}
+\label{sec:Limitations}
 
 Despite the promising results, some limitations can be considered. The experiments utilized only the BUTPPG dataset for testing. This has a series of implications in our context. Firstly, even though the proposed method allowed the use of \gls{CV} models with a good performance in the BUTPPG dataset, the same could not necessarily be concluded for different datasets. This is because different methods of measurement, sensor qualities, signal lengths, and individual medical conditions could lead to alterations on the obtained performance. One evidence of that is the absence of confirmed \gls{CA} cases in the \gls{BUTPPG} dataset, which could be present in external data. Furthermore, the small size of the dataset resulted in a reduced testing dataset, which makes the obtained results less general, that is, unreliable when we consider the possible variability of data that is external to the dataset. A small dataset size also implies that the deep learning models had less data samples to effectively learn. This contrasts with the usual treatment for deep learning, where usually large amounts of data feed the training of the model, allowing the proper adjustment of the large set of parameters. Therefore, our experiments would be more complete if our experiments tested on different and larger datasets.
 
@@ -351,4 +353,6 @@ Another constraint is that the experiments did not explore all available options
 
 
 
+
 Finally, additional limitations were identified at the implementation level.  Firstly, the implementation utilized random oversampling to balance the dataset. However, alternative methods specifically designed for time series data, such as those described in~\cite{TimeSeriesAugmentation}, could have been employed.  These methods not only balance the dataset but also can augment it. Secondly, resizing transforms were used to adapt projection images to model inputs, potentially leading to significant loss of information for matrix images that encode pixel relationships. As a consequence, the \gls{CV} models probably did not performed as good as they could. Thirdly, there was no research for the early stop method that our implementation used. Consequently, there is a chance that this method prematurely stopped the training for models that required more epochs.  Lastly, benchmarking metrics were measured using the Python standard API, which may be limited by the interpreter. Additionally, our measurements did not control the environment where measured the inference time. This could imply that external users have scheduled tasks that competed with mine measurements. Therefore, improvements at the implementation level could include applying time series augmentation techniques, resizing images without distortion by using integer multipliers and padding, researching and optimizing early stopping methods, and conducting measurements in a more controlled environment using low-level interfaces.
+

@@ -164,7 +164,9 @@ where
 
 \input{tex/figuras/method/markov_chain}
 
+
 \noindent The Figure~\ref{fig:method:markov_chain} depicts the graph of the example signal. That graph $G$ allows a probabilistic representation $X' = \{ x'_1,x'_2,...,x'_n \}$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} explicits that representation and the Figure~\ref{fig:method:mtf_signals} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the sucessful recovery is not certain.
+
 
 \begin{algorithm}
     \begin{algorithmic}
