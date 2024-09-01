@@ -882,6 +882,7 @@
 	\printglossary[type=\acronymtype]%
 }%
 
+
 \newcommand{\@conteudoPreTextual}{%
 	\maketitle%
 	\if@qualificacao\else%
@@ -889,7 +890,7 @@
 		\@IncluirSecao{agradecimentos}%
 
 		% *NÃO RETIRAR*, é importante registrar este apoio da CAPES.
-		O presente trabalho foi realizado com apoio da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES), por meio do Acesso ao Portal de Periódicos.
+		This work was supported by the Fundação de Apoio a Pesquisa do Distrito Federal (FAP-DF), by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES), the Conselho Nacional de Desenvolvimento Científico e Tecnologico (CNPq), and by the University of Brasília (UnB).
 	\fi%
 	\@IncluirSecao{resumo}%
 	\selectlanguage{american}%
