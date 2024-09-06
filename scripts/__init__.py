@@ -6,6 +6,7 @@ from ._TimeBoxplotsGenerator_ import TimeBoxplotsGenerator
 from ._MemoryTableGenerator_ import MemoryTableGenerator
 from ._ProjectionsGenerator_ import ProjectionsGenerator
 from ._MethodologyGenerator_ import MethodologyGenerator
+from ._RankingGenerator_ import RankingGenerator
 
 __all__ = [
 	'Preprocessor', 
@@ -15,5 +16,6 @@ __all__ = [
 	'TimeBoxplotsGenerator', 
 	'MemoryTableGenerator',
 	'ProjectionsGenerator',
-	'MethodologyGenerator'
+	'MethodologyGenerator',
+	'RankingGenerator'
 ]
