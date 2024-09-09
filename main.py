@@ -13,12 +13,12 @@ if __name__=='__main__':
 	df = Preprocessor(df).get()
 	df = Selector.select(df)
 	
-	scatter_plot_generator = RankingGenerator(df)
-	scatter_plot_generator.generate('img')
-	
 	benchmark_df = pd.read_csv('data/benchmark67+70.csv')
 	benchmark_df = Selector.select_benchmark(benchmark_df)
 	benchmark_df = benchmark_df.fillna(NoProjection().name())
+	
+	ranking_generator = RankingGenerator(df, benchmark_df)
+	ranking_generator.generate('img')
 	
 	pair_group = Pair_Group(
 		'best models', [
