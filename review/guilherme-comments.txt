@@ -1,0 +1,30 @@
+O resumo parece ser mais uma explicação de fotopletismografia que versão reduzida do trabalho.
+
+Abstract difere do resumo.
+
+Revisar inglês.
+
+Faltam referências para muitas afirmações. "increased in interest in this last decade." ou "no previous study". Também falta muitas justificativas para o setup experimental.
+
+Uso de pontuação (vírgula/ponto) de números varia ao longo do texto .
+
+Títulos das Tabelas têm de ser mais sucintos, assim como a legenda das imagens.
+
+2.1 usa a abordagem "in the current year", não fazer isso. O texto diz que supervised learning ... at the cost of requiring specialists to manually label the dataset", o que não é necessariamente vertade. Usa o termo “Reliable” como rótulo de dado, mas não explica o que quer dizer.
+
+2.4 Indica que há lacunas na literatura, mas não as aponta ao comentar os trabalhos correlatos apresentados.
+
+Padronizar as referências (nomes completos ou somente abreviações).
+
+3 Explica os componentes do PMIX, mas precisa incluir texto introdutório da teoria dos principais conceitos envolvidos (processamento de sinais, aprendizagem de máquina, validação cruzada, amostragem, benchmarking, Mobile-oriented networks, extreme nets, etc.). Mudar o título, não apresenta uma metodologia, mas a proposta de agregar as projeções.
+
+Por que o conjunto de validação é opcional?
+
+Tabela 4.7 "SwinT V2 S variant uses considerably less memory than the ViT variants." o Swin Transformer V2: 110.336672 e o MaxViT 122.144800?
+Tabela 4.11 Não tem referência ou discussão no texto.
+
+Espaçar texto (quebrando análises) e tabelas, são discutidas em grupo mas apresentadas "longe" do texto para uma análise mais adequada. Rever a posição da Figure 4.7 (única que vem antes das tabelas). Alguns parágrafos estão muito longos.
+
+Link para o GitLab está quebrado.
+
+Não considero a apêndice necessário, bastaria indicar a publicação e fornecer o link para o arquivo no texto.
