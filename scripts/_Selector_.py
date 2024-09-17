@@ -1,6 +1,7 @@
 import pandas as pd
 
 from ._Names_ import NoProjection
+from ._Model_Names_ import Aeon_Group,Model_Names
 
 class Selector:
 	def select(df):
@@ -11,6 +12,11 @@ class Selector:
 		selection = df[['model','projection','timestamp']].groupby(['model','projection'], as_index=False, dropna=False).max()
 
 		df = df.merge(selection,on=['model','projection','timestamp'])
+		
+		mappings = {}	
+		for name_obj in Model_Names.models_list() + Aeon_Group.model_list:	
+			mappings = mappings | name_obj.mappings()
+		df = df[df['model'].isin(mappings)].copy()	
 
 		return df
 		

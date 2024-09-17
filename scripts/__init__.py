@@ -7,6 +7,8 @@ from ._MemoryTableGenerator_ import MemoryTableGenerator
 from ._ProjectionsGenerator_ import ProjectionsGenerator
 from ._MethodologyGenerator_ import MethodologyGenerator
 from ._RankingGenerator_ import RankingGenerator
+from ._DeviationViolinplotGenerator_ import DeviationViolinplotGenerator 
+from ._BUTPPGInfoGenerator_ import BUTPPGInfoGenerator
 
 __all__ = [
 	'Preprocessor', 
@@ -17,5 +19,7 @@ __all__ = [
 	'MemoryTableGenerator',
 	'ProjectionsGenerator',
 	'MethodologyGenerator',
-	'RankingGenerator'
+	'RankingGenerator',
+	'DeviationViolinplotGenerator', 
+	'BUTPPGInfoGenerator'
 ]

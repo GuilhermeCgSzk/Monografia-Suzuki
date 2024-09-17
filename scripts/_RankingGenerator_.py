@@ -13,11 +13,6 @@ from ._Model_Names_  import *
 
 def arrange_columns(df):
 	df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
-		
-	mappings = {}	
-	for name_obj in Model_Names.models_list() + Aeon_Group.model_list:	
-		mappings = mappings | name_obj.mappings()
-	df = df[df['model'].isin(mappings)].copy()	
 	
 	df['combination'] = np.where(
 		df['projection']!='Not projected', df['model'] + '+' + df['projection'], df['model']
@@ -29,26 +24,29 @@ class RankingGenerator(Generator):
 	def __init__(self, df, benchmark_df):
 		self.df = arrange_columns(df.copy())
 		self.benchmark_df = arrange_columns(benchmark_df.copy())
+		self.benchmark_df['memory_size (MegaBytes)'] = self.benchmark_df['memory_size (bytes)']/(10**6)
+		self.benchmark_df['memory_size (KiloBytes)'] = self.benchmark_df['memory_size (bytes)']/(10**3)
 
-
-	def generate_plot_per_metric(self, df, name, metric, title, path, dim, limit=None, show_xticks=False, ascending=True):	
+	def generate_plot_per_metric(self, df, name, metric, title, path, dim, order, limit=None, show_xticks=False, ascending=True, ylim=None, loc='lower right', estimator='mean', errorbar=True):	
 		# Set up the figure and axes
 		plt.figure(figsize=dim)
-
-		average_df = df[['combination',metric]].groupby('combination').mean().reset_index().sort_values(
-			metric, ascending=ascending
-		)
 		
-		if limit is None:
-			order = average_df['combination']
-		else:
-			order = average_df['combination'][-limit:]
+		order = order.sort_values(metric, ascending=ascending)['combination']
+		
+		if limit is not None:
+			order = order[-limit:]
+		
+		if errorbar:
+			errorbar = ('sd', 1)
+		else:	
+			errorbar = None
+		
 		
 		sns.barplot(
 			data=df, x='combination', y=metric, hue='projection', order=order,
-			errorbar=('sd', 1),
+			errorbar=errorbar,
 			err_kws={'linewidth':0.5},
-			estimator='mean',
+			estimator=estimator,
 			palette={
 				'RP':(0.5,0.5,1,1), 
 				'GAF':(1,0.5,0.5,1), 
@@ -62,21 +60,22 @@ class RankingGenerator(Generator):
 		#ticks = [i/10 for i in range(0,11,2)]
 		#ax.set_xticks(ticks,[f'{i:.1f}' for i in ticks],fontsize=16,rotation=45)
 
-		#ax.set_xlim((-0.3 ,1.3))
+		if ylim is not None:
+			plt.ylim(ylim)
 
 		if not show_xticks:
 			plt.xticks([])
 		else:
-			plt.xticks(rotation=60, ha='right', fontsize=16)
+			plt.xticks(rotation=60, ha='right',fontsize=16)
 
 		# Set plot labels and title
 		#plt.ylabel('', fontsize=20)
 		#plt.xlabel(f'{title}', fontsize=20)
 		#plt.title(name, fontsize=24)
 		#plt.yticks(rotation=30, ha='right', fontsize=20)
-		plt.ylabel(title)
+		plt.ylabel(title,fontsize=16)
 		plt.xlabel('')
-		plt.legend(loc='lower right',  ncols=5)
+		plt.legend(loc=loc,  ncols=5)
 
 
 		# Save the figure to a file
@@ -85,33 +84,35 @@ class RankingGenerator(Generator):
 		
 	def generate(self, path):
 		metrics = [
-			("accuracy_score", "Accuracy Score"),
-			("cohen_kappa_score", "Cohen Kappa Score"),
+			("cohen_kappa_score", "Cohen Kappa\nScore"),
 			("precision_score", "Precision Score"),
-			("recall_score", "Recall Score"),
 			("f1_score", "F1-Score"),
 		]
 		
 		for column, metric in metrics:
-			#for projection in ['GAF','RP','MTF','PMix','Not projected']:
-			#	df = self.df.copy()
-			#	df = df[df['projection']==projection]
-			#	self.generate_plot_per_metric(df, projection, column, metric, path)
-			df = self.df.copy()		
-			self.generate_plot_per_metric(df, 'all', column, metric, path, dim=(15,2))
-			self.generate_plot_per_metric(df, 'top10', column, metric, path, limit=10, show_xticks=True, dim=(7,5))
+			df = self.df.copy()	
+			
+			average_df = df[['combination',column]].groupby('combination').mean().reset_index()
+			std_df = df[['combination',column]].groupby('combination').std().reset_index()
+				
+			self.generate_plot_per_metric(
+				df, 'all', column, metric, path, dim=(15,2), order=average_df
+			)
+			self.generate_plot_per_metric(
+				df, 'top10', column, metric, path, order=average_df, limit=10, show_xticks=True, dim=(7,5)
+			)
 			
 		metrics = [
-			("inference_time", "Inference Time"),
-			("memory_size (bytes)", "Memory Size (Bytes)"),
+			("inference_time", "Inference Time\n(seconds)"),
+			("memory_size (MegaBytes)", "Memory Size\n(MegaBytes)"),
+			("memory_size (KiloBytes)", "Memory Size\n(KiloBytes)"),
 		]
 		
 		for column, metric in metrics:
-			#for projection in ['GAF','RP','MTF','PMix','Not projected']:
-			#	df = self.df.copy()
-			#	df = df[df['projection']==projection]
-			#	self.generate_plot_per_metric(df, projection, column, metric, path)
 			df = self.benchmark_df.copy()			
-			self.generate_plot_per_metric(df, 'all', column, metric, path, dim=(15,2), ascending=False)
-			self.generate_plot_per_metric(df, 'top10', column, metric, path, limit=10, show_xticks=True, dim=(7,5), ascending=False)
+			
+			average_df = df[['combination',column]].groupby('combination').mean().reset_index()
+			
+			self.generate_plot_per_metric(df, 'all', column, metric, path, order=average_df, dim=(15,2), ascending=False, ylim=(-5,70), loc='lower left')
+			self.generate_plot_per_metric(df, 'top10', column, metric, path, order=average_df, limit=10, show_xticks=True, dim=(7,5), ascending=False, loc='upper right')
 		
