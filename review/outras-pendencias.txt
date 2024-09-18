@@ -2,3 +2,4 @@
 [ ] Mencionar o link do repositório ao longo do TCC;
 [ ] Remover apêndice e mencionar o trabalho nas introdução e na conclusão.
 [ ] Posso usar a sigla BUTPPG sem definí-la no resumo?
+[ ] Figura 1.1 (que tem o PPG e o ECG) poderia omitir os detalhes do PPG ou poderíamos explicá-los?
