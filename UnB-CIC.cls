@@ -174,7 +174,7 @@
 	\RequirePackage[hidelinks]{hyperref}%
 \fi
 
-\usepackage[acronym,nonumberlist]{glossaries}% Após o hyperref!
+\usepackage[xindy,abbreviations,nonumberlist]{glossaries-extra}% Após o hyperref!
 \makeglossaries%
 
 %para gerar o label {TotPaginas}
@@ -702,6 +702,7 @@
 }
 
 \AtBeginDocument{%
+	
 	%define propriedades do PDF e carrega pacotes auxiliares
 	\@ifpackageloaded{hyperref}{
 	\hypersetup{
@@ -818,6 +819,7 @@
     \fi%
 
 	\@conteudoPreTextual%
+
 }
 
 
@@ -878,12 +880,14 @@
 }%
 
 \newcommand{\@listofacronyms}{%
-	\@inputTeXFile{siglas}%
-	\printglossary[type=\acronymtype]%
+	\printabbreviations%
+   	\glsresetall		
 }%
 
 
 \newcommand{\@conteudoPreTextual}{%
+	\@inputTeXFile{siglas}%
+	
 	\maketitle%
 	\if@qualificacao\else%
 		\@IncluirSecao{dedicatoria}%
@@ -894,6 +898,7 @@
 	\fi%
 	\@IncluirSecao{resumo}%
 	\selectlanguage{american}%
+	
 	\@IncluirSecao{abstract}%
 	%\selectlanguage{brazil}%
     %\selectbiblanguage{brazil}%
@@ -902,6 +907,7 @@
 	\tableofcontents%
 	\iftotalfigures\listoffigures\fi%
 	\iftotaltables\listoftables\fi%
+
 	\@listofacronyms%
 
 	\textual%
@@ -915,7 +921,7 @@
 }%
 
 
-\newcommand{\sigla}[2]{\newacronym{#1}{#1}{#2}}%
+\newcommand{\sigla}[2]{\newabbreviation{#1}{#1}{#2}}%
 
 \newcommand{\@referencia}[2]{#1~\ref{#2}}%
 \newcommand{\refCap}[1]{\@referencia{Capítulo}{#1}}%
