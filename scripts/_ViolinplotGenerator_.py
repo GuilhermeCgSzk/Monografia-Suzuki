@@ -4,6 +4,7 @@ import os
 import pandas as pd
 import functools
 
+from ._Names_ import *
 from ._Names_ import Names
 from ._Generator_ import Generator
 from ._DataframeSplitter_ import DataframeSplitter
@@ -23,8 +24,8 @@ class ViolinplotGenerator(Generator):
 
 		# Create the boxplot using seaborn
 		ax = sns.violinplot(
-			x='model', y=metric, hue='projection', data=df,  density_norm='count', showmeans=True,
-			hue_order=["GAF", "MTF", "RP", "PMix"], 		
+			x='model', y=metric, hue='projection', data=df,  density_norm='count', 
+			hue_order=Names.get_2d_projections_names(), 		
 			palette=['firebrick','green','#0c5fef','#8c5fef'],
 			orient='v',
 			#meanprops={"marker":"D","markerfacecolor":"orange", "markeredgecolor":"black", 'markersize':4},
@@ -79,7 +80,7 @@ class ViolinplotGenerator(Generator):
 				
 				combinations = []
 				
-				for projection in ["GAF", "MTF", "RP", "PMix"]:
+				for projection in Names.get_2d_projections_names():
 					dfagg_proj = dfagg[dfagg['projection']==projection].copy()
 					dfagg_proj.to_csv('k.csv')
 					dfagg_proj = dfagg_proj.sort_values(by=[(column,'mean'),(column,'std')],ascending=[False,True])

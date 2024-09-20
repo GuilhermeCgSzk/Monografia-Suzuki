@@ -13,12 +13,20 @@ if __name__=='__main__':
 	df = Preprocessor(df).get()
 	df = Selector.select(df)
 	
+	ViolinplotGenerator(df).generate('img/resultados/violinplots')
+	
+	BUTPPGInfoGenerator('data').generate('img')
+	
 	benchmark_df = pd.read_csv('data/benchmark67+70.csv')
 	benchmark_df = Selector.select_benchmark(benchmark_df)
 	benchmark_df = benchmark_df.fillna(NoProjection().name())
 	
+	deviation_violinplot_generator = DeviationViolinplotGenerator(df)
+	deviation_violinplot_generator.generate('img')
+	
 	ranking_generator = RankingGenerator(df, benchmark_df)
 	ranking_generator.generate('img')
+	
 	
 	pair_group = Pair_Group(
 		'best models', [
@@ -39,13 +47,11 @@ if __name__=='__main__':
 			Pair(SpecificModel('RegNetY_400MF',RegNet()),RP()),
 			Pair(SpecificModel('AlexNet',AlexNet()),Mix()),
 			# Non-CV
-			Pair(SimpleModel('TemporalDictionaryEnsemble'),NoProjection()),
-			Pair(SimpleModel('RandomIntervalSpectralEnsembleClassifier'),NoProjection()),
-		]
+			Pair(SimpleModel('TemporalDictionaryEnsemble','TDE'),NoProjection()),
+			Pair(SimpleModel('RandomIntervalSpectralEnsembleClassifier','RISEC'),NoProjection()),
+		], final_name='Best models'
 		
 	)
-	
-	#ViolinplotGenerator(df).generate('img/resultados/violinplots')
 	
 	averages_table_dir = 'tex/tabelas/resultados/averages/models'
 	os.makedirs(averages_table_dir, exist_ok=True)

@@ -119,7 +119,7 @@ Recall = \frac{TP}{TP+FN},
 \end{equation}
 and
 \begin{equation} \label{eq:F1-Score}
-\Mathenize{F1-Score}  = \Mathenize{Harmonic-Mean}(Precision,Recall) = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}.
+F1 = HarmonicMean(Precision,Recall) = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}.
 \end{equation}
 \noindent Therefore, the Cohen kappa score provides an overall sense of accuracy, the F1-Score suggests the model's usability level, and precision indicates the predictor's reliability.
 
@@ -129,7 +129,7 @@ Regarding the benchmarking metrics, our experiment measured the memory usage of 
 
 \input{tex/figuras/framework}
 
-The Figure~\ref{fig:framework} illustrates the experiment framework for the \gls{CV} models. One notable difference from the framework used for non-\gls{CV} models is that the 1D-to-2D conversion acts as a boundary between the dataset and the other components. This means that the experiment for non-\gls{CV} models can be represented using a similar schema by omitting the conversion block. The experiment began with hyperparameter selection, involving the splitting of the \gls{BUTPPG} dataset through a simple division method to subsequently select the optimal hyperparameters for the \gls{CV} models. With the best hyperparameters chosen, all models, including non-\gls{CV} models, will be evaluated using the \gls{LOSO} strategy. For each fold, our experiments subjected the model to a training procedure that iterates through epochs of training and validation until early stopping is triggered. The model is then tested to produce the metrics for that fold.
+The Figure~\ref{fig:framework} illustrates the experiment framework \change{applied to each combination of \acrlong{CV} model and projection algorithm}. One notable difference from the framework used for non-\gls{CV} models is that the 1D-to-2D conversion acts as a boundary between the dataset and the other components. This means that the experiment for non-\gls{CV} models can be represented using a similar schema by omitting the conversion block. The experiment began with hyperparameter selection, involving the splitting of the \gls{BUTPPG} dataset through a simple division method to subsequently select the optimal hyperparameters for the \gls{CV} models. With the best hyperparameters chosen, all models, including non-\gls{CV} models, will be evaluated using the \gls{LOSO} strategy. For each fold, our experiments subjected the model to a training procedure that iterates through epochs of training and validation until early stopping is triggered. The model is then tested to produce the metrics for that fold.
 \subsection{The implementation details}
 
 The dataset sourcing procedure was carried out using the PyTorch multithreading data feeding solution, Data Loader\footnote{Documentation available at \url{https://pytorch.org/docs/stable/data.html\#torch.utils.data.DataLoader}}. This was configured to load batches of size 32. Prior to loading the batches, the training dataset was balanced using the Imbalanced Learn library~\cite{ImbalancedLearn} and its random oversampling method\footnote{Documentation available at \url{https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.RandomOverSampler.html\#imblearn.over_sampling.RandomOverSampler}}. The batches were then transformed from 1D signals into 2D images using the projection algorithms of the PyTS library~\cite{PyTS}. Although the signals are now 2D, their width and height might not be compatible with the original network's input dimensions, especially considering pre-trained weights. To address this issue, the PyTorch resize transform\footnote{Documentation available at \url{https://pytorch.org/vision/stable/generated/torchvision.transforms.Resize.html}} was applied to adjust the width and height. Additionally, a new convolutional layer corresponding to the \gls{PMix} method was incorporated.
@@ -138,8 +138,36 @@ The \gls{CV} models were trained using a single NVIDIA RTX 3090 TI. For training
 
 \section{Experimental results}
 
-The results were analyzed by comparing the score metrics of the models and assessing their trade-offs with respect to memory consumption and inference time. Given the large number of models considered, the analysis was organized into sections. First, each section focused on one of the \gls{CV} model families listed in Table~\ref{tab:cv_list}: Transformers, Residual Nets, Mobile-Oriented, Extreme Nets, Efficiency-Oriented, and Diverse. Within each category, the analysis identified the best combinations of model variants and projection methods. Subsequently, the top non-\gls{CV} models from the Aeon toolkit library were selected. Finally, the overall best choices were determined, and differences between the projection methods were discussed.
+The results were analyzed by comparing the score metrics of the models and assessing their trade-offs with respect to memory consumption and inference time. \change{The score metrics are presented like the example in Table \ref{tab:experiments:example}, in which the results of each combination of model and projection are shown in the format $mean \pm std$, with values up to three decimal places. Additionally, considering a particular column of mean or standard deviation, it is used a coloring system where the red color represents values worse or equal than the first quartile, the green color highlights values better or equal than the third quartile, and the yellow color paints values in between the other colors.} Given the large number of models considered, the analysis was organized into sections. First, each section focused on one of the \gls{CV} model families listed in Table~\ref{tab:cv_list}: Transformers, Residual Nets, Mobile-Oriented, Extreme Nets, Efficiency-Oriented, and Diverse. Within each category, the analysis identified the best combinations of model variants and projection methods. Subsequently, the top non-\gls{CV} models from the Aeon toolkit library were selected. Finally, the overall best choices were determined, and differences between the projection methods were discussed.
 
+
+\begin{table}[h!]
+	\centering
+	\caption{Example of the score-displaying system.}
+	\begin{tabular}{llll}
+		\toprule
+		Model & Projection & Example metric 1 & Example metric 2 \\
+		\midrule
+		Example model 1 & Example projection 1 
+			& \textcolor[rgb]{0.0,0.9,0.0}{0.999} $\pm$ \textcolor[rgb]{0.6,0.5,0.0}{0.333} 
+			& \textcolor[rgb]{0.6,0.5,0.0}{0.777} $\pm$ \textcolor[rgb]{0.0,0.9,0.0}{0.111} 
+		\\
+		Example model 2 & Example projection 2 
+			& \textcolor[rgb]{0.6,0.5,0.0}{0.333} $\pm$ \textcolor[rgb]{0.9,0.2,0.2}{0.999} 
+			& \textcolor[rgb]{0.0,0.9,0.0}{0.999} $\pm$ \textcolor[rgb]{0.6,0.5,0.0}{0.333} 
+		\\
+		Example model 3 & Example projection 3 
+			& \textcolor[rgb]{0.6,0.5,0.0}{0.777} $\pm$ \textcolor[rgb]{0.0,0.9,0.0}{0.111} 
+			& \textcolor[rgb]{0.9,0.2,0.2}{0.111} $\pm$ \textcolor[rgb]{0.6,0.5,0.0}{0.777} 
+		\\
+		Example model 4 & Example projection 4 
+			& \textcolor[rgb]{0.9,0.2,0.2}{0.111} $\pm$ \textcolor[rgb]{0.6,0.5,0.0}{0.777} 
+			& \textcolor[rgb]{0.6,0.5,0.0}{0.333} $\pm$ \textcolor[rgb]{0.9,0.2,0.2}{0.999} 
+		\\ 
+		\bottomrule
+	\end{tabular}
+	\label{tab:experiments:example}
+\end{table}
 
 \subsection{Analysis by computer vision model family}
  
@@ -160,9 +188,9 @@ Table \ref{tab:Averages_of_SwinTransformer} exhibits the \gls{SwinT} scores, wit
 
 
 % Swin Transformer V2
-Table \ref{tab:Averages_of_SwinTransformer V2} displays the \gls{SwinTV2} scores, with variants categorized as Base (B), Small (S), or Tiny (T). The \gls{PMix} method achieved better scores for the B and S variants, while the \gls{RP} method performed better for the T variant, despite \gls{RP} having the largest dispersion for the F1-Score in this case. Specifically, the \gls{PMix} method with the S variant resulted in the highest Cohen Kappa and F1 scores, and the second-best Precision, where the \gls{RP} method with the T variant was superior.
+Table \ref{tab:Averages_of_SwinTransformerV2} displays the \gls{SwinTV2} scores, with variants categorized as Base (B), Small (S), or Tiny (T). The \gls{PMix} method achieved better scores for the B and S variants, while the \gls{RP} method performed better for the T variant, despite \gls{RP} having the largest dispersion for the F1-Score in this case. Specifically, the \gls{PMix} method with the S variant resulted in the highest Cohen Kappa and F1 scores, and the second-best Precision, where the \gls{RP} method with the T variant was superior.
 % Inter-Family Comparison
-When considering all tables \ref{tab:Averages_of_VisionTransformer}, \ref{tab:Averages_of_Maxvit}, \ref{tab:Averages_of_SwinTransformer}, and \ref{tab:Averages_of_SwinTransformer V2}, the \gls{RP} and \gls{PMix} methods with \mbox{\gls{ViT} B 16} and \mbox{\gls{ViT} L 16}, as well as \gls{PMix} with \mbox{\gls{ViT} B 32} and \mbox{\gls{ViT} L 32}, and the \gls{SwinTV2} S with \gls{PMix}, generally achieved better scores. The benchmarking metrics for these combinations are summarized next.
+When considering all tables \ref{tab:Averages_of_VisionTransformer}, \ref{tab:Averages_of_Maxvit}, \ref{tab:Averages_of_SwinTransformer}, and \ref{tab:Averages_of_SwinTransformerV2}, the \gls{RP} and \gls{PMix} methods with \mbox{\gls{ViT} B 16} and \mbox{\gls{ViT} L 16}, as well as \gls{PMix} with \mbox{\gls{ViT} B 32} and \mbox{\gls{ViT} L 32}, and the \gls{SwinTV2} S with \gls{PMix}, generally achieved better scores. The benchmarking metrics for these combinations are summarized next.
 
 Table~\ref{tab:Memory_of_Transformers} shows that the \gls{SwinT} V2 S variant uses considerably less memory than the \gls{ViT} variants. Therefore, the \gls{SwinT} V2 S with \gls{PMix} can achieve high scores while utilizing less memory. However, Figure~\ref{fig:Time_of_Transformers} indicates that the \gls{SwinT} V2 S variant has a slower inference speed compared to the \gls{ViT} variants. Among the \gls{ViT} variants, the \mbox{B 32} variant was the fastest, suggesting that the combination of \gls{PMix} with \gls{ViT} B 32 can produce high scores with lower inference time. \change{Therefore, we select the following methods for this section:} 
 \begin{itemize}
@@ -193,9 +221,9 @@ Table~\ref{tab:Averages_of_ResNet} presents the ResNet scores for variants with 
 % ResNeXt
 Table~\ref{tab:Averages_of_ResNeXt} displays the ResNeXt scores for variants with 50 or 101 layers, cardinality of 32 or 64, and bottleneck width of 4 or 8. Among these, the \gls{PMix} and \gls{RP} methods achieved the best scores. Notably, the \gls{RP} method with the \mbox{ResNeXt 101 $32\times 8d$} variant achieved the highest scores.
 % Wide ResNet
-Table \ref{tab:Averages_of_Wide ResNet} lists the Wide ResNet scores for variants with 50 or 101 layers and a widening factor of 2. The \gls{PMix} and \gls{RP} methods consistently performed better across all metrics. Notably, the \gls{PMix} method with the Wide \mbox{ResNet 101-2} variant achieved the best scores for Cohen kappa and F1-Score, and the second-best score for Precision.
+Table \ref{tab:Averages_of_WideResNet} lists the Wide ResNet scores for variants with 50 or 101 layers and a widening factor of 2. The \gls{PMix} and \gls{RP} methods consistently performed better across all metrics. Notably, the \gls{PMix} method with the Wide \mbox{ResNet 101-2} variant achieved the best scores for Cohen kappa and F1-Score, and the second-best score for Precision.
 % Inter-Family Comparison
-Observing Tables~\ref{tab:Averages_of_ResNet}, \ref{tab:Averages_of_ResNeXt}, and \ref{tab:Averages_of_Wide ResNet} together reveals that the \mbox{Wide ResNet 101-2} with \gls{PMix} was the top-performing combination in terms of scoring. However, this combination had the highest memory usage and was the fourth slowest in inference time. An alternative with nearly the second-best scores but significantly lower memory usage and inference time is the \mbox{ResNet 50} with \gls{PMix}. \change{Thus, the two methods below were chosen for this section:} 
+Observing Tables~\ref{tab:Averages_of_ResNet}, \ref{tab:Averages_of_ResNeXt}, and \ref{tab:Averages_of_WideResNet} together reveals that the \mbox{Wide ResNet 101-2} with \gls{PMix} was the top-performing combination in terms of scoring. However, this combination had the highest memory usage and was the fourth slowest in inference time. An alternative with nearly the second-best scores but significantly lower memory usage and inference time is the \mbox{ResNet 50} with \gls{PMix}. \change{Thus, the two methods below were chosen for this section:} 
 \begin{itemize}
 	\item ResNet 50 with \gls{PMix}; 
 	\item and Wide ResNet 101-2 with \gls{PMix}. 
@@ -223,11 +251,11 @@ Three metric tables were generated for mobile-oriented family of \gls{CV} models
 %MNASNet
 Table~\ref{tab:Averages_of_MNASNet} records the scores obtained by the MNASNet variants, which can have depth multipliers of 0.5, 0.75, 1.0, or 1.3, affecting the number of channels. Notably, the combination of \mbox{MNASNet 1.0} with \gls{PMix} achieved the best scores across all metrics.
 %MobileNet V2
-Table~\ref{tab:Averages_of_MobileNet V2} presents the scores for MobileNet V2. The \gls{RP} projection achieved the best Cohen kappa and Precision scores, while \gls{PMix} obtained the highest F1-Score. However, \gls{RP} demonstrated greater consistency, with lower variability in results compared to the standard deviations of \gls{PMix}.
+Table~\ref{tab:Averages_of_MobileNetV2} presents the scores for MobileNet V2. The \gls{RP} projection achieved the best Cohen kappa and Precision scores, while \gls{PMix} obtained the highest F1-Score. However, \gls{RP} demonstrated greater consistency, with lower variability in results compared to the standard deviations of \gls{PMix}.
 %MobileNet V3 
-Table~\ref{tab:Averages_of_MobileNet V3} lists the MobileNet V3 variants, which include Small and Large configurations in terms of resource usage. Notably, \gls{PMix} with the Large variant achieved the best Cohen kappa and Precision scores, while \gls{RP} with the Small variant excelled in the F1-Score metric.
+Table~\ref{tab:Averages_of_MobileNetV3} lists the MobileNet V3 variants, which include Small and Large configurations in terms of resource usage. Notably, \gls{PMix} with the Large variant achieved the best Cohen kappa and Precision scores, while \gls{RP} with the Small variant excelled in the F1-Score metric.
 % Inter-Family Comparison
-From the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNet V2} and \ref{tab:Averages_of_MobileNet V3}, the combination of \mbox{MNASNet 1.0} with \gls{PMix} emerges as the overall best case. This combination demonstrates a median inference time below 20 ms, as shown in Figure~\ref{fig:Time_of_Mobile nets}, and memory consumption under 15 MB, according to Table~\ref{tab:Memory_of_Mobile-Oriented}. \change{Hence, we elect only one method as the best models of this section:} 
+From the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNetV2} and \ref{tab:Averages_of_MobileNetV3}, the combination of \mbox{MNASNet 1.0} with \gls{PMix} emerges as the overall best case. This combination demonstrates a median inference time below 20 ms, as shown in Figure~\ref{fig:Time_of_Mobile nets}, and memory consumption under 15 MB, according to Table~\ref{tab:Memory_of_Mobile-Oriented}. \change{Hence, we elect only one method as the best models of this section:} 
 \begin{itemize}
 	\item MNASNet 1.0 with \gls{PMix}.
 \end{itemize}
@@ -285,9 +313,9 @@ Table~\ref{tab:Averages_of_EfficientNet} lists the results for EfficientNet vari
 % EfficientNetV2
 Table~\ref{tab:Averages_of_EfficientNetV2} presents the scores for EfficientNet V2, with the \gls{PMix} projection outperforming all other methods.
 % ShuffleNet V2
-Table~\ref{tab:Averages_of_ShuffleNet V2} displays the metrics for ShuffleNet V2 variants, which include multipliers of $\times 0.5$, $\times 1.0$, $\times 1.5$, and $\times 2.0$ on the number of channels in each architectural block. Across all variants, the \gls{PMix} projection method outperformed all others. Specifically, the best scores for ShuffleNet V2 were achieved with the $\times 0.5$ and $\times 1.0$ variants combined with the \gls{PMix} method.
+Table~\ref{tab:Averages_of_ShuffleNetV2} displays the metrics for ShuffleNet V2 variants, which include multipliers of $\times 0.5$, $\times 1.0$, $\times 1.5$, and $\times 2.0$ on the number of channels in each architectural block. Across all variants, the \gls{PMix} projection method outperformed all others. Specifically, the best scores for ShuffleNet V2 were achieved with the $\times 0.5$ and $\times 1.0$ variants combined with the \gls{PMix} method.
 % Inter-Family Comparison
-When analyzing the results from Tables  \ref{tab:Averages_of_EfficientNet}, \ref{tab:Averages_of_EfficientNetV2}, and \ref{tab:Averages_of_ShuffleNet V2}, it is evident that the usage of \mbox{EfficientNet V2}, \mbox{ShuffleNet V2 $\times 0.5$}, and \mbox{ShuffleNet V2 $\times 1.0$}  with \gls{PMix} achieved high scores across all metrics, including the best Cohen kappa and F1 scores, as well as the second-best Precision. Among these, the \mbox{ShuffleNet V2 $\times 0.5$} with \gls{PMix} was the most efficient in terms of memory usage, as shown in Table~\ref{tab:Memory_of_Efficiency-Oriented}, while being one of the fastest in inference, as visible in the Figure \ref{fig:Time_of_Efficiency Oriented}. \change{Thus, only the following method was selected for this section:} 
+When analyzing the results from Tables  \ref{tab:Averages_of_EfficientNet}, \ref{tab:Averages_of_EfficientNetV2}, and \ref{tab:Averages_of_ShuffleNetV2}, it is evident that the usage of \mbox{EfficientNet V2}, \mbox{ShuffleNet V2 $\times 0.5$}, and \mbox{ShuffleNet V2 $\times 1.0$}  with \gls{PMix} achieved high scores across all metrics, including the best Cohen kappa and F1 scores, as well as the second-best Precision. Among these, the \mbox{ShuffleNet V2 $\times 0.5$} with \gls{PMix} was the most efficient in terms of memory usage, as shown in Table~\ref{tab:Memory_of_Efficiency-Oriented}, while being one of the fastest in inference, as visible in the Figure \ref{fig:Time_of_Efficiency Oriented}. \change{Thus, only the following method was selected for this section:} 
 \begin{itemize}
 	\item ShuffleNet V2 $\times 0.5$ with \gls{PMix}.
 \end{itemize}
@@ -298,9 +326,9 @@ When analyzing the results from Tables  \ref{tab:Averages_of_EfficientNet}, \ref
 
 \input{tex/tabelas/resultados/averages/Averages_of_Efficiency Oriented}
 
-\input{tex/figuras/resultados/boxplots/Efficiency Oriented}
-
 \IncludeMemoryTable{Efficiency-Oriented}{Efficiency-oriented}
+
+\input{tex/figuras/resultados/boxplots/Efficiency Oriented}
 
 \FloatBarrier
 
@@ -329,10 +357,9 @@ When evaluating the top-performing models from each type within the Diverse \gls
 
 \input{tex/tabelas/resultados/averages/Averages_of_Diverse}
 
-\input{tex/figuras/resultados/boxplots/Diverse}
-
 \IncludeMemoryTable{Diverse}{Diverse}
 
+\input{tex/figuras/resultados/boxplots/Diverse}
 \FloatBarrier
 
 \subsection{Non-computer vision models comparison}
@@ -359,12 +386,12 @@ Table~\ref{tab:Averages_of_Non-CV} presents the scores for non-computationally-v
 \subsection{Comparison of the top-performing models}
 
 
-The best combinations between models and projections from previous analyses are aggregated in Table~\ref{tab:Averages_of_best models}. The top-performing models include the \gls{TDE}, the \gls{RISEC}, and the \mbox{Wide ResNet 100-2} with \gls{PMix}. While the \mbox{Wide ResNet} achieved the highest Cohen kappa score, it is notable that this model was the second largest in terms of memory usage, as indicated in Table~\ref{tab:Memory_of_Best Models}. Additionally, it did not achieve the highest F1-Score or Precision and was the second slowest in terms of inference speed, as shown in Figure~\ref{fig:Time_of_Best Models}. In contrast, the \gls{TDE} and \gls{RISEC} models excelled in usability and security metrics, including F1-Score and Precision. They also demonstrated superior performance in terms of inference speed and memory efficiency. Consequently, while the \gls{CV} approach, represented by the \mbox{Wide ResNet 100-2} with \gls{PMix}, achieved higher accuracy, the non-\gls{CV} approach, embodied by the \gls{TDE} and \gls{RISEC}, offers better resource efficiency and speed, making it a more practical choice for applications requiring lower resource consumption and faster performance.
+The best combinations between models and projections from previous analyses are aggregated in Table~\ref{tab:Averages_of_best models}. The top-performing models include the \gls{TDE}, the \gls{RISEC}, and the \mbox{Wide ResNet 100-2} with \gls{PMix}. While the \mbox{Wide ResNet} achieved the highest Cohen kappa score, it is notable that this model was the second largest in terms of memory usage, as indicated in Table~\ref{tab:Memory_of_best models}. Additionally, it did not achieve the highest F1-Score or Precision and was the second slowest in terms of inference speed, as shown in Figure~\ref{fig:Time_of_Best Models}. In contrast, the \gls{TDE} and \gls{RISEC} models excelled in usability and security metrics, including F1-Score and Precision. They also demonstrated superior performance in terms of inference speed and memory efficiency. Consequently, while the \gls{CV} approach, represented by the \mbox{Wide ResNet 100-2} with \gls{PMix}, achieved higher accuracy, the non-\gls{CV} approach, embodied by the \gls{TDE} and \gls{RISEC}, offers better resource efficiency and speed, making it a more practical choice for applications requiring lower resource consumption and faster performance.
 
 
 \input{tex/tabelas/resultados/averages/Averages_of_Best Models}
 
-\IncludeMemoryTable{Best Models}{best models}
+\IncludeMemoryTable{best models}{best models}
 
 \input{tex/figuras/resultados/boxplots/Best Models}
 

@@ -60,6 +60,7 @@ class AlexNet(Model_Name):
 class ConvNeXt(Model_Name):
 	def name(self):
 		return 'ConvNeXt'
+		
 	def mappings(self):
 		return {
 			'ConvNeXt_Tiny'	: 'ConvNeXt: Tiny',
@@ -97,6 +98,8 @@ class EfficientNet(Model_Name):
 class EfficientNetV2(Model_Name):
 	def name(self):
 		return 'EfficientNetV2'
+	def final_name(self):
+		return 'EfficientNet V2'
 	def mappings(self):
 		return {
 			'EfficientNetV2_S' : 'EfficientNet V2',
@@ -107,6 +110,8 @@ class EfficientNetV2(Model_Name):
 class MaxVit(Model_Name):
 	def name(self):
 		return 'MaxVit'
+	def final_name(self):
+		return 'MaxViT'
 	def mappings(self):
 		return {
 			'MaxVit_T' : 'MaxViT'
@@ -125,6 +130,8 @@ class MNASNet(Model_Name):
 		
 class MobileNetV2(Model_Name):
 	def name(self):
+		return 'MobileNetV2'
+	def final_name(self):
 		return 'MobileNet V2'
 	def mappings(self):
 		return {
@@ -133,6 +140,8 @@ class MobileNetV2(Model_Name):
 		
 class MobileNetV3(Model_Name):
 	def name(self):
+		return 'MobileNetV3'
+	def final_name(self):
 		return 'MobileNet V3'
 	def mappings(self):	
 		return  {
@@ -187,6 +196,8 @@ class ResNeXt(Model_Name):
 		
 class ShuffleNetV2(Model_Name):
 	def name(self):
+		return 'ShuffleNetV2'
+	def final_name(self):
 		return 'ShuffleNet V2'
 	def mappings(self):
 		return {
@@ -208,21 +219,25 @@ class SqueezeNet(Model_Name):
 class SwinTransformer(Model_Name):
 	def name(self):
 		return 'SwinTransformer'
+	def final_name(self):
+		return 'Swin Transformer'
 	def mappings(self):
 		return {
-			'SwinTransformer_T' : 'Swin Transformer: T',
-			'SwinTransformer_S' : 'Swin Transformer: S',
-			'SwinTransformer_B' : 'Swin Transformer: B',
+			'SwinTransformer_T' : 'SwinT: T',
+			'SwinTransformer_S' : 'SwinT: S',
+			'SwinTransformer_B' : 'SwinT: B',
 		}
 		
 class SwinTransformerV2(Model_Name):
 	def name(self):
-		return 'SwinTransformer V2'
+		return 'SwinTransformerV2'
+	def final_name(self):
+		return 'Swin Transformer V2'
 	def mappings(self):
 		return {
-			'SwinTransformerV2_T' : 'Swin Transformer V2: T',
-			'SwinTransformerV2_S' : 'Swin Transformer V2: S',
-			'SwinTransformerV2_B' : 'Swin Transformer V2: B',
+			'SwinTransformerV2_T' : 'SwinTV2: T',
+			'SwinTransformerV2_S' : 'SwinTV2: S',
+			'SwinTransformerV2_B' : 'SwinTV2: B',
 		}
 		
 class VGG(Model_Name):
@@ -243,31 +258,42 @@ class VGG(Model_Name):
 class VisionTransformer(Model_Name):
 	def name(self):
 		return 'VisionTransformer'
+	def final_name(self):
+		return 'Vision Transformer'
 	def mappings(self):
 		return {
-			'VisionTransformer_B_16': 'Vision Transformer: B 16',
-			'VisionTransformer_B_32': 'Vision Transformer: B 32',
-			'VisionTransformer_L_16': 'Vision Transformer: L 16',
-			'VisionTransformer_L_32': 'Vision Transformer: L 32',
-			'VisionTransformer_H_14': 'Vision Transformer: H 14',
+			'VisionTransformer_B_16': 'ViT: B 16',
+			'VisionTransformer_B_32': 'ViT: B 32',
+			'VisionTransformer_L_16': 'ViT: L 16',
+			'VisionTransformer_L_32': 'ViT: L 32',
+			'VisionTransformer_H_14': 'ViT: H 14',
 		}
 		
 class WideResNet(Model_Name):
 	def name(self):
+		return 'WideResNet'
+	def final_name(self):
 		return 'Wide ResNet'
 	def mappings(self):
 		return {
-			'WideResNet50_2' : 'Wide ResNet: 50-2',
-			'WideResNet101_2' : 'Wide ResNet: 101-2'
+			'WideResNet50_2' : 'WiResNet: 50-2',
+			'WideResNet101_2' : 'WiResNet: 101-2'
 		}
 	
-class Group:
-	def __init__(self, name, model_list):
+class Group(Name):
+	def __init__(self, name, model_list, final_name=None):
 		self._name = name
+		self._final_name = final_name
 		self.model_list = model_list
 	
 	def name(self):
 		return self._name
+		
+	def final_name(self):
+		if self._final_name is None:
+			return self.name()
+		else:
+			return self._final_name
 		
 	def mappings(self):
 		mapping_dict = {}
@@ -368,7 +394,7 @@ Aeon_Group = Group(
 		SimpleModel('IndividualBOSS','Individual BOSS'),
 		SimpleModel('IndividualTDE','Individual TDE'),
 		SimpleModel('MUSE'),
-		SimpleModel('TemporalDictionaryEnsemble','Temporal Dictionary Ensemble'),
+		SimpleModel('TemporalDictionaryEnsemble','TDE'),
 		SimpleModel('WEASEL'),
 		SimpleModel('WEASEL_V2','WEASEL V2'),
 		SimpleModel('REDCOMETS'),
@@ -385,7 +411,7 @@ Aeon_Group = Group(
 		#SimpleModel('HIVECOTEV2','HIVECOTE V2'),
 		SimpleModel('CanonicalIntervalForestClassifier','Canonical Interval Forest Classifier'),
 		SimpleModel('DrCIFClassifier','DrCIF Classifier'),
-		SimpleModel('RandomIntervalSpectralEnsembleClassifier','Random Interval Spectral Ensemble Classifier'),
+		SimpleModel('RandomIntervalSpectralEnsembleClassifier','RISEC'),
 		SimpleModel('SupervisedTimeSeriesForest','Supervised Time Series Forest'),
 		SimpleModel('TimeSeriesForestClassifier','Time Series Forest Classifier'),
 		SimpleModel('RandomIntervalClassifier','Random Interval Classifier'),

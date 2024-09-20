@@ -208,7 +208,7 @@ The main idea of the projection methods is to reflect the signal properties and 
 
 \section{Computer vision using Projection Mix}
 
-Since each projection has its unique characteristics, they are combined into an ensemble. For this end, all projections are fused to create an aggregated tensor. This tensor is analogous to a hyperspectral image, i.e., unlike a typical color image, which consists of only three bands (red, green, and blue), the produced tensor provides additional spectral information for each pixel. The aggregation, which we call \gls{PMix}, consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise convolution operation as illustrated in Figure~\ref{fig:input_layer}. Formally, the tensor $T_{in_{p \times n \times m}}$ used as input in the \gls{CV} models is constructed by stacking the $p$ projections $\{M_1, M_2, ..., M_p\}$, all with same dimensions $n \times m$, as defined as follows:
+Since each projection has its unique characteristics, they are combined into an ensemble. For this end, all projections are fused to create an aggregated tensor. This tensor is analogous to a hyperspectral image, i.e., unlike a typical color image, which consists of only three bands (red, green, and blue), the produced tensor provides additional spectral information for each pixel. The aggregation, which we call \gls{PMix}, consists in the assignment of each projection to a particular channel of a single input layer. Then, we ``mix'' that aggregation by performing a pointwise \change{($1\times 1$ kernel-sized)} convolution operation. Formally, the tensor $T_{in_{p \times n \times m}}$ used as input in the \gls{CV} models is constructed by stacking the $p$ projections $\{M_1, M_2, ..., M_p\}$, all with same dimensions $n \times m$, as defined as follows:
 \begin{equation}
     T_{in_{k,i,j}} = M_{k_{i,j}}
 \end{equation}
@@ -221,7 +221,7 @@ Since each projection has its unique characteristics, they are combined into an 
     \label{eq:mix}
     T_{mix_{k,i,j}} = f_{actv}\left(\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}\right)
 \end{equation}
-\noindent We can observe that, for each cell with indexes $i,j$, the summation $\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}$ ``mixes'' the $p$ projections by adding its values $M_{l_{i,j}}$, while attributing different degrees of contribution for each $l$-th projection depending on the weight $w_{(k,i,j);l}$. Then, we can use the $f_{actv}$ function to mainly achieve binary distinguishability, leading to the final tensor value $T_{mix_{k,i,j}}$. 
+\noindent We can observe that, for each cell with indexes $i,j$, the summation $\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}$ ``mixes'' the $p$ projections by adding its values $M_{l_{i,j}}$, while attributing different degrees of contribution for each $l$-th projection depending on the weight $w_{(k,i,j);l}$. Then, we can use the $f_{actv}$ function to mainly achieve binary distinguishability, leading to the final tensor value $T_{mix_{k,i,j}}$. \change{The Figure~\ref{fig:input_layer} illustrates the implementation framework of that mixture in the context of models pre-trained in three-channeled datasets. That process may require resizing, since pointwise convolution does not change the width and height dimensions.}
 
 
 \input{tex/figuras/input_layer}

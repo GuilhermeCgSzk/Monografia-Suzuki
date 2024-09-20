@@ -22,9 +22,9 @@ class DeviationViolinplotGenerator(Generator):
 		# Create the boxplot using seaborn
 		ax = sns.boxplot(
 			y=metric, x='projection', hue='projection', data=df, #density_norm='area', 
-			order=["GAF", "MTF", "RP", "PMix"],
-			hue_order=["GAF", "MTF", "RP", "PMix", "Not projected"], 		
-			palette=['firebrick','green','#0c5fef','pink','grey'],
+			order=Names.get_2d_projections_names(),
+			hue_order=Names.get_2d_projections_names(), 		
+			palette=['firebrick','green','#0c5fef','pink'],
 			orient='v'
 		)
 		# Set plot labels and title

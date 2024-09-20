@@ -11,11 +11,7 @@ __all__ = [
 	'GAF','MTF','RP','Mix','NoProjection'
 ]
 
-class Projection_Name(Name, ABC):
-	@abstractmethod
-	def final_name(self):
-		pass
-		
+class Projection_Name(Name, ABC):		
 	def mappings(self):
 		return {
 			self.name(): self.final_name()
@@ -43,7 +39,7 @@ class Mix(Projection_Name):
 	def name(self):
 		return 'ProjectionMix_V2'
 	def final_name(self):
-		return 'PMix'
+		return 'PMix (ours)'
 		
 class NoProjection(Projection_Name):
 	def name(self):
@@ -57,9 +53,10 @@ class Pair:
 		self.projection = projection
 
 class Pair_Group(Filter, Group):
-	def __init__(self, name, pairs):
+	def __init__(self, name, pairs, final_name=None):
 		self.name = name
 		self.pairs = pairs
+		self.final_name = final_name
 		
 	def get_tuples(self):
 		return [(pair.model.name(), pair.projection.name()) for pair in self.pairs]
@@ -71,6 +68,7 @@ class Pair_Group(Filter, Group):
 		return Group(
 			self.name,
 			self.get_models(),
+			self.final_name
 		)
 		
 	def filter(self, df):
@@ -107,6 +105,9 @@ class Names:
 
 	def get_model_list():
 		return Model_Names.models_list() 
+		
+	def get_2d_projections_names(use_final_name=True):
+		return [c().final_name() if use_final_name else c().name() for c in [GAF, MTF, RP, Mix]]
 
 	def get_projection_mappings_function():
 		mappings = {}

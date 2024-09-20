@@ -60,7 +60,7 @@ class TimeBoxplotsGenerator(Generator):
 	    		gap=0.1,
 	    		notch=True,
 		)
-		plt.title(name_obj.name(), fontsize=fontsize)
+		plt.title(name_obj.final_name(), fontsize=fontsize)
 	    	
 		#yticks = [0,10,20,30,40,50]
 	    	

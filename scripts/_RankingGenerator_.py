@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import os
 import numpy as np
 
+from ._Names_ import *
 from ._Names_ import Names
 from ._Generator_ import Generator
 from ._DataframeSplitter_ import DataframeSplitter
@@ -42,17 +43,18 @@ class RankingGenerator(Generator):
 			errorbar = None
 		
 		
+		
 		sns.barplot(
 			data=df, x='combination', y=metric, hue='projection', order=order,
 			errorbar=errorbar,
 			err_kws={'linewidth':0.5},
 			estimator=estimator,
 			palette={
-				'RP':(0.5,0.5,1,1), 
-				'GAF':(1,0.5,0.5,1), 
-				'MTF':(0.5,1,0.5,1), 
-				'PMix':(1,0.7,1,1),
-				'Not projected':(0.5,0.5,0.5,1)
+				RP().final_name():(0.5,0.5,1,1), 
+				GAF().final_name():(1,0.5,0.5,1), 
+				MTF().final_name():(0.5,1,0.5,1), 
+				Mix().final_name():(1,0.7,1,1),
+				NoProjection().final_name():(0.5,0.5,0.5,1)
 			},
 		)
 		
