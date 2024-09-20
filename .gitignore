@@ -15,6 +15,8 @@
 *.brf
 *.bmp
 *.png
+monografia.*
+!monografia.tex
 */__pycache__/*
 *.csv
 !data/*.csv

@@ -60,23 +60,35 @@
 % \end{equation}
 % Where $D(\vec{X}_i, \vec{X}_j) = || \vec{X}_i - \vec{X}_j ||$. Optionally, it's possible to apply a threshold function $\Theta$ to classify the obtained distances, resulting in the matrix $RP = \{ \Theta(D(\vec{X}_i, \vec{X}_j))  \}_{i,j}$.
 
-This chapter first presents the overview of the method. Then, it describes the fundamental concepts about the matrix projection methods. Finally, it defines the new projection combination technique.
+\glsreset{GAF}
+\glsreset{GASF}
+\glsreset{GADF}
+\glsreset{MTF}
+\glsreset{RP}
+\glsreset{PMix}
 
-\section{Overview of the proposed method}
+\change{
+As Chapter \ref{Revisao_bibliografica} presented, several works in the \gls{SQA} literature employed the time series imaging method as a manner to allow \gls{CV} models to be used in the \gls{SQI} estimation. Figure \ref{fig:projections:projection-based-approach} presents a generic framework of such method, which we qualify as ``projection-based''. It first converts the 1D signal into a 2D projection and afterwards feeds it to a \gls{CV} model. Finally the \gls{CV} estimates the \gls{SQI}. The framework can use several projection algorithms, but we restrain our scope to four time series embedding methods presented by this chapter: \gls{GAF}, which generates the variants \gls{GASF} and \gls{GADF}; \gls{MTF}; and \gls{RP}. Moreover, this chapter introduces a new projection algorithm which we call \gls{PMix}.
+}
 
-The Figure \ref{fig:method} depicts the proposed framework of this thesis. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF} (which generates two variants: \gls{GASF} and \gls{GADF}, \gls{MTF}, and \gls{RP}. Then, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. The Figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is `Good' or `Bad'. 
+\begin{figure}[h]
+	\centering
+	\adjustbox{width=\textwidth}{
+		\includegraphics{img/projection-based-approach/projection-based-approach.png}
+	}
+	\label{fig:projections:projection-based-approach}
+	\caption{The time series imaging (or projection-based) approach.}
+\end{figure}
 
-\input{tex/figuras/method.tex}
+\section{\change{Existing} projection methods}
 
-\section{Projection methods}
-
-This section provides an analysis of the projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in Figure~\ref{fig:methodology:signal}. Additionally, this section also explores the influence of noise in the projections result. 
+This section provides an analysis of the \change{existing} projections methods that this thesis used to convert the one-dimensional \gls{PPG} signal into a 2D representation. For example purposes, we will use the signal in Figure~\ref{fig:methodology:signal}. Additionally, this section also explores the influence of noise in the projections result. 
 
 \input{tex/figuras/method/signal}
 
 \subsection{Recurrence Plot}
 
-The work of Eckmann et al.~\cite{rp-1}, of 1987, introduced the \gls{RP} method as a tool for representing visually useful properties and behaviors of a time series. Since then, its application expanded to various domains, ranging areas such as earth sciences, finances, engineering, chemistry and physics~\cite{rp-2}. It also is applicable in life sciences, with attemps on identifying the presence of Parkinson's disease~\cite{rp-3}, epileptic seizure~\cite{rp-4}, fetal hypoxia~\cite{rp-5}, and Alzheimer's disease~\cite{rp-6}. Particularly, considering this thesis' scope, we employ \gls{RP} in tasks involving cardiological signal processing. Thus, it is likely to be useful for \gls{SQA} of cardiological signals.  
+The work of Eckmann et al.~\cite{rp-1}, of 1987, introduced the \gls{RP} method as a tool for representing visually useful properties and behaviors of a time series. Since then its application expanded to various domains, ranging areas such as earth sciences, finances, engineering, chemistry and physics~\cite{rp-2}. It is also applicable in life sciences, with attempts on identifying the presence of Parkinson's disease~\cite{rp-3}, epileptic seizure~\cite{rp-4}, fetal hypoxia~\cite{rp-5}, and Alzheimer's disease~\cite{rp-6}. Particularly, considering this thesis' scope, we employ \gls{RP} in tasks involving cardiological signal processing. Thus, it is likely to be useful for \gls{SQA} of cardiological signals.  
 
 The \gls{RP} represents the occurrence of recurrences between the phase space values of time instant pairs. For this end, the first step is to embed the time series $X=\{x_1,x_2,...,x_n\}$, with $ x_i \in \mathbb{R}$ and $n \in \mathbb{N}$ samples, into a phase space, creating a new time series $S=\{\vec{s_1},\vec{s_2},...,\vec{s_m}\}$, with $ \vec{s_i} \in \mathbb{R}^d$ and $m \in \mathbb{N}$ elements. We can employ the time delays method to represent each element $\vec{s_i}$ of this new sequence $S$ as follows:
 \begin{equation}
@@ -87,7 +99,7 @@ The \gls{RP} represents the occurrence of recurrences between the phase space va
 
 \input{tex/figuras/method/phase_space}
 
-Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences where each cell $RP_{i,j} \in \{0,1\}$ represents the presence or the ausence of a recurrence in a pair of points $\vec{s_i},\vec{s_j}$ of the phase space $S$. We can represent this concept by measuring the distance $||\vec{s_i} - \vec{s_j}||$ between the points of the pair and verifying if it is smaller than a threshold $\varepsilon \in \mathbb{R}$, as the following equation:
+Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences where each cell $RP_{i,j} \in \{0,1\}$ represents the presence or the absence of a recurrence in a pair of points $\vec{s_i},\vec{s_j}$ of the phase space $S$. We can represent this concept by measuring the distance $||\vec{s_i} - \vec{s_j}||$ between the points of the pair and verifying if it is smaller than a threshold $\varepsilon \in \mathbb{R}$, as the following equation:
 \begin{equation}
     RP_{i,j} = \mathcal{H}(\varepsilon - ||\vec{s_i} - \vec{s_j}||)
 \end{equation}
@@ -126,7 +138,7 @@ The second step is to construct the temporal relationship matrix. We can achieve
 \begin{equation}
     GASF = X^T \cdot X - \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}^T \cdot \sqrt[\circ 2]{\mathds{1}-X^{\circ 2}}
 \end{equation}
-\noindent where $\square^{\circ 2}$ and $\sqrt[\circ 2]{\square}$ represents the element-wise square power and square root of the matrix $\square$, respectivelly, and $\mathds{1}$ is a matrix in which all elements are $1$. The other method is analogous, but uses the sine of the difference of the pairs of angles, constructing the following matrix $GADF_{n \times n}$:
+\noindent where $M^{\circ 2}$ and $\sqrt[\circ 2]{M}$ represents the element-wise square power and square root of the matrix $M$, respectively, and $\mathds{1}$ is a matrix in which all elements are $1$. The other method is analogous, but uses the sine of the difference of the pairs of angles, constructing the following matrix $GADF_{n \times n}$:
 \begin{align}
     GADF_{i,j} & = \sin(\phi_i - \phi_j) \\
         & = \sin(\phi_i) \cdot \cos{\phi_j} - \cos(\phi_i) \cdot \sin(\phi_j) \\
@@ -163,7 +175,7 @@ where
 \input{tex/figuras/method/markov_chain}
 
 
-\noindent The Figure~\ref{fig:method:markov_chain} depicts the graph of the example signal. That graph $G$ allows a probabilistic representation $X' = \{ x'_1,x'_2,...,x'_n \}$ of the input signal $X$ by procedurally chosing a sample of the current quantile node and, then, transitioning to the next node according to the transitions probabilities. The algoritm \ref{alg:mtf_reconstruction} explicits that representation and the Figure~\ref{fig:method:mtf_signals} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the sucessful recovery is not certain.
+\noindent The Figure~\ref{fig:method:markov_chain} depicts the graph of the example signal. That graph $G$ allows a probabilistic representation $X' = \{ x'_1,x'_2,...,x'_n \}$ of the input signal $X$ by procedurally choosing a sample of the current quantile node and then transitioning to the next node according to the transitions probabilities. Algorithm \ref{alg:mtf_reconstruction} explicits that representation and Figure~\ref{fig:method:mtf_signals} exemplifies it applied to the example signal. Therefore, the signal conversion to that graph representation is probabilistically reversible, meaning that it preserves statistical information of the signal, even though that means the successful recovery is not certain.
 
 
 \begin{algorithm}
@@ -190,10 +202,9 @@ Since that graph does not retain temporal relationships, the second step of the 
 
 \subsection{Projections comparison}
 
-The main idea of the projection methods is to reflect the signals properties and shape into visual patterns. That concept applies too to the inspection of the signal quality. The Figure~\ref{fig:method:noises} presents examples of the influence of different type of noises over the projections aspect. On observation is that the presence of low-frequency or high-frequency noises tend to produce, respectively, big or small scale structures. We can see in the effects of that observation in the figure, where the baseline wander figures manifest two to four big structures and the high-frequency noise figures contain small dot-like structures. Another observation is that noises concentrated in a certain region tends to disturb the projection onto a cross-like structure, as we can see in the figure local noise column. We can see that property of ``reflection'' for usual noises, such as Gaussian, and salt and pepper noises. In the figure, the Gaussian noise still preserves the high-level structures and destroys low-level structures, while the salt and pepper noise produces vertical and horizontal lines with void or full colors in places corresponding to, respectively ``salts'' and ``peppers'' of the source signal. Therefore, those projections are likely to be useful in \gls{SQI} tasks for \gls{CV} approaches, since they present the noises visually while maintaining its characteristics.  
+The main idea of the projection methods is to reflect the signal properties and shape into visual patterns. That concept applies too to the inspection of the signal quality. Figure~\ref{fig:method:noises} presents examples of the influence of different type of noises over the projections aspect. On observation is that the presence of low-frequency or high-frequency noises tend to produce, respectively, big or small scale structures. We can see in the effects of that observation in the figure, where the baseline wander figures manifest two to four big structures and the high-frequency noise figures contain small dot-like structures. Another observation is that noises concentrated in a certain region tends to disturb the projection onto a cross-like structure, as we can see in the figure local noise column. We can see that property of ``reflection'' for usual noises, such as Gaussian, and salt and pepper noises. In the figure, the Gaussian noise still preserves the high-level structures and destroys low-level structures, while the salt and pepper noise produces vertical and horizontal lines with void or full colors in places corresponding to, respectively ``salts'' and ``peppers'' of the source signal. Therefore, those projections are likely to be useful in \gls{SQI} tasks for \gls{CV} approaches, since they present the noises visually while maintaining its characteristics.  
 
 \input{tex/figuras/method/noises}
-
 
 \section{Computer vision using Projection Mix}
 
@@ -210,12 +221,18 @@ Since each projection has its unique characteristics, they are combined into an 
     \label{eq:mix}
     T_{mix_{k,i,j}} = f_{actv}\left(\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}\right)
 \end{equation}
-\noindent We can observe that, for each cell with indexes $i,j$, the summatory $\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}$ ``mixes'' the $p$ projections by adding its values $M_{l_{i,j}}$, while attributing different degrees of contribution for each $l$-th projection depending on the weight $w_{(k,i,j);l}$. Then, we can use the $f_{actv}$ function to mainly achieve binary distinguishability, leading to the final tensor value $T_{mix_{k,i,j}}$. 
+\noindent We can observe that, for each cell with indexes $i,j$, the summation $\sum\limits_{l=1}^{p}M_{l_{i,j}} \cdot w_{(k,i,j);l}$ ``mixes'' the $p$ projections by adding its values $M_{l_{i,j}}$, while attributing different degrees of contribution for each $l$-th projection depending on the weight $w_{(k,i,j);l}$. Then, we can use the $f_{actv}$ function to mainly achieve binary distinguishability, leading to the final tensor value $T_{mix_{k,i,j}}$. 
 
 
 \input{tex/figuras/input_layer}
 
+\section{\change{The proposed method}}
 
+Based on the \gls{PMix} projection method, this work proposes a new \gls{SQA} framework presented by the Figure \ref{fig:method}. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF}, \gls{MTF}, and \gls{RP}. Afterwards, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. 
+%Figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. 
+Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is `Good' or `Bad'. 
+
+\input{tex/figuras/method.tex}
 %\begin{itemize}
 %    \item Datasets $\mathcal{D}=\{D_1,D_2,...,D_d\}$
 %    \item Signal $X \in \bigcup\limits_{i=1}^d D_i$

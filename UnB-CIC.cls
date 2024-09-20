@@ -174,7 +174,7 @@
 	\RequirePackage[hidelinks]{hyperref}%
 \fi
 
-\usepackage[xindy,abbreviations,nonumberlist]{glossaries-extra}% Após o hyperref!
+\usepackage[abbreviations,nonumberlist]{glossaries-extra}% Após o hyperref!
 \makeglossaries%
 
 %para gerar o label {TotPaginas}

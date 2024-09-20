@@ -23,7 +23,7 @@ In more detail, \gls{PPG} signals are optical signals that result from the inter
 
 \input{tex/figuras/ppg}
 
-Typically, \gls{PPG} signals are highly prone to degradation due to various factors, especially motion artifacts. Excessive movement of the \gls{PPG} sensor can cause significant distortion in the waveform, which affects the accuracy of subsequent signal analysis. These artifacts obscure or distort vital information within the signal. Figure~\ref{fig:butppg_samples} illustrates examples of both reliable and distorted \gls{PPG} signals. \textcolor{red}{In that figure, the reliable signals exhibits symmetrical, well-defined, and more consistent patterns. In contrast, the distorted signals present irregular, asymmetrical patterns with reduced consistency and greater variability between periods.} Those distorted signals can lead to incorrect decisions and misclassification, which is unacceptable in health and wellness applications. As a result, methods for assessing \gls{PPG} signal quality are essential to prevent misinterpretation by differentiating between reliable and noisy data.
+Typically, \gls{PPG} signals are highly prone to degradation due to various factors, especially motion artifacts. Excessive movement of the \gls{PPG} sensor can cause significant distortion in the waveform, which affects the accuracy of subsequent signal analysis. These artifacts obscure or distort vital information within the signal. Figure~\ref{fig:butppg_samples} illustrates examples of both reliable and distorted \gls{PPG} signals. \change{In that figure, the reliable signals exhibits symmetrical, well-defined, and more consistent patterns. In contrast, the distorted signals present irregular, asymmetrical patterns with reduced consistency and greater variability between periods.} Those distorted signals can lead to incorrect decisions and misclassification, which is unacceptable in health and wellness applications. As a result, methods for assessing \gls{PPG} signal quality are essential to prevent misinterpretation by differentiating between reliable and noisy data.
 
 \begin{figure}[h!]
     {
@@ -36,7 +36,7 @@ Typically, \gls{PPG} signals are highly prone to degradation due to various fact
         & \includegraphics[width=0.49\textwidth, trim={1em 0 0em 0}, clip]{img/samples/butppg_111004.png} \\
     \end{tabular}
     }
-    \caption{Example of \textcolor{red}{reliable (in blue)} and \textcolor{red}{distorted (in red)} \acrlong{PPG} signals. These signals \textcolor{red}{belong to} the \acrlong{BUTPPG}~\protect\cite{butppg}.}
+    \caption[\change{Example of reliable and distorted \glsxtrlong{PPG} signals.}]{Example of \change{reliable (in blue)} and \change{distorted (in red)} \glsxtrlong{PPG} signals. These signals \change{belong to} the \acrlong{BUTPPG}~\protect\cite{butppg}.}
     \label{fig:butppg_samples}
 \end{figure}
 
@@ -48,6 +48,6 @@ The main contribution of this thesis is the development of a quality assessment 
 \section{Organization of this thesis}
 \label{sec:organization}
 
-This undergraduate thesis is organized in five chapters, including this introduction. Chapter 2 contains an overview of the \gls{SQA} ecosystem and its quality assessment methods. Chapter 3 describes the contributions of this thesis, containing all the proposed quality assessment methods. Chapter 4 contains the experimental setup, simulation results and comparisons of the proposed \gls{SQA} quality assessment methods and other state-of-the-art methods. Finally, Chapter 5 presents the conclusions of this work. 
+This undergraduate thesis is organized in five chapters, including this introduction. Chapter \ref{Revisao_bibliografica} contains an overview of the \gls{SQA} ecosystem and its quality assessment methods. \change[blue]{Chapter \ref{Projections} describes the contributions of this thesis, containing all the proposed quality assessment methods}. Chapter \ref{Experimentos} contains the experimental setup, simulation results and comparisons of the proposed \gls{SQA} quality assessment methods and other state-of-the-art methods. Finally, Chapter \ref{Conclusao} presents the conclusions of this work. 
 
 

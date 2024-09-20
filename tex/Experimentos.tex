@@ -83,7 +83,7 @@ To evaluate the proposed projection-based framework and identify specific cases 
 
 \input{tex/tabelas/cv_listing}
 
-However, defining the models alone is insufficient, as the selection of their hyperparameters is also required. Hyperparameters are high-level parameters that do not change during the training process. For the Aeon models, the default hyperparameters provided by the library were used. For the computational vision models, while most hyperparameters were set to their defaults, our experiments employed hyperparameter search for the learning rate, used by the optimization algorithm. The Optuna Python library~\cite{OptunaDoc} conducted this search by heuristically exploring the parameter space dynamically defined in the user code. Optuna prunes the search-space tree using various methods, and in our experiments, the median pruning method was applied. In this case, the guiding metric for the heuristic search was the accuracy score, defined as the ratio of correct predictions to the total number of samples. This score was measured on a validation dataset of size 2, created through a simple random split. This functionality allowed us to find a near-optimal combination of parameters without exhaustively testing all possible cases, using the model's validation dataset score as a heuristic.
+However, defining the models alone is insufficient, as the selection of their hyperparameters is also required. \change{Hyperparameters are parameters related to the learning process, rather to the model itself}. For the Aeon models, the default hyperparameters provided by the library were used. For the computational vision models, while most hyperparameters were set to their defaults, our experiments employed hyperparameter search for the learning rate, used by the optimization algorithm. The Optuna Python library~\cite{OptunaDoc} conducted this search by heuristically exploring the parameter space dynamically defined in the user code. Optuna prunes the search-space tree using various methods, and in our experiments, the median pruning method was applied. In this case, the guiding metric for the heuristic search was the accuracy score, defined as the ratio of correct predictions to the total number of samples. This score was measured on a validation dataset of size 2, created through a simple random split. This functionality allowed us to find a near-optimal combination of parameters without exhaustively testing all possible cases, using the model's validation dataset score as a heuristic.
 
 \subsection{Training strategy}
 
@@ -95,7 +95,7 @@ EarlyStopScore(n) = med([|l_{n-i} - med([l_{n-i}]_{i=0}^9)|]_{i=0}^{9})
 
 \subsection{Performance measurements}
 
-We chose the metrics to evaluate the efficacy of the solution. For these experiments, we can categorize the metrics into two groups: prediction metrics, which measure the quality of the model's signal quality assessments, and benchmarking metrics, which measure resource usage and the model speed. As the prediction metrics, our experiments used the Cohen kappa score, the F1-score, and the precision. The Cohen kappa score, in binary classification tasks, measures the agreement between the obtained accuracy $acc_o$ and the expected accuracy $acc_e$. The following equations define those accuracies and the Cohen kappa score, in terms of confusion matrix cell values:
+We chose the metrics to evaluate the efficacy of the solution. For these experiments, we can categorize the metrics into two groups: prediction metrics, which measure the quality of the model's signal quality assessments, and benchmarking metrics, which measure resource usage and the model speed. As the prediction metrics, our experiments used the Cohen kappa score, the F1-score, and the precision. The Cohen kappa score~\cite{CohenKappa}, in binary classification tasks, measures the agreement between the obtained accuracy $acc_o$ and the expected accuracy $acc_e$. The following equations define those accuracies and the Cohen kappa score, in terms of confusion matrix cell values:
 \begin{equation} 
 acc_o(R) = \frac{TP+TN}{N},
 \end{equation}
@@ -104,11 +104,11 @@ acc_e(R)  = \left(\frac{TP+FP}{N} \cdot \frac{TP+FN}{N}\right) + \left(\frac{TN+
 \end{equation}
 and
 \begin{equation} \label{eq:Cohen kappa}
-\Mathenize{Cohen-kappa(R)}  = \frac{acc_o(R) - acc_e(R)}{1 - acc_e(R)} 
+CohenKappa(R)  = \frac{acc_o(R) - acc_e(R)}{1 - acc_e(R)} 
 \end{equation}  
 \noindent Where $N=TP+TN+FP+FN$ is the total number of samples and R is the set of pairs $\{(f(X),y') | \forall (X,y') \in Dataset\}$, where $f$ is the predictor. For the purpose of aligning this metric with others, we can rescale that metric from $[-1,1]$ to $[0,1]$:
 \begin{equation}
-\Mathenize{Cohen-kappa-Rescaled(R)} = \frac{\Mathenize{Cohen-kappa(R)}+1}{2} 
+CohenKappaRescaled(R) = \frac{CohenKappa(R)+1}{2} 
 \end{equation}  
 In sequence, the Precision is a metric that measures the ratio of hits in the set of positive predictions. In our context, a higher Precision imply that the predictor approved a low amount of ``Bad'' signals, which is desirable in applications where we do not want to show to the user measurements based on unreliable signals. From the Precision and from the Recall, the ratio of hits in the set of all existing positives, we can obtain the F1-Score. Precisely, the F1-Score is the harmonic mean between those two metrics. In other words, a high F1-Score indicates a good balance between Precision and Recall scores. In our application, it measures the same as the Precision plus the Recall, which would measure the amount of ``Good'' signals that would feed the application. This is an desirable quality when we want to provide constant feedback to the user. The following equations define those metrics:
 \begin{equation} \label{eq:Precision}
@@ -164,8 +164,11 @@ Table \ref{tab:Averages_of_SwinTransformer V2} displays the \gls{SwinTV2} scores
 % Inter-Family Comparison
 When considering all tables \ref{tab:Averages_of_VisionTransformer}, \ref{tab:Averages_of_Maxvit}, \ref{tab:Averages_of_SwinTransformer}, and \ref{tab:Averages_of_SwinTransformer V2}, the \gls{RP} and \gls{PMix} methods with \mbox{\gls{ViT} B 16} and \mbox{\gls{ViT} L 16}, as well as \gls{PMix} with \mbox{\gls{ViT} B 32} and \mbox{\gls{ViT} L 32}, and the \gls{SwinTV2} S with \gls{PMix}, generally achieved better scores. The benchmarking metrics for these combinations are summarized next.
 
-Table~\ref{tab:Memory_of_Transformers} shows that the \gls{SwinT} V2 S variant uses considerably less memory than the \gls{ViT} variants. Therefore, the \gls{SwinT} V2 S with \gls{PMix} can achieve high scores while utilizing less memory. However, Figure~\ref{fig:Time_of_Transformers} indicates that the \gls{SwinT} V2 S variant has a slower inference speed compared to the \gls{ViT} variants. Among the \gls{ViT} variants, the \mbox{B 32} variant was the fastest, suggesting that the combination of \gls{PMix} with \gls{ViT} B 32 can produce high scores with lower inference time.
-
+Table~\ref{tab:Memory_of_Transformers} shows that the \gls{SwinT} V2 S variant uses considerably less memory than the \gls{ViT} variants. Therefore, the \gls{SwinT} V2 S with \gls{PMix} can achieve high scores while utilizing less memory. However, Figure~\ref{fig:Time_of_Transformers} indicates that the \gls{SwinT} V2 S variant has a slower inference speed compared to the \gls{ViT} variants. Among the \gls{ViT} variants, the \mbox{B 32} variant was the fastest, suggesting that the combination of \gls{PMix} with \gls{ViT} B 32 can produce high scores with lower inference time. \change{Therefore, we select the following methods for this section:} 
+\begin{itemize}
+	\item \gls{SwinT} V2 S with \gls{PMix};
+	\item and \gls{ViT} B 32 with \gls{PMix}. 
+\end{itemize}
 
 % \sout{
 % About the results, we can see on the tables \ref{tab:Averages_of_VisionTransformer}, \ref{tab:Averages_of_Maxvit}, \ref{tab:Averages_of_SwinTransformer}, and \ref{tab:Averages_of_SwinTransformer V2} that only the Swin Transformer V2 and the Vision Transformer variants obtained a Cohen kappa score superior than 90\%. Specifically, for the Swin Transformer V2, only the standard variant combined with the \gls{PMix} method achieved such a score. For the Vision Transformer, only the large and base variants suprassed the limit. The variants with patch size $32\times 32$ did so by using the \gls{PMix}, while the variants with patch size $16 \times 16$ not only reached the score when combined with \gls{PMix} but also with \gls{RP}. Since both of the models reached a similar score, we observe the benchmarking metrics. We see in the Table \ref{tab:Memory_of_Transformers} that the Swin Transformer V2 S uses considerably less memory than the Vision Transformer. On the other hand, we observe in Figure \ref{fig:Time_of_Transformers} that the Swin Transformer V2 S have a slower inference speed if compared to the Vision Transformer variants. However, because I consider the memory consumption as a factor of major importance, I selected for this section the Swin Transformer V2 standard variant with \gls{PMix}.
@@ -192,7 +195,11 @@ Table~\ref{tab:Averages_of_ResNeXt} displays the ResNeXt scores for variants wit
 % Wide ResNet
 Table \ref{tab:Averages_of_Wide ResNet} lists the Wide ResNet scores for variants with 50 or 101 layers and a widening factor of 2. The \gls{PMix} and \gls{RP} methods consistently performed better across all metrics. Notably, the \gls{PMix} method with the Wide \mbox{ResNet 101-2} variant achieved the best scores for Cohen kappa and F1-Score, and the second-best score for Precision.
 % Inter-Family Comparison
-Observing Tables~\ref{tab:Averages_of_ResNet}, \ref{tab:Averages_of_ResNeXt}, and \ref{tab:Averages_of_Wide ResNet} together reveals that the \mbox{Wide ResNet 101-2} with \gls{PMix} was the top-performing combination in terms of scoring. However, this combination had the highest memory usage and was the fourth slowest in inference time. An alternative with nearly the second-best scores but significantly lower memory usage and inference time is the \mbox{ResNet 50} with \gls{PMix}.
+Observing Tables~\ref{tab:Averages_of_ResNet}, \ref{tab:Averages_of_ResNeXt}, and \ref{tab:Averages_of_Wide ResNet} together reveals that the \mbox{Wide ResNet 101-2} with \gls{PMix} was the top-performing combination in terms of scoring. However, this combination had the highest memory usage and was the fourth slowest in inference time. An alternative with nearly the second-best scores but significantly lower memory usage and inference time is the \mbox{ResNet 50} with \gls{PMix}. \change{Thus, the two methods below were chosen for this section:} 
+\begin{itemize}
+	\item ResNet 50 with \gls{PMix}; 
+	\item and Wide ResNet 101-2 with \gls{PMix}. 
+\end{itemize}
 
 
 % \sout{
@@ -220,7 +227,10 @@ Table~\ref{tab:Averages_of_MobileNet V2} presents the scores for MobileNet V2. T
 %MobileNet V3 
 Table~\ref{tab:Averages_of_MobileNet V3} lists the MobileNet V3 variants, which include Small and Large configurations in terms of resource usage. Notably, \gls{PMix} with the Large variant achieved the best Cohen kappa and Precision scores, while \gls{RP} with the Small variant excelled in the F1-Score metric.
 % Inter-Family Comparison
-From the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNet V2} and \ref{tab:Averages_of_MobileNet V3}, the combination of \mbox{MNASNet 1.0} with \gls{PMix} emerges as the overall best case. This combination demonstrates a median inference time below 20 ms, as shown in Figure~\ref{fig:Time_of_Mobile nets}, and memory consumption under 15 MB, according to Table~\ref{tab:Memory_of_Mobile-Oriented}.
+From the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNet V2} and \ref{tab:Averages_of_MobileNet V3}, the combination of \mbox{MNASNet 1.0} with \gls{PMix} emerges as the overall best case. This combination demonstrates a median inference time below 20 ms, as shown in Figure~\ref{fig:Time_of_Mobile nets}, and memory consumption under 15 MB, according to Table~\ref{tab:Memory_of_Mobile-Oriented}. \change{Hence, we elect only one method as the best models of this section:} 
+\begin{itemize}
+	\item MNASNet 1.0 with \gls{PMix}.
+\end{itemize}
 
 % \sout{
 % In those set of models, only the MNASNet obtained a sufficient Cohen kappa score, as visible in the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNet V2} e \ref{tab:Averages_of_MobileNet V3}. Specifically, the MNASNet with depth multiplier of 1.0, being that multiplier related to the number of channels dimension. It achieved that score combined with the \gls{PMix} projection method method. According to the table \ref{tab:Memory_of_Mobile nets} and the figure \ref{fig:Time_of_Mobile nets}, all of those networks have very small memory size, with values inferior to 30 MB. They also have very fast inference time, with medians bellow to 20 ms. For those reasons and since it was the only net to achieve the minimum accuracy requirements, I chose the MNASNet 1.0 with \gls{PMix}.}
@@ -238,7 +248,6 @@ From the tables \ref{tab:Averages_of_MNASNet}, \ref{tab:Averages_of_MobileNet V2
 Neural models that focus on specific concepts, such as layer depth, model compression, or residual connections, include VGG, DenseNet, and SqueezeNet. VGG employs $3\times 3$ filters to allow for deeper network architectures by adding more layers, thus increasing model depth. DenseNet uses skipping connections among all pairs of architectural blocks in the network, which brings each layer closer to both the input and output, enhancing model performance. SqueezeNet focuses on minimizing memory usage through model compression techniques and by introducing a new architectural module that reduces the number of channels in a layer before applying large convolution filters, such as $3 \times 3$ filters. This approach significantly reduces the number of parameters.
 
 
-
 Three metric tables were constructed, each corresponding to a model within the \gls{CV} family.
 % Dense Net
 Table \ref{tab:Averages_of_DenseNet} presents the DenseNet results, where the variants include depths of 121, 161, 169, or 201 layers. For the 169 and 201 layer variants, the \gls{PMix} method achieved superior performance, whereas the \gls{RP} method was the best for the 161 layer variant. For the 121 layer variant, the \gls{PMix} method obtained the highest Cohen kappa score, while the \gls{RP} method excelled in the F1-Score and achieved perfect Precision. Overall, the DenseNet 161 with \gls{RP}, DenseNet 201 with \gls{PMix}, and DenseNet 121 with \gls{RP} achieved the best scores in terms of Cohen kappa, F1-Score, and Precision metrics, respectively. Notably, the DenseNet 161 with \gls{RP} demonstrated a good balance across metrics, attaining the best Cohen kappa score and the second-best F1 and Precision scores.
@@ -247,7 +256,11 @@ Table~\ref{tab:Averages_of_SqueezeNet} exhibits the SqueezeNet results for versi
 % VGG
 Table \ref{tab:Averages_of_VGG} details the VGG scores across variants with 11, 13, 16, or 19 layers, with or without Batch Normalization (BN). The \gls{RP} and \gls{PMix} methods achieved the best scores for all variants, though some cases exhibited higher dispersion. Notably, the combination of \mbox{VGG 16} with \gls{RP} excelled in Cohen kappa and Precision metrics, while \mbox{VGG 16 BN} with \gls{PMix} achieved the highest F1-Score. However, the \mbox{VGG 16} with \gls{RP} combination showed considerable dispersion in the F1-Score metric, making \mbox{VGG 16 BN} with \gls{PMix} a more reliable choice.
 % Inter-Family Comparison
-the combinations \mbox{SqueezeNet 1.1} with \gls{PMix} and \mbox{VGG 16 BN} with \gls{PMix} stand out. Specifically, \mbox{SqueezeNet 1.1} with \gls{PMix} achieved the best Cohen kappa, while \mbox{VGG 16 BN} with \gls{PMix} attained the highest F1-score among all Extreme Nets \gls{CV} family models. The Figure~\ref{fig:Time_of_Extreme nets} illustrates that \mbox{SqueezeNet 1.1} with \gls{PMix} outperforms most other variants in terms of inference speed. Additionally, Table~\ref{tab:Memory_of_Extreme Models} shows that this combination also ranks as the smallest in memory consumption.
+the combinations \mbox{SqueezeNet 1.1} with \gls{PMix} and \mbox{VGG 16 BN} with \gls{PMix} stand out. Specifically, \mbox{SqueezeNet 1.1} with \gls{PMix} achieved the best Cohen kappa, while \mbox{VGG 16 BN} with \gls{PMix} attained the highest F1-score among all Extreme Nets \gls{CV} family models. The Figure~\ref{fig:Time_of_Extreme nets} illustrates that \mbox{SqueezeNet 1.1} with \gls{PMix} outperforms most other variants in terms of inference speed. Additionally, Table~\ref{tab:Memory_of_Extreme Models} shows that this combination also ranks as the smallest in memory consumption. \change{Thence, we choose two methods as representative of this section:} 
+\begin{itemize}
+	\item VGG 16 BN with \gls{PMix};
+	\item and SqueezeNet 1.1 with \gls{PMix}.
+\end{itemize}
 
 
 % \sout{
@@ -274,7 +287,10 @@ Table~\ref{tab:Averages_of_EfficientNetV2} presents the scores for EfficientNet 
 % ShuffleNet V2
 Table~\ref{tab:Averages_of_ShuffleNet V2} displays the metrics for ShuffleNet V2 variants, which include multipliers of $\times 0.5$, $\times 1.0$, $\times 1.5$, and $\times 2.0$ on the number of channels in each architectural block. Across all variants, the \gls{PMix} projection method outperformed all others. Specifically, the best scores for ShuffleNet V2 were achieved with the $\times 0.5$ and $\times 1.0$ variants combined with the \gls{PMix} method.
 % Inter-Family Comparison
-When analyzing the results from Tables  \ref{tab:Averages_of_EfficientNet}, \ref{tab:Averages_of_EfficientNetV2}, and \ref{tab:Averages_of_ShuffleNet V2}, it is evident that the usage of \mbox{EfficientNet V2}, \mbox{ShuffleNet V2 $\times 0.5$}, and \mbox{ShuffleNet V2 $\times 1.0$}  with \gls{PMix} achieved high scores across all metrics, including the best Cohen kappa and F1 scores, as well as the second-best Precision. Among these, the \mbox{ShuffleNet V2 $\times 0.5$} with \gls{PMix} was the most efficient in terms of memory usage, as shown in Table~\ref{tab:Memory_of_Efficiency-Oriented}, while being one of the fastest in inference, as visible in the Figure \ref{fig:Time_of_Efficiency Oriented}.
+When analyzing the results from Tables  \ref{tab:Averages_of_EfficientNet}, \ref{tab:Averages_of_EfficientNetV2}, and \ref{tab:Averages_of_ShuffleNet V2}, it is evident that the usage of \mbox{EfficientNet V2}, \mbox{ShuffleNet V2 $\times 0.5$}, and \mbox{ShuffleNet V2 $\times 1.0$}  with \gls{PMix} achieved high scores across all metrics, including the best Cohen kappa and F1 scores, as well as the second-best Precision. Among these, the \mbox{ShuffleNet V2 $\times 0.5$} with \gls{PMix} was the most efficient in terms of memory usage, as shown in Table~\ref{tab:Memory_of_Efficiency-Oriented}, while being one of the fastest in inference, as visible in the Figure \ref{fig:Time_of_Efficiency Oriented}. \change{Thus, only the following method was selected for this section:} 
+\begin{itemize}
+	\item ShuffleNet V2 $\times 0.5$ with \gls{PMix}.
+\end{itemize}
 
 
 % \sout{
@@ -302,7 +318,11 @@ Table~\ref{tab:Averages_of_ConvNeXt} presents the results for the ConvNeXt model
 % RegNet 
 Table \ref{tab:Averages_of_RegNet} exhibits the results for RegNet variants, categorized into RegNetX and RegNetY design spaces~\cite{RegNet}, with varying float operations per second rates such as 400 Mega Flops (MF) or 16 Giga Flops (GF). Among these variants, several achieved scores above the third quartile across all metrics. For the X space, notable cases include \gls{RP} with the 400 MF and 800 MF variants, and \gls{PMix} with the 800 MF, 3.2 GF, 8 GF, and 16 GF variants. For the Y space, noteworthy cases are \gls{RP} with the 400 MF, 1.6 GF, 16 GF, and 32 GF variants, and \gls{PMix} with the 800 MF, 3.2 GF, and 16 GF variants. Among these high-scoring variants, the \gls{PMix} method with the \mbox{RegNet X 3.2 GF}, \mbox{RegNet X 800 MF}, \mbox{RegNet Y 400 MF}, and \mbox{RegNet Y 800 MF} variants achieved the best Cohen kappa and F1 scores, and the third best Precision score. Of these top-performing combinations, the \mbox{RegNet Y 400 MF} with \gls{PMix} had the lowest memory usage, as shown in Table \ref{tab:Memory_of_Diverse}, while the \mbox{RegNet X 800 MF} with \gls{PMix} had the fastest inferences of the model variants, as seen in Figure \ref{fig:Time_of_Diverse}.
 % Inter-Family Comparison
-When evaluating the top-performing models from each type within the Diverse \gls{CV} family, the \mbox{RegNet Y 400 MF} with \gls{RP}, and the \mbox{RegNet X 800 MF} and AlexNet with \gls{PMix} achieved the highest scores. Notably, the \mbox{RegNet Y 400 MF} with \gls{RP} exhibited the lowest memory usage, as shown in Table~\ref{tab:Memory_of_Diverse}, while AlexNet had the fastest inference times across all projections, as illustrated in Figure~\ref{fig:Time_of_Diverse}.
+When evaluating the top-performing models from each type within the Diverse \gls{CV} family, the \mbox{RegNet Y 400 MF} with \gls{RP}, and the \mbox{RegNet X 800 MF} and AlexNet with \gls{PMix} achieved the highest scores. Notably, the \mbox{RegNet Y 400 MF} with \gls{RP} exhibited the lowest memory usage, as shown in Table~\ref{tab:Memory_of_Diverse}, while AlexNet had the fastest inference times across all projections, as illustrated in Figure~\ref{fig:Time_of_Diverse}. \change{Hence, two methods were chosen for this section:} 
+\begin{itemize}
+	\item AlexNet with \gls{PMix};
+	\item and RegNet Y 400 MF with \gls{RP}.
+\end{itemize}
 
 %\sout{
 %Amid those models, only the RegNet and the AlexNet passed the minimum Cohen kappa test, as we can infer from the tables \ref{tab:Averages_of_AlexNet}, \ref{tab:Averages_of_ConvNeXt}, and \ref{tab:Averages_of_RegNet}. The AlexNet did so by applying the \gls{PMix} method for its only variant. The RegNet, on the other hand, has a plenty of variants, that originate from two network design spaces: X, the base space, and Y, which adds a squeeze-and-excitation operation after the blocks of X. From those variants, only the 3.2 GF (Giga FLOPs) and 800 MF (Mega FLOPs) variants of the X network space and only the 400 MF and 800 MF variants of the Y network space reached the score. Most of them did so by applying the \gls{PMix}, with only one exception: The RegNet Y 400 MF did by using the \gls{RP}. Since the variants of both models scored similarly, we observe the Figure \ref{fig:Time_of_Diverse} and the Table \ref{tab:Memory_of_Diverse}. The first observation is that the the AlexNet occupies, at least, two times more memory than most of the RegNet variants, including the ones with good score. The second one is that the AlexNet has faster inference speed than every model in this section. But, since the memory occupation is priority, I chose the RegNet over the AlexNet. Specifically, the RegNet Y 400 MF variant (with \gls{RP}), because it is the smallest.  }
@@ -318,7 +338,11 @@ When evaluating the top-performing models from each type within the Diverse \gls
 \subsection{Non-computer vision models comparison}
 
 
-Table~\ref{tab:Averages_of_Non-CV} presents the scores for non-computationally-visual baseline models. The models Individual \mbox{Ordinal TDE}, Random Interval Classifier, \gls{RISEC}, \mbox{TS Fresh} Classifier, \gls{TDE}, and \mbox{WEASEL V2} achieved high scores across all metrics. Among these, \gls{RISEC} and \gls{TDE} surpassed the other models in every score metric. Specifically, \gls{RISEC} demonstrated faster inference, as shown in Figure \ref{fig:Time_of_Non CV},while \gls{TDE} had lower memory consumption, according to Table~\ref{tab:Memory_of_Non-CV}.
+Table~\ref{tab:Averages_of_Non-CV} presents the scores for non-computationally-visual baseline models. The models Individual \mbox{Ordinal TDE}, Random Interval Classifier, \gls{RISEC}, \mbox{TS Fresh} Classifier, \gls{TDE}, and \mbox{WEASEL V2} achieved high scores across all metrics. Among these, \gls{RISEC} and \gls{TDE} surpassed the other models in every score metric. Specifically, \gls{RISEC} demonstrated faster inference, as shown in Figure \ref{fig:Time_of_Non CV},while \gls{TDE} had lower memory consumption, according to Table~\ref{tab:Memory_of_Non-CV}. \change{So, we elect the two methods below as the best models of this section:} 
+\begin{itemize}
+	\item \gls{RISEC};
+	\item and \gls{TDE}.
+\end{itemize}
 
 
 % \sout{
