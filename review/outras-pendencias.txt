@@ -11,3 +11,4 @@
 [ ] Verificar se nomes de métodos na revisão bibliográfica estão em maiúsculo
 [ ] Revisar referências e links a datasets.
 [ ] Verificar "The Figures" e "The Tables"
+[ ] Revisar pontos finais ou vírgulas em equações.
