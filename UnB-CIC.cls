@@ -894,7 +894,7 @@
 		\@IncluirSecao{agradecimentos}%
 
 		% *NÃO RETIRAR*, é importante registrar este apoio da CAPES.
-		This work was supported by the Fundação de Apoio a Pesquisa do Distrito Federal (FAP-DF), by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES), the Conselho Nacional de Desenvolvimento Científico e Tecnologico (CNPq), and by the University of Brasília (UnB).
+		This work was supported by the Fundação de Apoio a Pesquisa do Distrito Federal (FAP-DF), by the \change{Brazilian Federal Agency for Suport and Evaluation of Graduate Education} (CAPES), the \change{National Council for Scientific and Technological Development} (CNPq), and by the University of Brasília (UnB).
 	\fi%
 	\@IncluirSecao{resumo}%
 	\selectlanguage{american}%

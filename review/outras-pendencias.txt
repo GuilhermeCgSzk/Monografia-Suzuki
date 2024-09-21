@@ -6,3 +6,8 @@
 [ ] Garantir que as figuras fiquem depois da primeira citação no texto.
 [ ] Verificar se todas figuras foram citadas no texto
 [ ] Verificar consistência do uso de aspas
+[ ] Verificar nome de figuras na lista de figuras
+[ ] Verificar se usa-se /Gls quando necessário.
+[ ] Verificar se nomes de métodos na revisão bibliográfica estão em maiúsculo
+[ ] Revisar referências e links a datasets.
+[ ] Verificar "The Figures" e "The Tables"

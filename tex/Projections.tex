@@ -95,7 +95,7 @@ The \gls{RP} represents the occurrence of recurrences between the phase space va
     \vec{s_i} = (x_i, x_{i + \tau}, x_{i + 2\cdot \tau} ..., x_{i + (d-1) \cdot \tau})
 \end{equation}   
 
-\noindent where $d \in \mathbb{N}$ is the dimension and $\tau \in \mathbb{N}$ is the time delay of the phase space. Notice that the lenght $m$ of the sequence $S$ depends on both $d$ and $\tau$ by the equation $m = n - (d-1) \cdot \tau$. Also notice that this embedding is optional, since the choice of the dimension $d=1$ results in $S=X$, the original time series. The Figure~\ref{fig:phase_space} depicts the phase space of the example signal of the Figure~\ref{fig:methodology:signal}.
+\noindent where $d \in \mathbb{N}$ is the dimension and $\tau \in \mathbb{N}$ is the time delay of the phase space. Notice that the length $m$ of the sequence $S$ depends on both $d$ and $\tau$ by the equation $m = n - (d-1) \cdot \tau$. Also notice that this embedding is optional, since the choice of the dimension $d=1$ results in $S=X$, the original time series. Figure~\ref{fig:phase_space} depicts the phase space of the example signal of Figure~\ref{fig:methodology:signal}.
 
 \input{tex/figuras/method/phase_space}
 
@@ -109,7 +109,7 @@ Then, the second step is to build a $m \times m$ matrix $RP$ of recurrences wher
     RP'_{i,j} = ||\vec{s_i} - \vec{s_j}||
 \end{equation}  
 
-\noindent the Figure~\ref{fig:method:rp} exhibits both $RP$ and $RP'$ of the example signal.
+\noindent Figure~\ref{fig:method:rp} exhibits both $RP$ and $RP'$ of the example signal.
 
 \input{tex/figuras/method/rp}
 
@@ -124,15 +124,17 @@ The work of Oates et al.~\cite{gaf-mtf-1} introduced the \gls{GAF} method. This 
         r_i = \frac{t_i}{N},     & N \in \mathbb{R}
     \end{cases}
 \end{equation}
-\noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. The Figure~\ref{fig:methodology:polar} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, \cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
+\noindent where $N$ is a rescaling factor. Notice that it might be necessary to rescale the signal to fit each $x_i$ in the range $[-1,1]$. Figure~\ref{fig:methodology:polar} shows the application of the function $f_{polar}$ over the example signal. The polar coordinate system has one property of interest: the $f_{polar}: \mathbb{N} \times \{x \in \mathbb{R}| -1 \leq x \leq 1\} \mapsto \mathbb{R} \times \{\phi \in \mathbb{R}| 0 \leq \phi \leq \pi \}$ is bijective, since it has the inverse function $f_{polar}^{-1}(r_i, \phi_i)=(r_i \cdot N, \cos(\phi_i))=(t_i,x_i)$. This indicates that the application of the function $f_{polar}$ does not result in loss of information.
 
 \input{tex/figuras/method/polar}
 
 The second step is to construct the temporal relationship matrix. We can achieve that by two methods that exploit trigonometric properties. One of them is calculating the cosine of the summation of the pairs of angles, constructing the matrix $GASF_{n \times n}$:
 \begin{align}
+\begin{split}
     GASF_{i,j}     & = \cos(\phi_i + \phi_j) \\
             & = \cos(\phi_i) \cdot \cos(\phi_j) - \sin(\phi_i) \cdot \sin(\phi_j) \\
             & = x_i \cdot x_j - \sqrt{1 - x_i^2} \cdot \sqrt{1 - x_j^2} \label{eq:gasf:algebraic}
+\end{split}
 \end{align}
 \noindent where \gls{GASF} is the final matrix. Due to the inversibility of the $arccos$ function, it is possible to express that calculation without trigonometric operations, as expressed by the equality \ref{eq:gasf:algebraic}. Thus, we can calculate \gls{GASF} using matrix operations, as follows:  
 \begin{equation}
@@ -140,9 +142,11 @@ The second step is to construct the temporal relationship matrix. We can achieve
 \end{equation}
 \noindent where $M^{\circ 2}$ and $\sqrt[\circ 2]{M}$ represents the element-wise square power and square root of the matrix $M$, respectively, and $\mathds{1}$ is a matrix in which all elements are $1$. The other method is analogous, but uses the sine of the difference of the pairs of angles, constructing the following matrix $GADF_{n \times n}$:
 \begin{align}
+\begin{split}
     GADF_{i,j} & = \sin(\phi_i - \phi_j) \\
         & = \sin(\phi_i) \cdot \cos{\phi_j} - \cos(\phi_i) \cdot \sin(\phi_j) \\
         & = \sqrt{1 - x_i^2} \cdot x_j - x_i \cdot \sqrt{1 - x_j^2}  \label{eq:gadf:algebraic}
+\end{split}
 \end{align}
 \noindent Also similarly, by the equality \ref{eq:gadf:algebraic}, we can express \gls{GADF} by matrix operations:
 \begin{equation}
@@ -228,7 +232,7 @@ Since each projection has its unique characteristics, they are combined into an 
 
 \section{\change{The proposed method}}
 
-Based on the \gls{PMix} projection method, this work proposes a new \gls{SQA} framework presented by the Figure \ref{fig:method}. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF}, \gls{MTF}, and \gls{RP}. Afterwards, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. 
+Based on the \gls{PMix} projection method, this work proposes a new \gls{SQA} framework presented by Figure \ref{fig:method}. First, we transform the signal into four projections using the three before-mentioned algorithms: \gls{GAF}, \gls{MTF}, and \gls{RP}. Afterwards, we aggregate those projections using composition, that is, we assign each of them to a different channel of a new input layer. Then, that layer feeds the computer vision model, which contained weights pre-trained on the ImageNet dataset. 
 %Figure \ref{fig:input_layer} pictures the feeding process to a three-channeled \gls{CV} model, which consists in performing a point-wise convolution operation. 
 Finally, that model classifies the signal into a binary \gls{SQI}, which indicates if the signal is `Good' or `Bad'. 
 

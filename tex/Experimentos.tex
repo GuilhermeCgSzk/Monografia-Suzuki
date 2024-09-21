@@ -50,7 +50,7 @@
 % Each of the 4 populations produced box plots shown in figure \ref{fig:boxplots}, allowing, at first glance, to see the Recurrence Plot and the \gls{PM} as generally superior methods if compared with the other two. In fact, \gls{rp} and P\gls{PM} first quartiles are greater than \gls{gaf} and \gls{mtf} third quartiles considering all metrics except Recall Score, what shows that 75\% of samples in \gls{rp} and \gls{PM} are generally greater than 75\% of samples in \gls{gaf} and \gls{mtf}.    %TODO: falar do Cohen Cappa Score 
 
 
-In Chapter~\ref{Metodologia}, we introduced the proposed technique for assessing \gls{PPG} signals. In line with the goals outlined in Chapter~\ref{Introducao}, the aim of the current chapter is to investigate the effects of different methods on predicting whether a given input \gls{PPG} signal is reliable or not. To achieve this aim, the chapter first presents the experimental setup, then discusses the experimental results, and finally addresses the limitations of the experiments.
+In Chapter~\ref{Projections}, we introduced the proposed technique for assessing \gls{PPG} signals. In line with the goals outlined in Chapter~\ref{Introducao}, the aim of the current chapter is to investigate the effects of different methods on predicting whether a given input \gls{PPG} signal is reliable or not. To achieve this aim, the chapter first presents the experimental setup, then discusses the experimental results, and finally addresses the limitations of the experiments.
 
 
 
@@ -119,7 +119,7 @@ Recall = \frac{TP}{TP+FN},
 \end{equation}
 and
 \begin{equation} \label{eq:F1-Score}
-F1 = HarmonicMean(Precision,Recall) = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}.
+\change{F1} = HarmonicMean(Precision,Recall) = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}.
 \end{equation}
 \noindent Therefore, the Cohen kappa score provides an overall sense of accuracy, the F1-Score suggests the model's usability level, and precision indicates the predictor's reliability.
 
