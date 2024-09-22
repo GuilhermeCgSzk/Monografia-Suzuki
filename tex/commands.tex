@@ -1,5 +1,12 @@
 
-\newcommand{\change}[2][red]{\textcolor{#1}{#2}}
+
+\iffinal
+    \newcommand{\change}[1]{#1}
+\else
+    \newcommand{\change}[2][red]{\textcolor{#1}{#2}}
+\fi
+
+
 
 \newcommand{\MemoryTabularsInclusion}[2]{
 	\foreach \index in {1, ..., #1} {
