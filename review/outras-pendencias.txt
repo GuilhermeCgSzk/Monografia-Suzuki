@@ -1,14 +1,14 @@
-[ ] Siglas devem ter nome maiúscilo somente se for nome próprio.
-[ ] Mencionar o link do repositório ao longo do TCC;
-[ ] Remover apêndice e mencionar o trabalho nas introdução e na conclusão.
+[~] Siglas devem ter nome maiúscilo somente se for nome próprio.
+[x] Mencionar o link do repositório ao longo do TCC;
+[~] Remover apêndice e mencionar o trabalho nas introdução e na conclusão.
 [ ] Posso usar a sigla BUTPPG sem definí-la no resumo?
 [ ] Figura 1.1 (que tem o PPG e o ECG) poderia omitir os detalhes do PPG ou poderíamos explicá-los?
-[ ] Garantir que as figuras fiquem depois da primeira citação no texto.
-[ ] Verificar se todas figuras foram citadas no texto
-[ ] Verificar consistência do uso de aspas
-[ ] Verificar nome de figuras na lista de figuras
-[ ] Verificar se usa-se /Gls quando necessário.
+[x] Garantir que as figuras fiquem depois da primeira citação no texto.
+[x] Verificar se todas figuras foram citadas no texto
+[x] Verificar consistência do uso de aspas
+[x] Verificar nome de figuras na lista de figuras
+[x] Verificar se usa-se /Gls quando necessário.
 [ ] Verificar se nomes de métodos na revisão bibliográfica estão em maiúsculo
-[ ] Revisar referências e links a datasets.
-[ ] Verificar "The Figures" e "The Tables"
-[ ] Revisar pontos finais ou vírgulas em equações.
+[x] Revisar referências e links a datasets.
+[x] Verificar "The Figures" e "The Tables"
+[x] Revisar pontos finais ou vírgulas em equações.
