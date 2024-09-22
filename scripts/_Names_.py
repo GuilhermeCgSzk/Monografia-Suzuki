@@ -39,7 +39,7 @@ class Mix(Projection_Name):
 	def name(self):
 		return 'ProjectionMix_V2'
 	def final_name(self):
-		return 'PMix (ours)'
+		return 'PMix (proposed)'
 		
 class NoProjection(Projection_Name):
 	def name(self):
@@ -72,7 +72,9 @@ class Pair_Group(Filter, Group):
 		)
 		
 	def filter(self, df):
+	
 		new_df = df[df[['model','projection']].apply(tuple,axis=1).isin(self.get_tuples())]
+		
 		return new_df.copy()
 	 	
 

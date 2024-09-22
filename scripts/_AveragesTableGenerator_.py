@@ -111,6 +111,8 @@ class AveragesTableGenerator(Generator):
 		
 		df['projection'] = df['projection'].apply(Names.get_projection_mappings_function())
 		
+		df = df.replace('PMix (proposed)', 'PMix \\textcolor[rgb]{0.7,0.2,0.7}{(proposed)}')
+		
 		if len(projections)==1 and projections[0]==NoProjection().name():
 			df = df.drop('projection',axis=1)
 	    		    	

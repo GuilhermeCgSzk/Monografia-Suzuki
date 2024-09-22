@@ -35,8 +35,10 @@ class SimpleModel(Model_Name):
 			self._final_name = self._name
 		else:
 			self._final_name = _final_name
-		
 	def name(self):
+		return self._name
+		
+	def final_name(self):
 		return self._final_name
 		
 	def mappings(self):
