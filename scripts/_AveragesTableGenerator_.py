@@ -49,9 +49,9 @@ class AveragesTableGenerator(Generator):
 		for metric in metrics:			
 			def get_color(value ,*, get_key_function, inverted=False):
 				colors = {
-					'green': {'r':0.0,'g':0.9,'b':0.0},
-					'red': {'r':0.9,'g':0.2,'b':0.2},
-					'yellow': {'r':0.6,'g':0.5,'b':0.0},
+					'green': {'r':0.0,'g':0.7,'b':0.0},
+					'red': {'r':1.0,'g':0.2,'b':0.2},
+					'neutral': {'r':0.3,'g':0.3,'b':0.5},
 				}
 				
 				if value <= old_df[get_key_function(metric)].quantile(0.25):
@@ -65,7 +65,7 @@ class AveragesTableGenerator(Generator):
 					else:
 						return colors['green']
 				else:
-					return colors['yellow']
+					return colors['neutral']
 			
 			loc = old_df.columns.get_loc(metric)
 			loc_mean = old_df.columns.get_loc(self.get_mean_key(metric))
