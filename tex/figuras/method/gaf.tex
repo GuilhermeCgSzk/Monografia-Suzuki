@@ -1,9 +1,13 @@
 \begin{figure}[h!]
     \centering
-    \begin{tabular}{cc}
-        \frame{\includegraphics[width=0.35\textwidth]{img/methodology/GramianAngularDifferenceField.png}} &
-        \frame{\includegraphics[width=0.35\textwidth]{img/methodology/GramianAngularSummationField.png}} 
-    \end{tabular}
-    \caption{The example signal corresponding \acrlong{GADF} (left) and \acrlong{GASF} (right).}
+    \subfigure[\glsxtrshort{GADF}]{
+        \frame{\includegraphics[width=0.35\textwidth]{img/methodology/GramianAngularDifferenceField.png}}
+        \label{fig:method:gaf:gadf}
+    }
+    \subfigure[\glsxtrshort{GASF}]{
+        \frame{\includegraphics[width=0.35\textwidth]{img/methodology/GramianAngularSummationField.png}}
+        \label{fig:method:gaf:gasf}
+    } 
+    \caption{The example signal corresponding \acrlong{GADF} \subref{fig:method:gaf:gadf} and \acrlong{GASF} \subref{fig:method:gaf:gasf}.}
     \label{fig:method:gaf}
 \end{figure}

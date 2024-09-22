@@ -1,9 +1,13 @@
 \begin{figure}[h!]
 	\centering
-	\begin{tabular}{cc}
-		\frame{\includegraphics[width=0.35\textwidth]{img/methodology/RecurrencePlot.png}} &
-		\frame{\includegraphics[width=0.35\textwidth]{img/methodology/RecurrencePlotUnthresholded.png}} 
-	\end{tabular}
-	\caption[The resulting recurrence plots of the signal in Figure \ref{fig:methodology:signal}.]{The resulting recurrence plots of the signal in Figure \ref{fig:methodology:signal}, in coherence with the phase space of the Figure \ref{fig:phase_space}. On the left, we have the thresholded version, while on the right we have the unthresholded version.}
+	\subfigure[Thresholded]{
+		\frame{\includegraphics[width=0.35\textwidth]{img/methodology/RecurrencePlot.png}}
+		\label{fig:method:rp:thresholded}
+	}
+	\subfigure[Unthresholded]{
+		\frame{\includegraphics[width=0.35\textwidth]{img/methodology/RecurrencePlotUnthresholded.png}}
+		\label{fig:method:rp:unthresholded}
+	} 
+	\caption[The resulting recurrence plots of the signal in Figure \ref{fig:methodology:signal}.]{The resulting recurrence plots of the signal in Figure \ref{fig:methodology:signal}, in coherence with the phase space of the Figure \ref{fig:phase_space}. On the left \subref{fig:method:rp:thresholded} we have the thresholded version, while on the right \subref{fig:method:rp:unthresholded} we have the unthresholded version.}
 	\label{fig:method:rp}
 \end{figure}
